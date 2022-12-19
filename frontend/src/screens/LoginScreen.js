@@ -10,9 +10,9 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Text style={styles.loginTitle}>Cal Poly Ride Share</Text>
+        <Text style={styles.loginTitle}>Hidden</Text>
         <TouchableOpacity style={styles.loginButton} onPress={signInWithGoogle}>
-          <Text style={styles.loginButtonText}>Login to Get Started</Text>
+          <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
       </ImageBackground>
     </View>
