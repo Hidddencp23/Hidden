@@ -4,7 +4,6 @@ import useAuth from '../hooks/useAuth';
 
 const LoginScreen = () => {
   const { signInWithGoogle } = useAuth();
-
   const image = { uri: "https://i.pinimg.com/originals/93/60/77/9360774666f5456e93511c87a4846c1a.jpg" };
 
   return (
@@ -13,6 +12,9 @@ const LoginScreen = () => {
         <Text style={styles.loginTitle}>Hidden</Text>
         <TouchableOpacity style={styles.loginButton} onPress={signInWithGoogle}>
           <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton} onPress={signInWithGoogle}>
+          <Text style={styles.loginButtonText}>Google Login</Text>
         </TouchableOpacity>
       </ImageBackground>
     </View>

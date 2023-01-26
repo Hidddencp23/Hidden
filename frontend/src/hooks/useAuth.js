@@ -12,8 +12,8 @@ import { auth } from './firebase';
 const AuthContext = createContext({});
 
 const config = {
-  androidClientId: '589652997216-7320gsq9tmpkgmlsnihe7ck7jvlcp1u4.apps.googleusercontent.com',
-  iosClientId: '589652997216-8nf4rlavgabt430dqbooqh0d1td7uo4f.apps.googleusercontent.com',
+  androidClientId: '1091224521228-k4c92o3ctrfjqt2hrciqt7cftv2ft0vt.apps.googleusercontent.com',
+  iosClientId: '1091224521228-ea9lg9j78pfmop8cn5t4muct74i767ue.apps.googleusercontent.com',
   scopes: ["profile", "email"],
   permissions: ["public_profile", "email", "location"],
 }
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const signInWithGoogle = async () => {
     setLoading(true);
-
+    console.log("here")
     await Google.logInAsync(config).then(async (logInResult) => {
       if(logInResult.type == 'success') {
         const { idToken, accessToken } = logInResult;
