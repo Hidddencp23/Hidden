@@ -2,6 +2,7 @@ import { View, Text } from 'react-native';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import * as Google from 'expo-google-app-auth';
 import {
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithCredential,
@@ -17,7 +18,15 @@ const config = {
   scopes: ["profile", "email"],
   permissions: ["public_profile", "email", "location"],
 }
-
+export const handleSignIn = async (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      console.log(auth.currentUser);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
