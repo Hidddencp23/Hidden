@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import * as Google from 'expo-google-app-auth';
 import {
