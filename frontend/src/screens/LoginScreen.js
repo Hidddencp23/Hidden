@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView } from 'react-native';
 import useAuth from '../hooks/useAuth';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { handleSignIn } from '../hooks/useAuth';
+import { handleSignIn, handleResetPassword } from '../hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -41,6 +41,17 @@ const LoginScreen = () => {
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
+  const handlePWReset = async () => {
+    if (email === "") {
+      console.error("Invalid Email");
+    } else {
+      try {
+        await handleResetPassword(email);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
   const handleSubmit = async () => {
     if (email === "" || password === "") {
       console.error("Invalid Credentials");
@@ -97,9 +108,10 @@ const LoginScreen = () => {
                 <Text style={styles.loginButtonText}>Sign In</Text>
               </TouchableOpacity>
  
-                
-              <Text onPress={()=> setLoginType('signUp')} style={styles.formSubText}>Sign Up</Text>
-
+              <View style={styles.buttonOptions}>
+                <Text onPress={()=> setLoginType('signUp')} style={styles.formSubText}>Sign Up</Text>
+                <Text onPress={()=> setLoginType('forgotPW')} style={styles.forgotPwText}>Forgot Password</Text>
+              </View>
             </> : null
         }
 
@@ -136,7 +148,25 @@ const LoginScreen = () => {
           </>
           : null
         }
- 
+        { loginType === 'forgotPW' ? 
+          <>
+              <Text style={styles.loginTitle}>Forgot Password?</Text>
+              <Text style={styles.loginSmallerTitle}>You will receive a reset link to</Text>
+              <Text style={styles.loginSmallerTitle}>the email provided in your account</Text>
+              <Text style={styles.TitleSpace}></Text>
+
+              <TouchableOpacity style={styles.loginInputField} >
+                <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder = "Email" placeholderTextColor = "#8e8e8e"/>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.loginButton} onPress={handlePWReset}>
+                <Text style={styles.loginButtonText}>Send Email</Text>
+              </TouchableOpacity>
+
+              <Text onPress={()=> setLoginType('signIn')} style={styles.formSubText}>Sign In</Text>
+          </>
+          : null
+        }
     </SafeAreaView>  
   );
 };
@@ -189,8 +219,10 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   loginButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 18
+    fontSize: 18,
   },
   loginTitle: {
     fontSize: 35,
@@ -220,10 +252,23 @@ const styles = StyleSheet.create({
   formSubText: {
     fontSize: 18,
     marginTop: 50,
-    marginLeft: 40,
+    marginLeft: 50,
     fontWeight: "bold",
     color: 'black',
     marginBottom: 100
+  },
+  forgotPwText: {
+    fontSize: 18,
+    marginTop: 50,
+    marginRight: 50,
+    fontWeight: "bold",
+    color: 'black',
+    marginBottom: 100
+  },
+  buttonOptions: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 })
 

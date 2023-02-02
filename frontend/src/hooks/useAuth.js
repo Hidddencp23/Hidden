@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import * as Google from 'expo-google-app-auth';
 import {
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithCredential,
@@ -26,6 +27,17 @@ export const handleSignIn = async (email, password) => {
       console.error(error);
     });
 };
+
+export const handleResetPassword = async(email) => {
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
+    console.log(email);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
