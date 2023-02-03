@@ -1,7 +1,8 @@
-import { View, Text } from 'react-native';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import * as Google from 'expo-google-app-auth';
 import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithCredential,
@@ -16,6 +17,25 @@ const config = {
   iosClientId: '1091224521228-ea9lg9j78pfmop8cn5t4muct74i767ue.apps.googleusercontent.com',
   scopes: ["profile", "email"],
   permissions: ["public_profile", "email", "location"],
+}
+export const handleSignIn = async (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      console.log(auth.currentUser);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const handleResetPassword = async(email) => {
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
+    console.log(email);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 }
 
 export const AuthProvider = ({ children }) => {
