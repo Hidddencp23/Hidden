@@ -8,8 +8,8 @@ const TopNavBar = ({ navigation }) => {
     return (
         <View style={styles.header}>
             <View style={styles.columnHeader}>
-                <Image style={styles.headerImage} source={{ uri: 'https://slochamber.org/wp-content/uploads/2017/09/CP_Logo_1200.png' }} />
-                <Text style={styles.headerText}>Ride Share</Text>
+                <Image style={styles.headerImage} source={{ uri: '../../hidden_logo.PNG' }} />
+                <Text style={styles.headerText}>Hidden</Text>
             </View>
             <View style={styles.columnHeader}>
                 {// TODO: On press for post
