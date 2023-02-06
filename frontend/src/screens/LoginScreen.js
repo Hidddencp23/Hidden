@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView } from 'react-native';
 import useAuth from '../hooks/useAuth';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { handleSignIn, handleResetPassword } from '../hooks/useAuth';
+import { handleSignIn, handleSignup, handleResetPassword } from '../hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -31,7 +31,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState('');
-  const [homeTown, setHomeTown] = useState('');
+  const [username, setUserName] = useState('');
   const [loginType, setLoginType] = useState('signIn');
 
   const handleEmailChange = (text) => {
@@ -63,15 +63,21 @@ const LoginScreen = () => {
       }
     }
   }
+  const handleRegister = async () => {
+    if (email === "" || password === "") {
+      console.error("Invalid Credentials");
+    } else {
+      try {
+        await handleSignup(username, name, email, password);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  
   const handleGoogle = () => {
     setLoginType('Google');
     signInWithGoogle;
-  }
-  const testSignUpForm = () => {
-    console.log('Name: ' + name)
-    console.log('Email: ' + email);
-    console.log('Password: ' + password)
-    console.log('Home Town: ' + homeTown)
   }
 
   return (
@@ -124,6 +130,10 @@ const LoginScreen = () => {
 
 
               <TouchableOpacity style={styles.loginInputField} >
+                <TextInput style={styles.loginUserText} value={username} onChangeText={setUserName} placeholder = "Username" placeholderTextColor = "#8e8e8e"/>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.loginInputField} >
                 <TextInput style={styles.loginUserText} value={name} onChangeText={setName} placeholder = "Full Name" placeholderTextColor = "#8e8e8e"/>
               </TouchableOpacity>
 
@@ -131,16 +141,11 @@ const LoginScreen = () => {
                 <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder = "Email" placeholderTextColor = "#8e8e8e"/>
               </TouchableOpacity>
 
-
               <TouchableOpacity style={styles.loginInputField} >
                 <TextInput style={styles.loginUserText} value={password} onChangeText={setPassword} secureTextEntry={true} placeholder = "Password" placeholderTextColor = "#8e8e8e"/>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={homeTown} onChangeText={setHomeTown} placeholder = "Home Town" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginButton} onPress={() => {testSignUpForm()}}>
+              <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
                 <Text style={styles.loginButtonText}>Sign Up</Text>
               </TouchableOpacity>
 
