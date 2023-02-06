@@ -18,42 +18,42 @@ const config = {
   scopes: ["profile", "email"],
   permissions: ["public_profile", "email", "location"],
 }
+
 export const handleSignIn = async (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  }
+  catch (error) {
+    throw error;
+  }
+};
+
+export const handleResetPassword = async (email) => {
+  sendPasswordResetEmail(auth, email)
     .then(() => {
-      console.log(auth.currentUser);
+      console.log(email);
     })
     .catch((error) => {
       console.error(error);
     });
-};
-
-export const handleResetPassword = async(email) => {
-  sendPasswordResetEmail(auth, email)
-  .then(() => {
-    console.log(email);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
 }
 
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const [loadingInitial, setLoadingInitial] = useState(true);
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => onAuthStateChanged(auth, (user) => {
-      if(user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
+    if (user) {
+      setUser(user);
+    } else {
+      setUser(null);
+    }
 
 
-      setLoadingInitial(false);
-    }), 
+    setLoadingInitial(false);
+  }),
     []
   );
 
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     console.log("here")
     await Google.logInAsync(config).then(async (logInResult) => {
-      if(logInResult.type == 'success') {
+      if (logInResult.type == 'success') {
         const { idToken, accessToken } = logInResult;
         const credential = GoogleAuthProvider.credential(idToken, accessToken);
         await signInWithCredential(auth, credential);
@@ -69,16 +69,16 @@ export const AuthProvider = ({ children }) => {
 
       return Promise.reject();
     })
-    .catch(error => setError(error))
-    .finally(() => setLoading(false));
+      .catch(error => setError(error))
+      .finally(() => setLoading(false));
   }
 
   const logout = () => {
     setLoading(true);
 
     signOut(auth)
-    .catch((error) => setError(error))
-    .finally(() => setLoading(false));
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
   }
 
   const memoedValue = useMemo(() => ({
@@ -90,12 +90,12 @@ export const AuthProvider = ({ children }) => {
   }), [user, loading, error])
 
   return (
-    <AuthContext.Provider value={ memoedValue }>
+    <AuthContext.Provider value={memoedValue}>
       {!loadingInitial && children}
     </AuthContext.Provider>
   )
 };
 
 export default function useAuth() {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 }

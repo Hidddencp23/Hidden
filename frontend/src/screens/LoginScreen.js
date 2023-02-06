@@ -33,6 +33,7 @@ const LoginScreen = () => {
   const [name, setName] = useState('');
   const [homeTown, setHomeTown] = useState('');
   const [loginType, setLoginType] = useState('signIn');
+  const [loginError, setLoginError] = useState(false);
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -59,10 +60,11 @@ const LoginScreen = () => {
       try {
         await handleSignIn(email, password);
       } catch (error) {
-        console.error(error);
+        setLoginError(true);
       }
     }
   }
+
   const handleGoogle = () => {
     setLoginType('Google');
     signInWithGoogle;
@@ -77,97 +79,97 @@ const LoginScreen = () => {
   return (
     <SafeAreaView>
 
-        { loginType === 'signIn' ? 
-            <>
-              <Text style={styles.loginTitle}>Sign In</Text>
-              <Text style={styles.loginSecondaryTitle}>Welcome</Text>
-              <Text style={styles.loginSecondaryTitle}>Back!</Text>
-              <Text style={styles.TitleSpace}></Text>
+      {loginType === 'signIn' ?
+        <>
+          <Text style={styles.loginTitle}>Sign In</Text>
+          <Text style={styles.loginSecondaryTitle}>Welcome</Text>
+          <Text style={styles.loginSecondaryTitle}>Back!</Text>
+          <Text style={styles.TitleSpace}></Text>
 
 
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput 
-                  style={styles.loginUserText} 
-                  value={email} 
-                  onChangeText={handleEmailChange} 
-                  placeholder = "Email" 
-                  placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput
+              style={styles.loginUserText}
+              value={email}
+              onChangeText={handleEmailChange}
+              placeholder="Email"
+              placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput 
-                  style={styles.loginUserText} 
-                  value={password} 
-                  onChangeText={handlePasswordChange} 
-                  secureTextEntry={true} 
-                  placeholder = "Password" 
-                  placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput
+              style={styles.loginUserText}
+              value={password}
+              onChangeText={handlePasswordChange}
+              secureTextEntry={true}
+              placeholder="Password"
+              placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
+          {loginError ? <Text style={styles.loginErrorText}>Username or password are incorrect</Text> : null}
+          <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
+            <Text style={styles.loginButtonText}>Sign In</Text>
+          </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
-                <Text style={styles.loginButtonText}>Sign In</Text>
-              </TouchableOpacity>
- 
-              <View style={styles.buttonOptions}>
-                <Text onPress={()=> setLoginType('signUp')} style={styles.formSubText}>Sign Up</Text>
-                <Text onPress={()=> setLoginType('forgotPW')} style={styles.forgotPwText}>Forgot Password</Text>
-              </View>
-            </> : null
-        }
+          <View style={styles.buttonOptions}>
+            <Text onPress={() => setLoginType('signUp')} style={styles.formSubText}>Sign Up</Text>
+            <Text onPress={() => setLoginType('forgotPW')} style={styles.forgotPwText}>Forgot Password</Text>
+          </View>
+        </> : null
+      }
 
-        { loginType === 'signUp' ? 
-          <>
-              <Text style={styles.loginTitle}>Create Account</Text>
-              <Text style={styles.loginSmallerTitle}>Create using your email and password</Text>
-              <Text style={styles.loginSmallerTitle}>or login through socials</Text>
-              <Text style={styles.TitleSpace}></Text>
-
-
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={name} onChangeText={setName} placeholder = "Full Name" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder = "Email" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
+      {loginType === 'signUp' ?
+        <>
+          <Text style={styles.loginTitle}>Create Account</Text>
+          <Text style={styles.loginSmallerTitle}>Create using your email and password</Text>
+          <Text style={styles.loginSmallerTitle}>or login through socials</Text>
+          <Text style={styles.TitleSpace}></Text>
 
 
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={password} onChangeText={setPassword} secureTextEntry={true} placeholder = "Password" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput style={styles.loginUserText} value={name} onChangeText={setName} placeholder="Full Name" placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={homeTown} onChangeText={setHomeTown} placeholder = "Home Town" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginButton} onPress={() => {testSignUpForm()}}>
-                <Text style={styles.loginButtonText}>Sign Up</Text>
-              </TouchableOpacity>
 
-              <Text onPress={()=> setLoginType('signIn')} style={styles.formSubText}>Sign In</Text>
-          </>
-          : null
-        }
-        { loginType === 'forgotPW' ? 
-          <>
-              <Text style={styles.loginTitle}>Forgot Password?</Text>
-              <Text style={styles.loginSmallerTitle}>You will receive a reset link to</Text>
-              <Text style={styles.loginSmallerTitle}>the email provided in your account</Text>
-              <Text style={styles.TitleSpace}></Text>
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput style={styles.loginUserText} value={password} onChangeText={setPassword} secureTextEntry={true} placeholder="Password" placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder = "Email" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput style={styles.loginUserText} value={homeTown} onChangeText={setHomeTown} placeholder="Home Town" placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginButton} onPress={handlePWReset}>
-                <Text style={styles.loginButtonText}>Send Email</Text>
-              </TouchableOpacity>
+          <TouchableOpacity style={styles.loginButton} onPress={() => { testSignUpForm() }}>
+            <Text style={styles.loginButtonText}>Sign Up</Text>
+          </TouchableOpacity>
 
-              <Text onPress={()=> setLoginType('signIn')} style={styles.formSubText}>Sign In</Text>
-          </>
-          : null
-        }
-    </SafeAreaView>  
+          <Text onPress={() => setLoginType('signIn')} style={styles.formSubText}>Sign In</Text>
+        </>
+        : null
+      }
+      {loginType === 'forgotPW' ?
+        <>
+          <Text style={styles.loginTitle}>Forgot Password?</Text>
+          <Text style={styles.loginSmallerTitle}>You will receive a reset link to</Text>
+          <Text style={styles.loginSmallerTitle}>the email provided in your account</Text>
+          <Text style={styles.TitleSpace}></Text>
+
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.loginButton} onPress={handlePWReset}>
+            <Text style={styles.loginButtonText}>Send Email</Text>
+          </TouchableOpacity>
+
+          <Text onPress={() => setLoginType('signIn')} style={styles.formSubText}>Sign In</Text>
+        </>
+        : null
+      }
+    </SafeAreaView>
   );
 };
 
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     height: 50,
-    width:"100%",
+    width: "100%",
     flex: 1,
     padding: 10,
     marginLeft: 0,
@@ -223,6 +225,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 18,
+  },
+  loginErrorText: {
+    color: 'red',
+    textAlign: 'center',
+    fontSize: 14,
+    marginTop: 20
   },
   loginTitle: {
     fontSize: 35,
