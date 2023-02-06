@@ -2,13 +2,15 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import * as Google from 'expo-google-app-auth';
 import {
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithCredential,
   signOut
 } from '@firebase/auth';
-import { auth } from './firebase';
+import { auth, db } from './firebase';
+import { doc, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext({});
 
@@ -28,14 +30,32 @@ export const handleSignIn = async (email, password) => {
   }
 };
 
-export const handleResetPassword = async (email) => {
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      console.log(email);
-    })
+export const handleSignup = async (username, name, email, password) => {
+  createUserWithEmailAndPassword(auth, email, password)
+  .then(() => {
+    try {
+      setDoc(doc(db, "Users", auth.currentUser.uid), {
+        username: username,
+        name: name,
+        email: email,  
+      });
+      console.log("User added: ", auth.currentUser.uid);
+    } catch (e) {
+      console.error("Error adding document: ", e);      
+    }
+  })
     .catch((error) => {
       console.error(error);
     });
+} 
+export const handleResetPassword = async(email) => {
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
+    console.log(email);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 }
 
 export const AuthProvider = ({ children }) => {
