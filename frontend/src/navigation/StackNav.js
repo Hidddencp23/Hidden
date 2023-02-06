@@ -4,7 +4,6 @@ import LoginScreen from '../screens/LoginScreen'
 import HomeScreen from "../screens/HomeScreen";
 import MessagingScreen from '../screens/MessagingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import NotifScreen from '../screens/NotifScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import TopNavBar from '../components/TopNavBar';
 import useAuth from '../hooks/useAuth';
@@ -22,7 +21,6 @@ const StackNavigator = () => {
                 <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header:  ({ navigation }) => <TopNavBar navigation={navigation}/> }} />
                 <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header:  ({ navigation }) => <TopNavBar navigation={navigation}/> }} />
                 <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header:  ({ navigation }) => <TopNavBar navigation={navigation}/> }} />
-                <Stack.Screen name="NotifScreen" component={NotifScreen} options={{ header:  ({ navigation }) => <TopNavBar navigation={navigation}/> }} />
                 <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header:  ({ navigation }) => <TopNavBar navigation={navigation}/> }} />
                 <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header:  ({ navigation }) => <TopNavBar navigation={navigation}/> }} />
             </>
