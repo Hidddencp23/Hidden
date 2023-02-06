@@ -274,7 +274,6 @@ const styles = StyleSheet.create({
     marginBottom: 100
   },
   buttonOptions: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between'
   }

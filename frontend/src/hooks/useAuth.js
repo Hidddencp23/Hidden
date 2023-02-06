@@ -50,8 +50,6 @@ export const AuthProvider = ({ children }) => {
     } else {
       setUser(null);
     }
-
-
     setLoadingInitial(false);
   }),
     []
