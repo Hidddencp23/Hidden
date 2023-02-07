@@ -62,44 +62,33 @@ const ProfileScreen = () => {
   */
 
 
-  // had some issues aligning with react native's <Text/> tags
-  //  lot of divs at the moment
-
-
-  // for later use:
-  // <Icon name="right" size={30} style={styles.arrow}/>
 
   return (
     <SafeAreaView>
-      <div style={styles.profTop}>
+      <View style={styles.profTop}>
 
-        <div style={styles.setHorizontal}>
+        <View style={styles.photoAlign}>
+          <Image source={deleteme} alt="Avatar" style={styles.photoURL}/>
+        </View>
 
-          <div style={styles.photoAlign}>
-            <img src={deleteme} alt="Avatar" style={styles.photoURL}/>
-          </div>
+        <View style={styles.upTextAlign}>
+          <View style={styles.setHorizontal}>
+            <View style={styles.profileTitle}>{firstName} {lastName} </View>
 
-          <div style={styles.upTextAlign}>
-            <div style={styles.setHorizontal}>
-              <div style={styles.profileTitle}>{firstName} {lastName} </div>
-              { online === 1 ? 
-                <>
-                  <div style={styles.onlineStatusCircle}></div>
-                </>
-                :
-                <>
-                  <div style={styles.offlineStatusCircle}></div>
-                </>
-              }
+            { online === 1 ? 
+              <>
+                <View style={styles.onlineStatusCircle}></View>
+              </>
+              :
+              <>
+                <View style={styles.offlineStatusCircle}></View>
+              </>
+            }
 
-            </div>
-            <div style={styles.profileSubTitle}>{friends} Friends</div>
-          </div>
-
-          </div>
-
-
-      </div>
+          </View>
+          <View style={styles.profileSubTitle}>{friends} Friends</View>
+        </View>
+      </View>
 
 
       <View style={styles.horizButtons}>
@@ -120,7 +109,7 @@ const ProfileScreen = () => {
       </View>
       
 
-      <div>
+      <View>
 
       { displayTrips === 'mine' ? 
 
@@ -129,21 +118,16 @@ const ProfileScreen = () => {
 
                 return (
                   <>
-      
-
                     <TouchableOpacity style={styles.myTripTab}>
 
-                      <div style={styles.horizButtons}>
-                        <div style={styles.vertButtons}>
-                          <div style={styles.myTripsTitle}>{trip.title}</div>
-                          <div style={styles.myTripsUser}>{'By: ' + trip.user}</div>
-                        </div>
+                      <View style={styles.horizButtons}>
+                        <View style={styles.vertButtons}>
+                          <View style={styles.myTripsTitle}>{trip.title}</View>
+                          <View style={styles.myTripsUser}>{'By: ' + trip.user}</View>
+                        </View>
                       <Icon name="right" size={20} style={styles.arrow}/>
-                      </div>
+                      </View>
                     </TouchableOpacity>
-                   
-
-                    
                   </>
                 )
           })}
@@ -170,13 +154,13 @@ const ProfileScreen = () => {
                     }}
                   />
                   <TouchableOpacity style={styles.likedTripTab}>
-                      <div style={styles.horizButtons}>
-                        <div style={styles.vertButtons}>
-                          <div style={styles.myTripsTitle}>{trip.title}</div>
-                          <div style={styles.myTripsUser}>{'By: ' + trip.user}</div>
-                        </div>
+                      <View style={styles.horizButtons}>
+                        <View style={styles.vertButtons}>
+                          <View style={styles.myTripsTitle}>{trip.title}</View>
+                          <View style={styles.myTripsUser}>{'By: ' + trip.user}</View>
+                        </View>
                       <Icon name="right" size={20} style={styles.arrow}/>
-                      </div>
+                      </View>
                   </TouchableOpacity>
                 </>
               )
@@ -196,7 +180,7 @@ const ProfileScreen = () => {
         : null
     }
 
-       </div>
+       </View>
 
 
       
@@ -217,13 +201,10 @@ const styles = StyleSheet.create({
 
   setHorizontal: {
     width: '100%',
-    display: 'flex',
-    flexDirection: 'row'
+    flex: 1,
+    flexDirection: 'column'
   },
-  profCol: {
-    flexDirection: 'table',
-    verticalAlign: 'middle'
-  },
+
 
   photoURL: {
     height: 110,
@@ -233,19 +214,21 @@ const styles = StyleSheet.create({
     borderWidth: '5px'
   },
   photoAlign: {
-
     marginTop: '20%',
-    marginLeft: '5%',
-    justifyContent: 'center',
-    textAlign: 'center',
-    alignItems: 'center'
+    marginLeft: '10%',
+    justifyContent: 'left',
+    textAlign: 'left',
+    alignItems: 'left'
   },
 
   upTextAlign: {
     marginTop: '25%',
     marginLeft: '10%',
-    fontFamily: 'Arial'
-    
+    fontFamily: 'Arial',
+    position: 'absolute',
+    marginLeft: '50%',
+    marginTop: '25%',
+    marginRight: '15%'
   },
 
 
@@ -267,8 +250,8 @@ const styles = StyleSheet.create({
     borderRadius: '50%',
     backgroundColor: 'white',
     border: '2px solid white',
-    marginLeft: '40%',
-    marginTop: '3%',
+    marginLeft: '110%',
+    marginTop: '5%',
     position: 'absolute'
   },
 
@@ -278,8 +261,8 @@ const styles = StyleSheet.create({
     borderRadius: '50%',
     backgroundColor: 'grey',
     border: '2px solid white',
-    marginLeft: '40%',
-    marginTop: '3%',
+    marginLeft: '110%',
+    marginTop: '5%',
     position: 'absolute'
   },
 
@@ -298,7 +281,6 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
     marginTop: '5%',
     width: '40%',
-    height: '50px',
     marginBottom: '5%'
   },
   rightToggleButton: {
@@ -308,13 +290,13 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     marginRight: '10%',
     width: '40%',
-    height: '50px',
     marginBottom: '5%'
   },
 
 
   buttonText: {
-    marginTop: '9%',
+    marginTop: '5%',
+    marginBottom: '5%',
     color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
@@ -323,13 +305,16 @@ const styles = StyleSheet.create({
 
   horizButtons: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'left',
+    justifyContent:'left'
   },
 
   vertButtons: {
-    flex: 0,
-    flexDirection: 'col',
-    fontFamily: 'Arial'
+    flex: 1,
+    flexDirection: 'column',
+    fontFamily: 'Arial',
+    
   },
 
   myTripsTitle: {
@@ -375,9 +360,9 @@ const styles = StyleSheet.create({
   },
 
   arrow: {
-    marginLeft: '80%',
+    marginLeft: '85%',
     float: 'left',
-    marginTop: '-12.5%',
+    marginTop: '7.5%',
     position: 'absolute'
   },
 
