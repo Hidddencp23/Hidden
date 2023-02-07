@@ -6,16 +6,15 @@ import { Ionicons } from '@expo/vector-icons';
 
 const ForgotPasswordScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
 
     const handlePWReset = async () => {
-        if (email === "") {
-            console.error("Invalid Email");
-        } else {
-            try {
-                await handleResetPassword(email);
-            } catch (error) {
-                console.error(error);
-            }
+        try {
+            await handleResetPassword(email);
+            setMessage("Reset password email has been sent");
+        } catch (error) {
+            setMessage(error.msg);
+            console.error(error);
         }
     }
 

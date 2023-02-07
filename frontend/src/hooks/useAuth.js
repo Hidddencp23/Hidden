@@ -32,30 +32,30 @@ export const handleSignIn = async (email, password) => {
 
 export const handleSignup = async (username, name, email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
-  .then(() => {
-    try {
-      setDoc(doc(db, "Users", auth.currentUser.uid), {
-        username: username,
-        name: name,
-        email: email,  
-      });
-      console.log("User added: ", auth.currentUser.uid);
-    } catch (e) {
-      console.error("Error adding document: ", e);      
-    }
-  })
+    .then(() => {
+      try {
+        setDoc(doc(db, "Users", auth.currentUser.uid), {
+          username: username,
+          name: name,
+          email: email,
+        });
+        console.log("User added: ", auth.currentUser.uid);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    })
     .catch((error) => {
       console.error(error);
     });
-} 
-export const handleResetPassword = async(email) => {
-  sendPasswordResetEmail(auth, email)
-  .then(() => {
-    console.log(email);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+}
+
+export const handleResetPassword = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+  }
+  catch (error) {
+    throw error;
+  }
 }
 
 export const AuthProvider = ({ children }) => {
