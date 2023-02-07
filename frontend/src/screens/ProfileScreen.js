@@ -193,7 +193,7 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   profTop: {
     backgroundColor: '#77C3EC',
-    height: '35vh',
+    height: 300,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30
   },
