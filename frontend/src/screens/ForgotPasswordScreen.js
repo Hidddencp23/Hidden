@@ -6,16 +6,24 @@ import { Ionicons } from '@expo/vector-icons';
 
 const ForgotPasswordScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [confirmationMessage, setConfirmationMessage] = useState("");
+
+
+    const errorMap = {
+        "Firebase: Error (auth/missing-email)." : "Must provide an email address", 
+        "Firebase: Error (auth/invalid-email)." : "Email address is invalid", 
+        "Firebase: Error (auth/user-not-found)." : "User with given email is not found"
+    }
 
     const handlePWReset = async () => {
-        if (email === "") {
-            console.error("Invalid Email");
-        } else {
-            try {
-                await handleResetPassword(email);
-            } catch (error) {
-                console.error(error);
-            }
+        try {
+            setErrorMessage("");
+            await handleResetPassword(email);
+            setConfirmationMessage("Password reset email has been sent successfully")
+        } catch (error) {
+            setConfirmationMessage("")
+            setErrorMessage(errorMap[error.message] ? errorMap[error.message] : "Error sending password reset email");
         }
     }
 
@@ -30,6 +38,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.loginInputField} >
                     <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="#8e8e8e" />
                 </TouchableOpacity>
+
+                <Text style={styles.confText}>{confirmationMessage}</Text>
+                <Text style={styles.errorText}>{errorMessage}</Text>
+
 
                 <TouchableOpacity style={styles.loginButton} onPress={handlePWReset}>
                     <Text style={styles.loginButtonText}>Send Email</Text>
@@ -92,8 +104,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 18,
     },
-    loginErrorText: {
+    errorText: {
         color: 'red',
+        textAlign: 'center',
+        fontSize: 14,
+        marginTop: 20
+    },
+    confText: {
+        color: 'green',
         textAlign: 'center',
         fontSize: 14,
         marginTop: 20
