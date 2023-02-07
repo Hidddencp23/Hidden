@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView } from 'react-native';
 import useAuth from '../hooks/useAuth';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { handleSignIn, handleSignup, handleResetPassword } from '../hooks/useAuth';
+import { handleSignIn } from '../hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -26,13 +26,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 */
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const { signInWithGoogle } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState('');
-  const [username, setUserName] = useState('');
-  const [loginType, setLoginType] = useState('signIn');
+  const [loginError, setLoginError] = useState("");
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -41,143 +39,57 @@ const LoginScreen = () => {
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
-  const handlePWReset = async () => {
-    if (email === "") {
-      console.error("Invalid Email");
-    } else {
-      try {
-        await handleResetPassword(email);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
+
   const handleSubmit = async () => {
     if (email === "" || password === "") {
-      console.error("Invalid Credentials");
+      setLoginError("Email and password are required");
     } else {
       try {
         await handleSignIn(email, password);
       } catch (error) {
-        console.error(error);
+        setLoginError("Email or password is incorrect");
       }
     }
-  }
-  const handleRegister = async () => {
-    if (email === "" || password === "") {
-      console.error("Invalid Credentials");
-    } else {
-      try {
-        await handleSignup(username, name, email, password);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-  
-  const handleGoogle = () => {
-    setLoginType('Google');
-    signInWithGoogle;
   }
 
   return (
     <SafeAreaView>
+      <Text style={styles.loginTitle}>Sign In</Text>
+      <Text style={styles.loginSecondaryTitle}>Welcome</Text>
+      <Text style={styles.loginSecondaryTitle}>Back!</Text>
+      <Text style={styles.TitleSpace}></Text>
 
-        { loginType === 'signIn' ? 
-            <>
-              <Text style={styles.loginTitle}>Sign In</Text>
-              <Text style={styles.loginSecondaryTitle}>Welcome</Text>
-              <Text style={styles.loginSecondaryTitle}>Back!</Text>
-              <Text style={styles.TitleSpace}></Text>
+      <TouchableOpacity style={styles.loginInputField} >
+        <TextInput
+          style={styles.loginUserText}
+          value={email}
+          onChangeText={handleEmailChange}
+          placeholder="Email"
+          placeholderTextColor="#8e8e8e" />
+      </TouchableOpacity>
 
+      <TouchableOpacity style={styles.loginInputField} >
+        <TextInput
+          style={styles.loginUserText}
+          value={password}
+          onChangeText={handlePasswordChange}
+          secureTextEntry={true}
+          placeholder="Password"
+          placeholderTextColor="#8e8e8e" />
+      </TouchableOpacity>
+      <Text style={styles.loginErrorText}>{loginError}</Text>
+      <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
+        <Text style={styles.loginButtonText}>Sign In</Text>
+      </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput 
-                  style={styles.loginUserText} 
-                  value={email} 
-                  onChangeText={handleEmailChange} 
-                  placeholder = "Email" 
-                  placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput 
-                  style={styles.loginUserText} 
-                  value={password} 
-                  onChangeText={handlePasswordChange} 
-                  secureTextEntry={true} 
-                  placeholder = "Password" 
-                  placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
-                <Text style={styles.loginButtonText}>Sign In</Text>
-              </TouchableOpacity>
- 
-              <View style={styles.buttonOptions}>
-                <Text onPress={()=> setLoginType('signUp')} style={styles.formSubText}>Sign Up</Text>
-                <Text onPress={()=> setLoginType('forgotPW')} style={styles.forgotPwText}>Forgot Password</Text>
-              </View>
-            </> : null
-        }
-
-        { loginType === 'signUp' ? 
-          <>
-              <Text style={styles.loginTitle}>Create Account</Text>
-              <Text style={styles.loginSmallerTitle}>Create using your email and password</Text>
-              <Text style={styles.loginSmallerTitle}>or login through socials</Text>
-              <Text style={styles.TitleSpace}></Text>
-
-
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={username} onChangeText={setUserName} placeholder = "Username" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={name} onChangeText={setName} placeholder = "Full Name" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder = "Email" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={password} onChangeText={setPassword} secureTextEntry={true} placeholder = "Password" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
-                <Text style={styles.loginButtonText}>Sign Up</Text>
-              </TouchableOpacity>
-
-              <Text onPress={()=> setLoginType('signIn')} style={styles.formSubText}>Sign In</Text>
-          </>
-          : null
-        }
-        { loginType === 'forgotPW' ? 
-          <>
-              <Text style={styles.loginTitle}>Forgot Password?</Text>
-              <Text style={styles.loginSmallerTitle}>You will receive a reset link to</Text>
-              <Text style={styles.loginSmallerTitle}>the email provided in your account</Text>
-              <Text style={styles.TitleSpace}></Text>
-
-              <TouchableOpacity style={styles.loginInputField} >
-                <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder = "Email" placeholderTextColor = "#8e8e8e"/>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginButton} onPress={handlePWReset}>
-                <Text style={styles.loginButtonText}>Send Email</Text>
-              </TouchableOpacity>
-
-              <Text onPress={()=> setLoginType('signIn')} style={styles.formSubText}>Sign In</Text>
-          </>
-          : null
-        }
-    </SafeAreaView>  
+      <View style={styles.buttonOptions}>
+        <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.formSubText}>SignUp</Text>
+        <Text onPress={() => navigation.navigate("ForgotPasswordScreen")} style={styles.forgotPwText}>Forgot Password</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 
-
-// added some new styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -195,7 +107,7 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     height: 50,
-    width:"100%",
+    width: "100%",
     flex: 1,
     padding: 10,
     marginLeft: 0,
@@ -208,7 +120,7 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: 'black',
     padding: 10,
-    marginTop: 100,
+    marginTop: 80,
     marginLeft: 40,
     marginRight: 40,
     marginHorizontal: 75,
@@ -228,6 +140,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 18,
+  },
+  loginErrorText: {
+    color: 'red',
+    textAlign: 'center',
+    fontSize: 14,
+    marginTop: 20
   },
   loginTitle: {
     fontSize: 35,
