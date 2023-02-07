@@ -194,8 +194,8 @@ const styles = StyleSheet.create({
   profTop: {
     backgroundColor: '#77C3EC',
     height: '35vh',
-    borderBottomLeftRadius: '30px',
-    borderBottomRightRadius: '30px'
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30
   },
 
 
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     width: 110,
     borderRadius: 100,
     borderStyle: 'solid',
-    borderWidth: '5px'
+    borderWidth: 5
   },
   photoAlign: {
     marginTop: '20%',
@@ -245,22 +245,22 @@ const styles = StyleSheet.create({
 
 
   onlineStatusCircle: {
-    width: '10px',
-    height: '10px',
+    width: 10,
+    height: 10,
     borderRadius: '50%',
     backgroundColor: 'white',
-    border: '2px solid white',
+    borderColor: 'white',
     marginLeft: '110%',
     marginTop: '5%',
     position: 'absolute'
   },
 
   offlineStatusCircle: {
-    width: '10px',
-    height: '10px',
+    width: 10,
+    height: 10,
     borderRadius: '50%',
     backgroundColor: 'grey',
-    border: '2px solid white',
+    borderColor: 'white',
     marginLeft: '110%',
     marginTop: '5%',
     position: 'absolute'
@@ -354,9 +354,9 @@ const styles = StyleSheet.create({
   },
 
   line: {
-    borderRadius: '20px',
+    borderRadius: 20,
     borderColor: 'black',
-    borderWidth: '20px'
+    borderWidth: 20
   },
 
   arrow: {
