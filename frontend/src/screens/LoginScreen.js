@@ -30,7 +30,7 @@ const LoginScreen = ({ navigation }) => {
   const { signInWithGoogle } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -42,12 +42,12 @@ const LoginScreen = ({ navigation }) => {
 
   const handleSubmit = async () => {
     if (email === "" || password === "") {
-      console.error("Invalid Credentials");
+      setLoginError("Email and password are required");
     } else {
       try {
         await handleSignIn(email, password);
       } catch (error) {
-        setLoginError(true);
+        setLoginError("Email or password is incorrect");
       }
     }
   }
@@ -77,7 +77,7 @@ const LoginScreen = ({ navigation }) => {
           placeholder="Password"
           placeholderTextColor="#8e8e8e" />
       </TouchableOpacity>
-      {loginError ? <Text style={styles.loginErrorText}>Username or password are incorrect</Text> : null}
+      <Text style={styles.loginErrorText}>{loginError}</Text>
       <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
         <Text style={styles.loginButtonText}>Sign In</Text>
       </TouchableOpacity>
@@ -85,7 +85,6 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.buttonOptions}>
         <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.formSubText}>SignUp</Text>
         <Text onPress={() => navigation.navigate("ForgotPasswordScreen")} style={styles.forgotPwText}>Forgot Password</Text>
-
       </View>
     </SafeAreaView>
   );
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: 'black',
     padding: 10,
-    marginTop: 100,
+    marginTop: 80,
     marginLeft: 40,
     marginRight: 40,
     marginHorizontal: 75,

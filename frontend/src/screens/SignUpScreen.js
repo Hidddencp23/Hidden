@@ -6,26 +6,6 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { handleSignup } from '../hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 
-
-/*
-      Previous Screen:
-
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Text style={styles.loginTitle}>Hidden</Text>
-        <TouchableOpacity style={styles.loginButton} onPress={() => {setLoginType('login')}}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton} onPress={() => {setLoginType('signUp')}}>
-          <Text style={styles.loginButtonText}>Sign In</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.loginButton} onPress={handleGoogle}>
-          <Text style={styles.loginButtonText}>Google Login</Text>
-        </TouchableOpacity>
-      </ImageBackground>
-
-*/
-
 const SignUpScreen = ({ navigation }) => {
     const { signInWithGoogle } = useAuth();
     const [email, setEmail] = useState("");
