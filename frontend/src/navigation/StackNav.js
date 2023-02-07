@@ -27,11 +27,19 @@ const StackNavigator = () => {
                 <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header:  ({ navigation }) => <TopNavBar navigation={navigation}/> }} />
             </>
          ) : (
-            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} />
+            
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false}} />
          )}
 
     </Stack.Navigator> 
     );
 };
+
+/*
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header:  ({ navigation }) => <TopNavBar navigation={navigation}/> }} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} />
+
+
+*/
 
 export default StackNavigator;

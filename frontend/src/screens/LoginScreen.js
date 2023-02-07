@@ -112,7 +112,7 @@ const LoginScreen = () => {
                 <Text onPress={()=> setLoginType('signUp')} style={styles.formSubText}>Sign Up</Text>
                 <Text onPress={()=> setLoginType('forgotPW')} style={styles.forgotPwText}>Forgot Password</Text>
               </View>
-            </> : null
+            </> : null 
         }
 
         { loginType === 'signUp' ? 
