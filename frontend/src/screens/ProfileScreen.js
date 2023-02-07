@@ -73,7 +73,7 @@ const ProfileScreen = () => {
 
         <View style={styles.upTextAlign}>
           <View style={styles.setHorizontal}>
-            <View style={styles.profileTitle}>{firstName} {lastName} </View>
+            <Text style={styles.profileTitle}>{firstName} {lastName} </Text>
 
             { online === 1 ? 
               <>
@@ -86,7 +86,7 @@ const ProfileScreen = () => {
             }
 
           </View>
-          <View style={styles.profileSubTitle}>{friends} Friends</View>
+          <Text style={styles.profileSubTitle}>{friends} Friends</Text>
         </View>
       </View>
 
@@ -122,8 +122,8 @@ const ProfileScreen = () => {
 
                       <View style={styles.horizButtons}>
                         <View style={styles.vertButtons}>
-                          <View style={styles.myTripsTitle}>{trip.title}</View>
-                          <View style={styles.myTripsUser}>{'By: ' + trip.user}</View>
+                          <Text style={styles.myTripsTitle}>{trip.title}</Text>
+                          <Text style={styles.myTripsUser}>{'By: ' + trip.user}</Text>
                         </View>
                       <Icon name="right" size={20} style={styles.arrow}/>
                       </View>
@@ -156,8 +156,8 @@ const ProfileScreen = () => {
                   <TouchableOpacity style={styles.likedTripTab}>
                       <View style={styles.horizButtons}>
                         <View style={styles.vertButtons}>
-                          <View style={styles.myTripsTitle}>{trip.title}</View>
-                          <View style={styles.myTripsUser}>{'By: ' + trip.user}</View>
+                          <Text style={styles.myTripsTitle}>{trip.title}</Text>
+                          <Text style={styles.myTripsUser}>{'By: ' + trip.user}</Text>
                         </View>
                       <Icon name="right" size={20} style={styles.arrow}/>
                       </View>
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
   
   profTextAlign: {
     display: 'table-cell',
-    verticalAlign: 'middle',
+    textAlignVertical: 'middle',
     fontSize: 30,
     fontWeight: "bold",
     color: 'white'
