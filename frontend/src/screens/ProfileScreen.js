@@ -216,7 +216,6 @@ const styles = StyleSheet.create({
   photoAlign: {
     marginTop: '20%',
     marginLeft: '10%',
-    justifyContent: 'left',
     textAlign: 'left',
     alignItems: 'left'
   },
