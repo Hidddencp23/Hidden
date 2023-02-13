@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import useAuth from '../hooks/useAuth';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { handleSignIn } from '../hooks/useAuth';
@@ -51,51 +51,53 @@ const LoginScreen = ({ navigation }) => {
       }
     }
   }
-
+  
   return (
-    <SafeAreaView>
-      <Text style={styles.loginTitle}>Sign In</Text>
-      <Text style={styles.loginSecondaryTitle}>Welcome</Text>
-      <Text style={styles.loginSecondaryTitle}>Back!</Text>
-      <Text style={styles.TitleSpace}></Text>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView>
+          <Text style={styles.loginTitle}>Sign In</Text>
+          <Text style={styles.loginSecondaryTitle}>Welcome</Text>
+          <Text style={styles.loginSecondaryTitle}>Back!</Text>
+          <Text style={styles.TitleSpace}></Text>
 
-      <TouchableOpacity style={styles.loginInputField} >
-        <TextInput
-          style={styles.loginUserText}
-          value={email}
-          onChangeText={handleEmailChange}
-          placeholder="Email"
-          placeholderTextColor="#8e8e8e" />
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput
+              style={styles.loginUserText}
+              value={email}
+              onChangeText={handleEmailChange}
+              placeholder="Email"
+              placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginInputField} >
-        <TextInput
-          style={styles.loginUserText}
-          value={password}
-          onChangeText={handlePasswordChange}
-          secureTextEntry={true}
-          placeholder="Password"
-          placeholderTextColor="#8e8e8e" />
-      </TouchableOpacity>
-      <Text style={styles.loginErrorText}>{loginError}</Text>
-      <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
-        <Text style={styles.loginButtonText}>Sign In</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.loginInputField} >
+            <TextInput
+              style={styles.loginUserText}
+              value={password}
+              onChangeText={handlePasswordChange}
+              secureTextEntry={true}
+              placeholder="Password"
+              placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
+          <Text style={styles.loginErrorText}>{loginError}</Text>
+          <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
+            <Text style={styles.loginButtonText}>Sign In</Text>
+          </TouchableOpacity>
 
-      <View style={styles.buttonOptions}>
-        <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.formSubText}>SignUp</Text>
-        <Text onPress={() => navigation.navigate("ForgotPasswordScreen")} style={styles.forgotPwText}>Forgot Password</Text>
-      </View>
-    </SafeAreaView>
+          <View style={styles.buttonOptions}>
+            <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.formSubText}>Sign Up</Text>
+            <Text onPress={() => navigation.navigate("ForgotPasswordScreen")} style={styles.forgotPwText}>Forgot Password</Text>
+          </View>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
   },
   inputView: {
     backgroundColor: "#EDEDED",

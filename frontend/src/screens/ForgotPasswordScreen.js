@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { handleResetPassword } from '../hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -28,6 +28,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
     }
 
     return (
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView>
             <>
                 <Text style={styles.loginTitle}>Forgot Password?</Text>
@@ -47,7 +49,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
                     <Text style={styles.loginButtonText}>Send Email</Text>
                 </TouchableOpacity>
             </>
-        </SafeAreaView>
+            </SafeAreaView>
+        </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+
     );
 };
 
@@ -56,9 +61,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center"
     },
     inputView: {
         backgroundColor: "#EDEDED",
