@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useState } from 'react';
 import BottomNavBar from '../components/BottomNavBar';
@@ -191,6 +192,8 @@ const ProfileScreen = () => {
 
 
 const styles = StyleSheet.create({
+
+  /*
   profTop: {
     backgroundColor: '#77C3EC',
     height: 300,
@@ -421,8 +424,224 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: 'white'
   }
+  */
+
+
+  profTop: {
+    backgroundColor: '#77C3EC',
+    height: 300,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30
+  },
+
+  
+  setHorizontal: {
+    width: '100%',
+    flex: 1,
+    flexDirection: 'column'
+  },
+
+
+  photoURL: {
+    height: 110,
+    width: 110,
+    borderRadius: 100,
+    borderStyle: 'solid',
+    borderWidth: 5
+  },
+  photoAlign: {
+    marginTop: '20%',
+    marginLeft: '10%',
+    textAlign: 'left',
+  },
+
+  upTextAlign: {
+    marginTop: '25%',
+    marginLeft: '10%',
+    position: 'absolute',
+    marginLeft: '50%',
+    marginTop: '25%',
+    marginRight: '15%'
+  },
+
+
+  profileTitle: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: 'white'
+  },
+  profileSubTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: 'white'
+  },
+
+  onlineStatusCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: 100,
+    backgroundColor: 'white',
+    borderColor: 'white',
+    marginLeft: '110%',
+    marginTop: '5%',
+    position: 'absolute'
+  },
+
+  offlineStatusCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: '50%',
+    backgroundColor: 'grey',
+    borderColor: 'white',
+    marginLeft: '110%',
+    marginTop: '5%',
+    position: 'absolute'
+  },
+
+
+  setHorizontalButtons: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: 20
+  },
+
+  leftToggleButton: {
+    backgroundColor: '#D3D3D3',
+    borderBottomLeftRadius: 20,
+    borderTopLeftRadius: 20,
+    marginLeft: '10%',
+    marginTop: '5%',
+    width: '40%',
+    marginBottom: '5%'
+  },
+  rightToggleButton: {
+    backgroundColor: '#D3D3D3',
+    borderBottomRightRadius: 20,
+    borderTopRightRadius: 20,
+    marginTop: '5%',
+    marginRight: '10%',
+    width: '40%',
+    marginBottom: '5%'
+  },
+
+
+  buttonText: {
+    marginTop: '5%',
+    marginBottom: '5%',
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+
+  horizButtons: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent:'flex-start'
+  },
+
+  vertButtons: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+
+  myTripsTitle: {
+    marginLeft: '5%',
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'left',
+    fontSize: 16,
+    marginTop: '5%',
+    marginLeft: '5%'
+  },
+
+  myTripsUser: {
+    marginLeft: '5%',
+    color: 'black',
+    textAlign: 'left',
+    fontSize: 14,
+    marginBottom: '5%'
+
+  },
+
+  myTripTab: {
+    backgroundColor: '#BEBEBE',
+    marginTop: '3%',
+    marginLeft: '10%',
+    marginRight: '10%',
+    height: '30%',
+    borderRadius: 20
+  },
+
+  likedTripTab: {
+    backgroundColor: 'transparent',
+    marginTop: '3%',
+    marginLeft: '10%',
+    marginRight: '10%',
+    height: '50%',
+    borderRadius: 20,
+
+  },
+
+  line: {
+
+  },
+
+  arrow: {
+    marginLeft: '85%',
+    float: 'left',
+    marginTop: '7.5%',
+    position: 'absolute'
+  },
+
+
+  
+
+
+
+
+
+  profileScreen: {
+  },
+  profile: {
+  },
+  profileName: {
+  },
+  profileText: {
+  },
+  
+  profButtons: {
+  },
+  
+  logoutButton: {
+  },
+  logoutText: {
+    backgroundColor: '#0984e3',
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 20
+  },
+  editButton: {
+    backgroundColor: '#0984e3',
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    marginRight: 30,
+    borderRadius: 20
+  },
+  
+  profTextAlign: {
+    display: 'table-cell',
+    textAlignVertical: 'middle',
+    fontSize: 30,
+    fontWeight: "bold",
+    color: 'white'
+  }
 });
 
 
 
 export default ProfileScreen;
+
+
