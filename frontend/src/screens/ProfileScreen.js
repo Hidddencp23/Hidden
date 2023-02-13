@@ -45,7 +45,7 @@ const ProfileScreen = () => {
     title: 'Rome Trip'
   };
 
-  const exLikedTrips = [ extrip1, extrip2 ]
+  const exLikedTrips = [ extrip1, extrip2, extrip1 ]
   const exMyTrips = [ extrip2, extrip2, extrip2 ]
 
 
@@ -194,6 +194,8 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
 
   /*
+  original CSS - keeping as reference in case anything breaks
+
   profTop: {
     backgroundColor: '#77C3EC',
     height: 300,
@@ -536,10 +538,7 @@ const styles = StyleSheet.create({
   },
 
   horizButtons: {
-    flex: 1,
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent:'flex-start'
   },
 
   vertButtons: {
@@ -553,7 +552,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     fontSize: 16,
-    marginTop: '5%',
+    marginTop: '3%',
     marginLeft: '5%'
   },
 
@@ -568,25 +567,27 @@ const styles = StyleSheet.create({
 
   myTripTab: {
     backgroundColor: '#BEBEBE',
-    marginTop: '3%',
+    marginTop: '5%',
     marginLeft: '10%',
     marginRight: '10%',
-    height: '30%',
+    height: '16%',
     borderRadius: 20
   },
 
   likedTripTab: {
     backgroundColor: 'transparent',
-    marginTop: '3%',
+    marginTop: '5%',
     marginLeft: '10%',
     marginRight: '10%',
-    height: '50%',
+    height: '16%',
     borderRadius: 20,
 
   },
 
   line: {
-
+    borderRadius: 20,
+    borderColor: 'black',
+    borderWidth: 20
   },
 
   arrow: {
@@ -604,18 +605,34 @@ const styles = StyleSheet.create({
 
 
   profileScreen: {
+    paddingBottom: 75
   },
   profile: {
+    height: '100%',
+    alignItems: 'center',
+    paddingTop: '10%'
   },
   profileName: {
+    fontSize: 30,
+    marginTop: '5%'
   },
   profileText: {
+    fontSize: 18,
+    marginTop: '2%'
   },
   
   profButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 30,
+    marginBottom: 30
   },
   
   logoutButton: {
+    backgroundColor: '#0984e3',
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 20
   },
   logoutText: {
     backgroundColor: '#0984e3',
