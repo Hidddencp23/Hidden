@@ -28,7 +28,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
     }
 
     return (
-        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <KeyboardAvoidingView behavior="position" style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView>
             <>
@@ -37,8 +37,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 <Text style={styles.loginSmallerTitle}>the email provided in your account</Text>
                 <Text style={styles.TitleSpace}></Text>
 
-                <TouchableOpacity style={styles.loginInputField} >
-                    <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="#8e8e8e" />
+                <TouchableOpacity>
+                    <TextInput style={styles.loginInputField} value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="#8e8e8e" />
                 </TouchableOpacity>
 
                 <Text style={styles.confText}>{confirmationMessage}</Text>

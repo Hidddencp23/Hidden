@@ -53,7 +53,7 @@ const LoginScreen = ({ navigation }) => {
   }
   
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.container}>
+    <KeyboardAvoidingView behavior="position" style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView>
           <Text style={styles.loginTitle}>Sign In</Text>
@@ -61,18 +61,18 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.loginSecondaryTitle}>Back!</Text>
           <Text style={styles.TitleSpace}></Text>
 
-          <TouchableOpacity style={styles.loginInputField} >
+          <TouchableOpacity>
             <TextInput
-              style={styles.loginUserText}
+              style={styles.loginInputField}
               value={email}
               onChangeText={handleEmailChange}
               placeholder="Email"
               placeholderTextColor="#8e8e8e" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.loginInputField} >
+          <TouchableOpacity>
             <TextInput
-              style={styles.loginUserText}
+              style={styles.loginInputField}
               value={password}
               onChangeText={handlePasswordChange}
               secureTextEntry={true}
@@ -98,27 +98,7 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  inputView: {
-    backgroundColor: "#EDEDED",
-    borderRadius: 30,
-    width: "50%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    marginLeft: 0,
-    borderRadius: 30
-  },
-  forgotpassword: {
-    height: 30,
-    marginBottom: 30,
-  },
+  }, 
   loginButton: {
     backgroundColor: 'black',
     padding: 10,
@@ -129,13 +109,13 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   loginInputField: {
-    backgroundColor: '#ECECEC',
+    backgroundColor: '#EDEDED',
     padding: 10,
     marginTop: 20,
-    marginLeft: 40,
-    marginRight: 40,
+    marginLeft: "10%",
+    marginRight: "10%",
     marginHorizontal: 75,
-    borderRadius: 20
+    borderRadius: 20,
   },
   loginButtonText: {
     color: 'white',
@@ -159,13 +139,6 @@ const styles = StyleSheet.create({
   },
   loginSecondaryTitle: {
     fontSize: 20,
-    marginLeft: 40,
-    fontWeight: "bold",
-    color: 'black',
-    marginBottom: 5
-  },
-  loginSmallerTitle: {
-    fontSize: 18,
     marginLeft: 40,
     fontWeight: "bold",
     color: 'black',

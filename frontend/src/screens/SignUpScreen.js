@@ -26,27 +26,27 @@ const SignUpScreen = ({ navigation }) => {
     }
 
     return (
-        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <KeyboardAvoidingView behavior="position" style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <SafeAreaView>
                     <Text style={styles.loginTitle}>Create Account</Text>
                     <Text style={styles.loginSmallerTitle}>Create using your email and password</Text>
                     <Text style={styles.loginSmallerTitle}>or login through socials</Text>
                     <Text style={styles.TitleSpace}></Text>
-                    <TouchableOpacity style={styles.loginInputField} >
-                        <TextInput style={styles.loginUserText} value={username} onChangeText={setUserName} placeholder="Username" placeholderTextColor="#8e8e8e" />
+                    <TouchableOpacity>
+                        <TextInput style={styles.loginInputField} value={username} onChangeText={setUserName} placeholder="Username" placeholderTextColor="#8e8e8e" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.loginInputField} >
-                        <TextInput style={styles.loginUserText} value={name} onChangeText={setName} placeholder="Full Name" placeholderTextColor="#8e8e8e" />
+                    <TouchableOpacity>
+                        <TextInput style={styles.loginInputField} value={name} onChangeText={setName} placeholder="Full Name" placeholderTextColor="#8e8e8e" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.loginInputField} >
-                        <TextInput style={styles.loginUserText} value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="#8e8e8e" />
+                    <TouchableOpacity>
+                        <TextInput style={styles.loginInputField} value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="#8e8e8e" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.loginInputField} >
-                        <TextInput style={styles.loginUserText} value={password} onChangeText={setPassword} secureTextEntry={true} placeholder="Password" placeholderTextColor="#8e8e8e" />
+                    <TouchableOpacity>
+                        <TextInput style={styles.loginInputField} value={password} onChangeText={setPassword} secureTextEntry={true} placeholder="Password" placeholderTextColor="#8e8e8e" />
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
