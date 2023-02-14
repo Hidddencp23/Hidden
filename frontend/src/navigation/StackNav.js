@@ -7,6 +7,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import NotifScreen from '../screens/NotifScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import TopNavBar from '../components/TopNavBar';
+import BottomNavBar from '../components/BottomNavBar';
 import useAuth from '../hooks/useAuth';
 import TextingScreen from '../screens/TextingScreen';
 
@@ -28,7 +29,7 @@ const StackNavigator = () => {
             </>
          ) : (
             
-            <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false}} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header:  ({ navigation }) => <BottomNavBar navigation={navigation}/> }} />
          )}
 
     </Stack.Navigator> 

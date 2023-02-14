@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState } from 'react';
 import BottomNavBar from '../components/BottomNavBar';
-import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
+import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import { collection, where, onSnapshot, orderBy, query } from 'firebase/firestore';
 import useAuth from '../hooks/useAuth';
 import ProfileCard from '../components/ProfileCard';
@@ -18,7 +18,7 @@ import deleteme from '../../assets/deleteme.png';
 
 
 
-const ProfileScreen = () => { 
+const ProfileScreen = ({ navigation }) => { 
   const { user, logout } = useAuth();
   const [data, setData] = React.useState([]);
 
@@ -45,8 +45,8 @@ const ProfileScreen = () => {
     title: 'Rome Trip'
   };
 
-  const exLikedTrips = [ extrip1, extrip2, extrip1 ]
-  const exMyTrips = [ extrip2, extrip2, extrip2 ]
+  const exLikedTrips = [ extrip1, extrip2, extrip1, extrip1, extrip1 ]
+  const exMyTrips = [ extrip2, extrip2, extrip2, extrip2, extrip2, extrip2 ]
 
 
   // db is not connected yet
@@ -66,6 +66,8 @@ const ProfileScreen = () => {
 
   return (
     <SafeAreaView>
+      <ScrollView>
+        
       <View style={styles.profTop}>
 
         <View style={styles.photoAlign}>
@@ -184,7 +186,10 @@ const ProfileScreen = () => {
        </View>
 
 
+
+
       
+    </ScrollView>
     </SafeAreaView>
   )
 };
@@ -570,7 +575,7 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     marginLeft: '10%',
     marginRight: '10%',
-    height: '16%',
+    height: 75,
     borderRadius: 20
   },
 
@@ -579,7 +584,7 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     marginLeft: '10%',
     marginRight: '10%',
-    height: '16%',
+    height: 75,
     borderRadius: 20,
 
   },
