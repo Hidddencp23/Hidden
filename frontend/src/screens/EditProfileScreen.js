@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import BottomNavBar from '../components/BottomNavBar';
 
 const EditProfileScreen = ({ navigation }) => {
   return (
@@ -8,7 +7,6 @@ const EditProfileScreen = ({ navigation }) => {
       <View style={styles.editProf}>
         <Text style={styles.text}>Edit Profile Screen</Text>
       </View>
-      <BottomNavBar navigation={navigation}/>
     </View>
   )
 };

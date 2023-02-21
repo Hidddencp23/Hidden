@@ -1,7 +1,6 @@
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity } from 'react-native';
-import BottomNavBar from '../components/BottomNavBar';
 import { db } from '../hooks/firebase';
 import SearchModal from '../components/SearchModal';
 import distance from '../hooks/distance';
@@ -11,7 +10,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={styles.homeScreen}>
-            <BottomNavBar navigation={navigation} />
+            <Text>Home</Text>
         </View>
     )
 }
