@@ -16,7 +16,7 @@ import { useRoute } from '@react-navigation/native'
 import getMatchedUserInfo from '../components/getMatchedUserInfo'
 import SenderMessage from '../components/SenderMessage'
 import ReceiverMessage from '../components/ReceiverMessage'
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore'
+import { updateDoc, addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc } from 'firebase/firestore'
 import { db } from '../hooks/firebase'
 
 const TextingScreen = ({ navigation }) => {
@@ -24,13 +24,13 @@ const TextingScreen = ({ navigation }) => {
     const {params} = useRoute();
     const [input, setInput] =  useState("");
     const [messages, setMessages] = useState([]);
-
-    const { matchDetails } = params;
+    const { chatId, chatUser } = params;
+    console.log("TextchatID: ");
 
     useEffect(() => 
         onSnapshot(
             query(
-                collection(db , 'notifs', matchDetails.id, 'messages'), 
+                collection(db , 'Chats', chatId, 'Messages'),
                 orderBy('timestamp', 'desc')
             ), 
             (snapshot) => 
@@ -41,22 +41,25 @@ const TextingScreen = ({ navigation }) => {
                     }))
                 )
         ),
-    [matchDetails, db])
+    [])
 
     const sendMessage = () => {
-        addDoc(collection(db , 'notifs', matchDetails.id, 'messages'), {
+        addDoc(collection(db , 'Chats', chatId, 'Messages'), {
             timestamp: serverTimestamp(),
-            userId: user.uid,
-            displayName: user.displayName,
+            sender: user.uid,
             message: input
-        })
+        });
+        updateDoc(doc(db , 'Chats', chatId), {
+            latestTimestamp: serverTimestamp(),
+            latestMessage: input
+        });
 
         setInput("");
     };
 
   return (
     <SafeAreaView style={{flex: 1}}>
-        <ChatHeader navigation={navigation} title={getMatchedUserInfo(matchDetails.users, user.uid).username} />
+        <ChatHeader navigation={navigation} title={chatUser["name"]} />
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
@@ -70,7 +73,7 @@ const TextingScreen = ({ navigation }) => {
                                 }}
                         keyExtractor={item => item.id}
                         renderItem={({item: message}) => 
-                            message.userId === user.uid ? (
+                            message.sender === user.uid ? (
                                 <SenderMessage key={message.id} message={message} />
                             ) : (
                                 <ReceiverMessage key={message.id} message={message} />

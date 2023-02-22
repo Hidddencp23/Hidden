@@ -68,28 +68,4 @@ const AuthStackNavigator = () => {
     );
 }
 
-const StackNavigator = () => {
-    const { user } = useAuth();
-
-    return (
-        <Stack.Navigator>
-            {user ? (
-                <>
-                    <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-                    <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-                    <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-                    <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-                    <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-
-                </>
-            ) : (
-                <>
-                    <AuthStackNavigator />
-                </>
-            )}
-
-        </Stack.Navigator>
-    );
-};
-
 export { HomeStackNavigator, SearchStackNavigator, ChatStackNavigator, ProfileStackNavigator, AuthStackNavigator };

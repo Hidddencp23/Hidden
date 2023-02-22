@@ -10,7 +10,7 @@ import {
   signOut
 } from '@firebase/auth';
 import { auth, db } from './firebase';
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext({});
 
@@ -61,12 +61,24 @@ export const handleResetPassword = async (email) => {
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   const [loadingInitial, setLoadingInitial] = useState(true);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => onAuthStateChanged(auth, (user) => {
+    const getDocSnap = async () => {
+      const docSnap = await getDoc(doc(db, "Users", user.uid));
+      if (docSnap.exists()) {
+        setUserInfo(docSnap.data())
+        console.log("Document data:", docSnap.data()["name"]);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+
     if (user) {
-      setUser(user);
+      getDocSnap().then(setUser(user)).catch(console.error)
     } else {
       setUser(null);
     }
@@ -101,11 +113,12 @@ export const AuthProvider = ({ children }) => {
 
   const memoedValue = useMemo(() => ({
     user,
+    userInfo,
     loading,
     error,
     signInWithGoogle,
     logout
-  }), [user, loading, error])
+  }), [user, userInfo, loading, error])
 
   return (
     <AuthContext.Provider value={memoedValue}>
