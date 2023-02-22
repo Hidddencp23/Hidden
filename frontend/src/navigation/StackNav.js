@@ -6,7 +6,6 @@ import MessagingScreen from '../screens/MessagingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import TopNavBar from '../components/TopNavBar';
-import BottomNavBar from '../components/BottomNavBar';
 import useAuth from '../hooks/useAuth';
 import TextingScreen from '../screens/TextingScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';

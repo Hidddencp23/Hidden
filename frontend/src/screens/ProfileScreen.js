@@ -1,8 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
-
-import BottomNavBar from "../components/BottomNavBar";
 import {
   Text,
   StyleSheet,
