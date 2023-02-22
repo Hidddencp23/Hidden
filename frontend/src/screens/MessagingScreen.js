@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
-import BottomNavBar from '../components/BottomNavBar';
 import ChatHeader from '../components/ChatHeader';
 import ChatList from '../components/ChatList';
 

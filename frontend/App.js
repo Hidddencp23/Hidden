@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import StackNav from './src/navigation/StackNav';
+import Navigator from './src/navigation/Navigator';
 import { initializeApp } from 'firebase/app';
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import { AuthProvider } from './src/hooks/useAuth';
@@ -12,7 +12,7 @@ function App() {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <StackNav />
+        <Navigator />
       </AuthProvider>
     </NavigationContainer>
   );
