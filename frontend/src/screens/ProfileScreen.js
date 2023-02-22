@@ -1,5 +1,4 @@
 import React from 'react';
-import BottomNavBar from '../components/BottomNavBar';
 import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import { collection, where, onSnapshot, orderBy, query } from 'firebase/firestore';
 import useAuth from '../hooks/useAuth';
@@ -43,7 +42,6 @@ const ProfileScreen = ({ navigation }) => {
           }} 
         />
       </View>
-      <BottomNavBar navigation={navigation} />
     </View>
   )
 };
