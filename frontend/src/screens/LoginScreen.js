@@ -53,7 +53,7 @@ const LoginScreen = ({ navigation }) => {
   }
   
   return (
-    <KeyboardAvoidingView behavior="position" style={styles.container}>
+    <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView>
           <Text style={styles.loginTitle}>Sign In</Text>
