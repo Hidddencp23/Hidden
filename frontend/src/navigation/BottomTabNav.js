@@ -46,6 +46,7 @@ const ChatTabOptions = {
 }
 
 const ProfileTabOptions = {
+  headerShown: false,
   tabBarIcon: (tabInfo) => {
     return (
       <Ionicons

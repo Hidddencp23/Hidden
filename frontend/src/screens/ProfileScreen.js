@@ -32,7 +32,7 @@ import deleteme from "../../assets/deleteme.png";
 //import { db } from '../hooks/firebase';
 
 const ProfileScreen = ({ navigation }) => {
-  const { user, logout } = useAuth();
+  const { user, userInfo, logout } = useAuth();
   const [data, setData] = React.useState([]);
 
   // this info comes from firbase, placeholders for the moment
@@ -161,11 +161,10 @@ const ProfileScreen = ({ navigation }) => {
 
       <View style={styles.profTop}>
       
-      <Text style={styles.profileHeader}>Profile View</Text>
         <View style={styles.circle} />
-        <Image source={deleteme} alt="Avatar" style={styles.photoURL} />
+        <Image source={{uri: userInfo.profilePic}} alt="Avatar" style={styles.photoURL} />
         <Text style={styles.profileTitle}>
-          {firstName} {lastName}{" "}
+          {userInfo.name}{" "}
 
           {online ? 
           <Icon name="checkcircle" size={17} color="#00008B"/>
@@ -175,7 +174,7 @@ const ProfileScreen = ({ navigation }) => {
 
         </Text>
           <Text style={styles.profileSubTitle}>Total Friends:
-          <Text style={styles.friendsSubTitle}> {friends}</Text>
+          <Text style={styles.friendsSubTitle}> {userInfo.friendCount}</Text>
         </Text>
         
       </View>
@@ -273,8 +272,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "center",
-
-    
     height: "30%",
 
   },
@@ -288,10 +285,6 @@ const styles = StyleSheet.create({
     top: 0,
     height: '25%'
   },
-
-
-
-
   setHorizontal: {
     width: "100%",
     flex: 1,

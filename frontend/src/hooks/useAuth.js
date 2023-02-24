@@ -13,7 +13,7 @@ import {
 
 import { auth, db, storage } from './firebase';
 import { doc, setDoc, getDoc} from "firebase/firestore";
-import DefaultImg from '../../assets/DefaultImg.png';
+import { defaultProfilePic } from '../constants/profileConstants';
 import { uploadBytes, ref, getDownloadURL} from 'firebase/storage';
 
 const AuthContext = createContext({});
@@ -47,6 +47,8 @@ export const handleSignup = async (username, name, email, password, setLoading) 
           friendList: [],
           likedTrips: [],
           myTrips: [],
+          profilePic: defaultProfilePic,
+          chats: []
         });
         console.log("User added: ", auth.currentUser.uid);
       } catch (e) {
