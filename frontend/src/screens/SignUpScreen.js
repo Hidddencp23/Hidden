@@ -12,13 +12,14 @@ const SignUpScreen = ({ navigation }) => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState('');
     const [username, setUserName] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleRegister = async () => {
         if (email === "" || password === "") {
             console.error("Invalid Credentials");
         } else {
             try {
-                await handleSignup(username, name, email, password);
+                await handleSignup(username, name, email, password, setLoading);
             } catch (error) {
                 console.error(error);
             }
@@ -49,7 +50,7 @@ const SignUpScreen = ({ navigation }) => {
                         <TextInput style={styles.loginInputField} value={password} onChangeText={setPassword} secureTextEntry={true} placeholder="Password" placeholderTextColor="#8e8e8e" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
+                    <TouchableOpacity style={styles.loginButton} disabled={loading} onPress={handleRegister}>
                         <Text style={styles.loginButtonText}>Sign Up</Text>
                     </TouchableOpacity>
                 </SafeAreaView>

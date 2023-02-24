@@ -52,7 +52,7 @@ const ChatStackNavigator = () => {
 const ProfileStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
         </Stack.Navigator>
     );
