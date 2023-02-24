@@ -5,11 +5,11 @@ import useAuth from '../hooks/useAuth';
 
 
 const Navigator = () => {
-    const { user } = useAuth();
+    const { user, userInfo } = useAuth();
 
     return (
         <>
-            {user ?
+            {userInfo ?
                 (<BottomTabNav />) :
                 <AuthStackNavigator />}
         </>
