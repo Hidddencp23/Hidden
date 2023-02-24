@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import useAuth from '../hooks/useAuth';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { handleSignIn } from '../hooks/useAuth';
@@ -51,72 +51,54 @@ const LoginScreen = ({ navigation }) => {
       }
     }
   }
-
+  
   return (
-    <SafeAreaView>
-      <Text style={styles.loginTitle}>Sign In</Text>
-      <Text style={styles.loginSecondaryTitle}>Welcome</Text>
-      <Text style={styles.loginSecondaryTitle}>Back!</Text>
-      <Text style={styles.TitleSpace}></Text>
+    <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView>
+          <Text style={styles.loginTitle}>Sign In</Text>
+          <Text style={styles.loginSecondaryTitle}>Welcome</Text>
+          <Text style={styles.loginSecondaryTitle}>Back!</Text>
+          <Text style={styles.TitleSpace}></Text>
 
-      <TouchableOpacity style={styles.loginInputField} >
-        <TextInput
-          style={styles.loginUserText}
-          value={email}
-          onChangeText={handleEmailChange}
-          placeholder="Email"
-          placeholderTextColor="#8e8e8e" />
-      </TouchableOpacity>
+          <TouchableOpacity>
+            <TextInput
+              style={styles.loginInputField}
+              value={email}
+              onChangeText={handleEmailChange}
+              placeholder="Email"
+              placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginInputField} >
-        <TextInput
-          style={styles.loginUserText}
-          value={password}
-          onChangeText={handlePasswordChange}
-          secureTextEntry={true}
-          placeholder="Password"
-          placeholderTextColor="#8e8e8e" />
-      </TouchableOpacity>
-      <Text style={styles.loginErrorText}>{loginError}</Text>
-      <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
-        <Text style={styles.loginButtonText}>Sign In</Text>
-      </TouchableOpacity>
+          <TouchableOpacity>
+            <TextInput
+              style={styles.loginInputField}
+              value={password}
+              onChangeText={handlePasswordChange}
+              secureTextEntry={true}
+              placeholder="Password"
+              placeholderTextColor="#8e8e8e" />
+          </TouchableOpacity>
+          <Text style={styles.loginErrorText}>{loginError}</Text>
+          <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
+            <Text style={styles.loginButtonText}>Sign In</Text>
+          </TouchableOpacity>
 
-      <View style={styles.buttonOptions}>
-        <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.formSubText}>SignUp</Text>
-        <Text onPress={() => navigation.navigate("ForgotPasswordScreen")} style={styles.forgotPwText}>Forgot Password</Text>
-      </View>
-    </SafeAreaView>
+          <View style={styles.buttonOptions}>
+            <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.formSubText}>Sign Up</Text>
+            <Text onPress={() => navigation.navigate("ForgotPasswordScreen")} style={styles.forgotPwText}>Forgot Password</Text>
+          </View>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputView: {
-    backgroundColor: "#EDEDED",
-    borderRadius: 30,
-    width: "50%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  TextInput: {
-    height: 50,
-    width: "100%",
-    flex: 1,
-    padding: 10,
-    marginLeft: 0,
-    borderRadius: 30
-  },
-  forgotpassword: {
-    height: 30,
-    marginBottom: 30,
-  },
+  }, 
   loginButton: {
     backgroundColor: 'black',
     padding: 10,
@@ -127,13 +109,13 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   loginInputField: {
-    backgroundColor: '#ECECEC',
+    backgroundColor: '#EDEDED',
     padding: 10,
     marginTop: 20,
-    marginLeft: 40,
-    marginRight: 40,
+    marginLeft: "10%",
+    marginRight: "10%",
     marginHorizontal: 75,
-    borderRadius: 20
+    borderRadius: 20,
   },
   loginButtonText: {
     color: 'white',
@@ -157,13 +139,6 @@ const styles = StyleSheet.create({
   },
   loginSecondaryTitle: {
     fontSize: 20,
-    marginLeft: 40,
-    fontWeight: "bold",
-    color: 'black',
-    marginBottom: 5
-  },
-  loginSmallerTitle: {
-    fontSize: 18,
     marginLeft: 40,
     fontWeight: "bold",
     color: 'black',
