@@ -2,37 +2,58 @@ import { Text, StyleSheet, TouchableOpacity, Image, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import getMatchedUserInfo from './getMatchedUserInfo'
+import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
+import { db } from "../hooks/firebase";
 
-const ChatRow = ({ matchDetails, navigation }) => {
+const ChatRow = ({ chatInfo, navigation }) => {
   const { user } = useAuth();
-  const [matchedUserInfo, setMatchedUserInfo] = useState(null);
+  const [chatUser, setChatUser] = useState("");
+  const chatId = chatInfo.id
+  console.log(chatInfo)
+  const getUserNameFromUid = async (uid) => {
+    const docSnap = await getDoc(doc(db, "Users", uid));
+    if (docSnap.exists()) {
+      setChatUser(docSnap.data())
+      // console.log("Document data:", docSnap.data());
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
 
   useEffect(() => {
-    setMatchedUserInfo(getMatchedUserInfo(matchDetails.users, user.uid));
-  }, [matchDetails, user]);
+    onSnapshot(doc(db, "Chats", chatId), (doc) => {
+      console.log("Chat Doc Changed");
+      // console.log(doc)
+      const otherUserUid = doc.data()["users"].filter(id => id != user.uid)[0]
+      getUserNameFromUid(otherUserUid).catch(console.error)
+    })
+  }, [])
 
 
   return (
-      <TouchableOpacity 
-        style={styles.messagecard}
-        onPress={() => navigation.navigate("TextingScreen", {
-              matchDetails,
-            })
-          }
-        >
-          <Image  
-            style={styles.profPic}
-            source={{uri: matchedUserInfo?.profPic}}
-          />
+    <TouchableOpacity
+      style={styles.messagecard}
+      onPress={() => navigation.navigate("TextingScreen", {
+        chatId, chatUser
+      })
+      }
+    >
+      <Image
+        style={styles.profPic}
+        source={{ uri: chatUser["profilePic"] }}
+      />
 
-          <View>
-            <Text style={styles.text}>
-              {matchedUserInfo?.username}
-            </Text>
-            <Text>Say Hi!</Text>
+      <View>
+        <Text style={styles.text}>
+          {chatUser["name"]}
+        </Text>
+        <Text>{chatInfo.latestMessage}</Text>
+        <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toDateString(): ""}</Text>
+        <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toLocaleTimeString(): ""}</Text>
 
-          </View>
-      </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
   )
 }
 

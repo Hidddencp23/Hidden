@@ -4,10 +4,13 @@ import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity } from 'r
 import { db } from '../hooks/firebase';
 import SearchModal from '../components/SearchModal';
 import distance from '../hooks/distance';
+import useAuth from '../hooks/useAuth'
 
 
 const HomeScreen = ({ navigation }) => {
-
+    const {user, userInfo } = useAuth();
+    console.log(user.uid)
+    console.log(userInfo["email"])
     return (
         <View style={styles.homeScreen}>
             <Text>Home</Text>
