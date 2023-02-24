@@ -7,12 +7,17 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithCredential,
-  signOut
+  signOut,
+  updateProfile
 } from '@firebase/auth';
-import { auth, db } from './firebase';
-import { doc, setDoc } from "firebase/firestore";
+import { auth, db, storage } from './firebase';
+import { doc, setDoc} from "firebase/firestore";
+import DefaultImg from '../../assets/DefaultImg.png';
+import { uploadBytes, ref, getDownloadURL} from 'firebase/storage';
+
 
 const AuthContext = createContext({});
+
 
 const config = {
   androidClientId: '1091224521228-k4c92o3ctrfjqt2hrciqt7cftv2ft0vt.apps.googleusercontent.com',
@@ -30,7 +35,7 @@ export const handleSignIn = async (email, password) => {
   }
 };
 
-export const handleSignup = async (username, name, email, password) => {
+export const handleSignup = async (username, name, email, password, setLoading) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
       try {
@@ -38,6 +43,10 @@ export const handleSignup = async (username, name, email, password) => {
           username: username,
           name: name,
           email: email,
+          friendCount: 0,
+          friendList: [],
+          likedTrips: [],
+          myTrips: [],
         });
         console.log("User added: ", auth.currentUser.uid);
       } catch (e) {
@@ -48,6 +57,17 @@ export const handleSignup = async (username, name, email, password) => {
       console.error(error);
     });
 }
+
+export const upload = async(file, currentUser, setLoading) => {
+  const fileRef = ref(storage, currentUser.uid + '.png');
+  setLoading(true);
+  const snapshot = await uploadBytes(fileRef, file)
+  const photoURL = getDownloadURL(fileRef)
+  updateProfile(currentUser, {photoURL})
+
+  setLoading(false);
+}
+
 
 export const handleResetPassword = async (email) => {
   try {
