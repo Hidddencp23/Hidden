@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Foundation } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
-const ChatHeader = ({ title, navigation }) => {
+const TextHeader = ({ title, setCurrentChat, navigation }) => {
 
     return (
         <View style={styles.mainheader}>
             <View style={styles.chatHeader}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+                <TouchableOpacity onPress={() => setCurrentChat(null)}>
                     <Ionicons name="chevron-back-outline" size={34} color="black" />
                 </TouchableOpacity>
                 <Text>{title}</Text>
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ChatHeader;
+export default TextHeader;

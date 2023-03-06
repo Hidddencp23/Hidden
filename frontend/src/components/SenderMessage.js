@@ -15,7 +15,7 @@ const SenderMessage = ({ message }) => {
         backgroundColor: "steelblue",
         borderRadius: 15,
     }}>
-      <Text style={{ color: "white" }}>{message.message}</Text>
+      <Text style={{ color: "white" }}>{message.msg}</Text>
     </View>
   )
 }

@@ -12,9 +12,9 @@ import {
 } from '@firebase/auth';
 
 import { auth, db, storage } from './firebase';
-import { doc, setDoc, getDoc} from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { defaultProfilePic } from '../constants/profileConstants';
-import { uploadBytes, ref, getDownloadURL} from 'firebase/storage';
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 
 const AuthContext = createContext({});
 
@@ -60,12 +60,12 @@ export const handleSignup = async (username, name, email, password, setLoading) 
     });
 }
 
-export const upload = async(file, currentUser, setLoading) => {
+export const upload = async (file, currentUser, setLoading) => {
   const fileRef = ref(storage, currentUser.uid + '.png');
   setLoading(true);
   const snapshot = await uploadBytes(fileRef, file)
   const photoURL = getDownloadURL(fileRef)
-  updateProfile(currentUser, {photoURL})
+  updateProfile(currentUser, { photoURL })
 
   setLoading(false);
 }
@@ -77,6 +77,19 @@ export const handleResetPassword = async (email) => {
   }
   catch (error) {
     throw error;
+  }
+}
+
+export const getUserFromUid = async (uid) => {
+  const docSnap = await getDoc(doc(db, "Users", uid));
+  if (docSnap.exists()) {
+    console.log(`User found! name = ${docSnap.data().name}`);
+    return docSnap.data()
+
+  } else {
+    // doc.data() will be undefined in this case
+    console.log(`User not found! uid = ${uid}`);
+    throw new Error(`User not found! uid = ${uid}`)
   }
 }
 
@@ -100,7 +113,12 @@ export const AuthProvider = ({ children }) => {
     }
 
     if (user) {
-      getDocSnap().then(setUser(user)).catch(console.error)
+      getUserFromUid(user.uid)
+      .then((userInfo) => {
+        setUserInfo(userInfo);
+        setUser(user);
+      })
+      .catch(console.error)
     } else {
       setUser(null);
     }
