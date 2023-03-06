@@ -1,29 +1,202 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity } from 'react-native';
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useEffect, useState, useRef } from 'react';
+import { SafeAreaView, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
 import { db } from '../hooks/firebase';
 import SearchModal from '../components/SearchModal';
 import distance from '../hooks/distance';
 import useAuth from '../hooks/useAuth';
 import HomeMap from '../components/HomeMap';
+import SwipeUpDown from 'react-native-swipe-up-down';
+import { SwipeablePanel } from 'rn-swipeable-panel';
+
+
 
 const HomeScreen = ({ navigation }) => {
     const { user, userInfo } = useAuth();
+    const [locations, setLocations] = useState([])
+    const [panelProps, setPanelProps] = useState({
+        fullWidth: false,
+        openLarge: true,
+        showCloseButton: false,
+        onClose: () => closePanel(),
+        onPressCloseButton: () => closePanel(),
+        // closeOnTouchOutside: true
+        // ...or any prop you want
+    });
+    const [isPanelActive, setIsPanelActive] = useState(true);
+    const swipeUpDownRef = useRef();
+    // swipeUpDownRef.current.showFull();
+
     console.log(user.uid)
     console.log(userInfo["email"])
+
+
+    const openPanel = () => {
+        setIsPanelActive(true);
+    };
+
+    const closePanel = () => {
+        setIsPanelActive(false);
+    };
+
+    const getAllLocations = async () => {
+        const querySnapshot = await getDocs(collection(db, "HiddenLocations"));
+        // setLocations(
+        //     querySnapshot.docs.map(doc => ({
+        //         id: doc.id,
+        //         ...doc.data()
+        //     }))
+        // )
+        let locs = []
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            locs.push({id: doc.id, ...doc.data()})
+            // setLocations([...locations, doc.data()])
+        });
+        setLocations(locs)
+    }
+
+    const LocationView = ({ location }) => {
+        return (
+            <TouchableOpacity onPress={() =>
+                navigation.navigate("LocationScreen", {
+                    location
+                })
+            }>
+                <View style={{
+                    backgroundColor: "grey",
+                    height: 100,
+                }}>
+                    <Text>{location.name}</Text>
+                    <Text>{location.description}</Text>
+                    <Text>{location.address}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
+    useEffect(() => {
+        getAllLocations().then(() => {
+            console.log("locations");
+            console.log(locations)
+        }).catch(console.error);
+    }, [])
+
+
     return (
-        <View style={styles.homeScreen}>
+        <SafeAreaView style={styles.homeScreen}>
             <Text>Home</Text>
-            <HomeMap></HomeMap>
-        </View>
+            <HomeMap hiddenLocations={locations} ></HomeMap>
+            <ScrollView style={{ height: '10%' }}>
+
+                {locations.map((location, index) => (
+                    <LocationView
+                        location={location}
+                        key={index}
+                    />
+                ))}
+
+
+            </ScrollView>
+            {/* <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
+                <ScrollView>
+                    <TouchableWithoutFeedback>
+                        <View>
+                            <TouchableOpacity >
+                                <Text>Close</Text>
+                            </TouchableOpacity>
+                            <View
+                                style={{
+                                    backgroundColor: "blue",
+                                    height: 200,
+                                }}
+                            />
+                            <View
+                                style={{
+                                    backgroundColor: "yellow",
+                                    height: 200,
+                                }}
+                            />
+
+                        </View>
+                    </TouchableWithoutFeedback>
+                </ScrollView>
+            </SwipeablePanel> */}
+            {/* <SwipeUpDown
+                ref={swipeUpDownRef}
+                itemMini={(show) => (
+                    <View
+                        style={{
+                            alignItems: "center",
+                            height: 500,
+                            backgroundColor: "blue",
+                        }}
+                    >
+                        <Text onPress={show}>This is the mini view, swipe up!</Text>
+                    </View>
+                )}
+                itemFull={(close) => (
+                    <ScrollView>
+                        <TouchableWithoutFeedback>
+                            <View>
+                                <TouchableOpacity onPress={close}>
+                                    <Text>Close</Text>
+                                </TouchableOpacity>
+                                <View
+                                    style={{
+                                        backgroundColor: "blue",
+                                        height: 200,
+                                    }}
+                                />
+                                <View
+                                    style={{
+                                        backgroundColor: "yellow",
+                                        height: 200,
+                                    }}
+                                />
+                                <View
+                                    style={{
+                                        backgroundColor: "pink",
+                                        height: 200,
+                                    }}
+                                />
+                                <View
+                                    style={{
+                                        backgroundColor: "red",
+                                        height: 200,
+                                    }}
+                                />
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </ScrollView>
+                )}
+                onShowMini={() => console.log("mini")}
+                onShowFull={() => console.log("full")}
+                animation="spring"
+                extraMarginTop={24}
+                disablePressToShow={true} // Press item mini to show full
+                style={{ backgroundColor: "gray" }} // style for swipe
+            /> */}
+
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     homeScreen: {
         backgroundColor: 'white',
-        paddingBottom: 75,
-        height: '100%'
+        // paddingBottom: 75,
+        height: '100%',
+        // flex: 1,
+        // justifyContent: "center",
+        // alignItems: "center",
+    },
+    map: {
+        height: '100%',
+    },
+    swipePanel: {
+        marginTop: 1000
     },
     sortBy: {
         flexDirection: 'row',

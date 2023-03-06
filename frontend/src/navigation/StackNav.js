@@ -11,6 +11,7 @@ import TextingScreen from '../screens/TextingScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import SearchScreen from '../screens/SearchScreen';
+import LocationScreen from '../screens/LocationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,8 @@ const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+
         </Stack.Navigator>
     );
 }
