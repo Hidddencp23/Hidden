@@ -11,7 +11,8 @@ import TextingScreen from '../screens/TextingScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import SearchScreen from '../screens/SearchScreen';
-
+import GroupTextingScreen
+ from '../screens/GroupTextingScreen';
 const Stack = createNativeStackNavigator();
 
 const screenOptionStyle = {
@@ -45,6 +46,8 @@ const ChatStackNavigator = () => {
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+
         </Stack.Navigator>
     );
 }
