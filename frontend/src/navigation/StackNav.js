@@ -11,7 +11,7 @@ import TextingScreen from '../screens/TextingScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import SearchScreen from '../screens/SearchScreen';
-
+import TripScreen from '../screens/TripScreen';
 const Stack = createNativeStackNavigator();
 
 const screenOptionStyle = {
@@ -54,6 +54,8 @@ const ProfileStackNavigator = () => {
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="TripScreen" component={TripScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+
         </Stack.Navigator>
     );
 }

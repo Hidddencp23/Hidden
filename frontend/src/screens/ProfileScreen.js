@@ -27,6 +27,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 
 // placeholder image for now
 import deleteme from "../../assets/deleteme.png";
+import TripList from '../components/TripList';
 
 // need to connect db
 //import { db } from '../hooks/firebase';
@@ -114,32 +115,6 @@ const ProfileScreen = ({ navigation }) => {
   */
 
 
-
-
-  const TripView = ({ trip }) => (
-    
-    
-    <View
-      style={{
-        borderBottomColor: "black",
-        marginLeft: "5%",
-        marginRight: "5%",
-      }}
-    >
-      <TouchableOpacity style={styles.myTripTab}>
-        <View style={styles.horizButtons}>
-          <Image source={trip.image} alt="Avatar" style={styles.tripImg}></Image>
-          <View style={styles.vertButtons}>
-            <Text style={styles.myTripsTitle}>{trip.title}</Text>
-            <Text style={styles.myTripsUser}>{"By: " + trip.user}</Text>
-            <Text style={styles.myTripsDate}>{trip.date}</Text>
-          </View>
-          <Icon name="right" size={20} style={styles.arrow} />
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
-
   return (
     <SafeAreaView style={{ height: "100%" }}>
 
@@ -217,17 +192,9 @@ const ProfileScreen = ({ navigation }) => {
       />
 
       <ScrollView>
-        {displayTrips === "My Trips" ? (
           <>
-          {exMyTrips.map((item) => <TripView trip={item} key={myKey++}/>)}
+        <TripList navigation={navigation} displayTrips={displayTrips}/>
           </>
-        ) : null}
-
-        {displayTrips === "Liked Trips" ? (
-          <>
-          {exLikedTrips.map((item) => <TripView trip={item} key={likedKey++}/>)}
-          </>
-        ) : null}
       </ScrollView>
 
       
