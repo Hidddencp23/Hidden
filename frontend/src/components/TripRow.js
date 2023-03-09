@@ -8,19 +8,6 @@ import Icon from "react-native-vector-icons/AntDesign";
 
 const TripRow = ({ tripInfo, navigation }) => {
   const { user } = useAuth();
-  const [tripUser, setTripUser] = useState("");
-  const tripId = tripInfo.id;
-  console.log(tripInfo);
-  const getUserNameFromUid = async (uid) => {
-    const docSnap = await getDoc(doc(db, "Users", uid));
-    if (docSnap.exists()) {
-      setTripUser(docSnap.data())
-      // console.log("Document data:", docSnap.data());
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
-  }
 
 
   return (

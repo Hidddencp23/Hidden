@@ -11,8 +11,9 @@ const TripList = ({ navigation, displayTrips }) => {
     useEffect(() =>
         onSnapshot(
             query(
-                collection(db, 'Trips'), where("user", "==", user.uid),
-                orderBy('tripPostTime', 'desc')
+                collection(db, 'Trips'), 
+                orderBy("__name__"),
+                where("__name__", "in", userInfo[displayTrips]),
             ),
             (snapshot) => {
                 setTrips(
@@ -21,7 +22,6 @@ const TripList = ({ navigation, displayTrips }) => {
                         ...doc.data()
                     }))
                 )
-                console.log(trips)
             }
         ),
         [])
@@ -30,18 +30,7 @@ const TripList = ({ navigation, displayTrips }) => {
 
     return (
         <ScrollView>
-             {displayTrips === "My Trips" ? (
-          <>
-                {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
-          </>
-        ) : null}
-
-        {displayTrips === "Liked Trips" ? (
-          <>
-                {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
-          </>
-        ) : null}
-
+            {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
         </ScrollView>
     )
 }

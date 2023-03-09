@@ -26,7 +26,6 @@ import Icon from "react-native-vector-icons/AntDesign";
 //import { Icon } from 'react-native-vector-icons';
 
 // placeholder image for now
-import deleteme from "../../assets/deleteme.png";
 import TripList from '../components/TripList';
 
 // need to connect db
@@ -46,75 +45,10 @@ const ProfileScreen = ({ navigation }) => {
   const [displayTrips, setdisplayTrips] = useState('My Trips');
   const [displayIndex, setDisplayIndex] = useState(0);
 
-  // placeholder trips to see if it works
-  const extrip1 = {
-    user: "Praneeth",
-    title: "Barcelona Trip",
-    image: deleteme,
-    date: "Friday, 23 Feb, 2022"
-  };
-
-  const extrip2 = {
-    user: "Arden",
-    title: "Rome Trip",
-    image: deleteme,
-    date: "Friday, 23 Feb, 2022"
-  };
-
-  const extrip3 = {
-    user: "Arden",
-    title: "Rome Trip",
-    image: deleteme,
-    date: "Friday, 23 Feb, 2022"
-  };
-
-  const extrip4 = {
-    user: "Arden",
-    title: "Rome Trip",
-    image: deleteme,
-    date: "Friday, 23 Feb, 2022"
-  };
-
-  const exLikedTrips = [extrip1, extrip2, extrip3, extrip4];
-  const exMyTrips = [extrip3, extrip4];
 
   const addFriend = "   Add Friend";
 
-  let likedKey = 0;
-  let myKey = 0;
-
-  // db is not connected yet
-  /*
-  React.useEffect(
-    () =>
-    onSnapshot(
-        query(collection(db, "posts"), where("username", "==", user.displayName) ,orderBy("timeStamp")),
-        (snapshot) => {
-            setData(snapshot.docs)
-        }
-    )
-  ) 
-  */
-
-
-  // Praneeth's Segmented Control
-  /*
-      <SegmentedControl
-        style={styles.toggleButton}
-        values={['My Trips', 'Liked Trips']}
-        selectedIndex={0}
-        onChange={(event) => {
-          if (displayTrips == 'My Trips'){
-            setdisplayTrips('Liked Trips');
-          }
-          else {
-            setdisplayTrips('My Trips');
-          }
-        }}
-      />
-  */
-
-
+  
   return (
     <SafeAreaView style={{ height: "100%" }}>
 
@@ -192,9 +126,18 @@ const ProfileScreen = ({ navigation }) => {
       />
 
       <ScrollView>
+             {displayTrips === "My Trips" ? (
           <>
-        <TripList navigation={navigation} displayTrips={displayTrips}/>
+        <TripList navigation={navigation} displayTrips={"myTrips"}/>
           </>
+        ) : null}
+
+        {displayTrips === "Liked Trips" ? (
+          <>
+        <TripList navigation={navigation} displayTrips={"likedTrips"}/>
+          </>
+        ) : null}
+         
       </ScrollView>
 
       
