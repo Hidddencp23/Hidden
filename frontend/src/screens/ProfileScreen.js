@@ -10,7 +10,8 @@ import {
   FlatList,
   SafeAreaView,
   ScrollView,
-  Dimensions
+  Dimensions,
+  KeyboardAvoidingView
 } from "react-native";
 import {
   collection,
@@ -21,17 +22,23 @@ import {
 } from "firebase/firestore";
 import useAuth from "../hooks/useAuth";
 import ProfileCard from "../components/ProfileCard";
+import { SearchBar } from 'react-native-elements';
 
 import Icon from "react-native-vector-icons/AntDesign";
 //import { Icon } from 'react-native-vector-icons';
 
-// placeholder image for now
+// placeholder images for now
 import deleteme from "../../assets/deleteme.png";
+import hiddenImg from "../../assets/favicon.png";
 
 // need to connect db
 //import { db } from '../hooks/firebase';
 
 const ProfileScreen = ({ navigation }) => {
+
+  //const { myprofile } = route.params;
+  const myprofile = 0; // need to connect to db
+
   const { user, userInfo, logout } = useAuth();
   const [data, setData] = React.useState([]);
 
@@ -45,34 +52,63 @@ const ProfileScreen = ({ navigation }) => {
   const [displayTrips, setdisplayTrips] = useState('My Trips');
   const [displayIndex, setDisplayIndex] = useState(0);
 
+  // search bar (for trips)
+  const [searchTrips, setSearchTrips] = useState();
+
+  const [search, setSearch] = useState('');
+
   // placeholder trips to see if it works
+  const experience1 = {
+    title: "Pantheon",
+    date: "Friday, 23 Feb, 2022",
+    location: "Pantheon, Rome",
+    rating: 4.9,
+    image: hiddenImg
+  };
+
+  const experience2 = {
+    title: "Spanish Steps",
+    date: "Friday, 23 Feb, 2022",
+    location: "Rome",
+    rating: 4.3,
+    image: hiddenImg
+  };
+
+
+
   const extrip1 = {
     user: "Praneeth",
     title: "Barcelona Trip",
     image: deleteme,
-    date: "Friday, 23 Feb, 2022"
+    date: "Friday, 23 Feb, 2022",
+    experiences: [experience1, experience2]
   };
 
   const extrip2 = {
     user: "Arden",
     title: "Rome Trip",
     image: deleteme,
-    date: "Friday, 23 Feb, 2022"
+    date: "Friday, 23 Feb, 2022",
+    experiences: [experience1, experience2]
   };
 
   const extrip3 = {
     user: "Arden",
     title: "Rome Trip",
     image: deleteme,
-    date: "Friday, 23 Feb, 2022"
+    date: "Friday, 23 Feb, 2022",
+    experiences: [experience1, experience2, experience1]
   };
 
   const extrip4 = {
     user: "Arden",
     title: "Rome Trip",
     image: deleteme,
-    date: "Friday, 23 Feb, 2022"
+    date: "Friday, 23 Feb, 2022",
+    experiences: [experience1, experience2]
   };
+
+  
 
   const exLikedTrips = [extrip1, extrip2, extrip3, extrip4];
   const exMyTrips = [extrip3, extrip4];
@@ -126,7 +162,7 @@ const ProfileScreen = ({ navigation }) => {
         marginRight: "5%",
       }}
     >
-      <TouchableOpacity style={styles.myTripTab}>
+      <TouchableOpacity style={styles.myTripTab} onPress={() => navigation.navigate("TripDiaryScreen", {experiences: trip.experiences})}>
         <View style={styles.horizButtons}>
           <Image source={trip.image} alt="Avatar" style={styles.tripImg}></Image>
           <View style={styles.vertButtons}>
@@ -141,7 +177,12 @@ const ProfileScreen = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={{ height: "100%" }}>
+    <SafeAreaView style={{ 
+      height: Dimensions.get('window').height
+    }}>
+    
+
+    <Text>Profile View</Text>
 
       
     <View style={{
@@ -158,6 +199,7 @@ const ProfileScreen = ({ navigation }) => {
       
     }}/>
 
+      
 
       <View style={styles.profTop}>
       
@@ -167,38 +209,60 @@ const ProfileScreen = ({ navigation }) => {
           {userInfo.name}{" "}
 
           {online ? 
-          <Icon name="checkcircle" size={17} color="#00008B"/>
+          <Icon name="checkcircle" size={17} color="#77C3EC"/>
           :
           <Icon name="checkcircleo" size={17}/>
           }
 
+        
+
         </Text>
-          <Text style={styles.profileSubTitle}>Total Friends:
+        
+
+        
+        <Text style={styles.profileSubTitle}>Total Friends:
           <Text style={styles.friendsSubTitle}> {userInfo.friendCount}</Text>
         </Text>
+
+
+
+          
+
         
       </View>
+  
 
+      <View style={{
 
-      <View style={styles.horizButtons}>
+        marginTop: 30
+      }}>
 
-      <TouchableOpacity style={styles.addFriendButton}>
+      {myprofile === 1 ? (
+          <>
+            <View style={styles.horizButtons}>
+
+            <TouchableOpacity style={styles.addFriendButton}>
+
+              <Text style={styles.addFriendText}>
+              <Icon name="adduser" size={20}/>
+                
+                {addFriend}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.messageButton}>
+              <Icon name="message1" size={20} style={{
+                marginLeft: '32.5%'
+              }}/>
+                
+            </TouchableOpacity>
+              
+            </View>
+          </>
+        ) : null
+      }
+
       
-        <Text style={styles.addFriendText}>
-        <Icon name="adduser" size={20}/>
-          
-          {addFriend}
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.messageButton}>
-        <Icon name="message1" size={20} style={{
-          marginLeft: '32.5%'
-        }}/>
-          
-      </TouchableOpacity>
-        
-      </View>
 
       <SegmentedControl
         style={styles.toggleButton}
@@ -208,32 +272,85 @@ const ProfileScreen = ({ navigation }) => {
           if (displayTrips == 'My Trips'){
             setdisplayTrips('Liked Trips');
             setDisplayIndex(1);
+            setSearchTrips(exLikedTrips);
           }
           else {
             setdisplayTrips('My Trips');
             setDisplayIndex(0);
+            setSearchTrips(exMyTrips);
           }
         }}
       />
 
+
+      {myprofile === 0 ? (
+          <>
+            <View style={styles.searchAlign}>
+              
+            <SearchBar
+              lightTheme
+              round
+              containerStyle={styles.searchContainer}
+              inputContainerStyle={styles.searchInput}
+              placeholder="Search"
+              onChangeText={setSearch}
+              value={search}   
+            />
+              
+              <TouchableOpacity 
+                style={styles.addTripButton}
+                onPress={() => navigation.navigate("AddTripScreen")}
+              >
+                <Icon name="plus" size={20} style={{
+                  marginLeft: '35%'
+                }}/>
+              </TouchableOpacity>
+            </View>
+          </>
+      ): null}
+      
+
+      </View>
+
+
       <ScrollView>
         {displayTrips === "My Trips" ? (
           <>
-          {exMyTrips.map((item) => <TripView trip={item} key={myKey++}/>)}
+          {exMyTrips
+            .filter(x => String(x.title).includes(search))
+            .map((item) => <TripView trip={item} key={myKey++}
+
+          />)}
           </>
         ) : null}
 
         {displayTrips === "Liked Trips" ? (
           <>
-          {exLikedTrips.map((item) => <TripView trip={item} key={likedKey++}/>)}
+          {exLikedTrips
+            .filter(x => String(x.title).includes(search))
+            .map((item) => <TripView trip={item} key={likedKey++}
+          />)}
           </>
         ) : null}
       </ScrollView>
+
 
       
     </SafeAreaView>
   );
 };
+
+/*
+              <SearchBar
+                lightTheme
+                round
+                containerStyle={styles.searchContainer}
+                inputContainerStyle={styles.searchInput}
+                placeholder="Search"
+                
+              />
+
+*/
 
 /*
 
@@ -297,7 +414,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 2,
     borderColor: 'black',
-    marginTop: '10%',
+    marginTop: '35%',
+    marginBottom: '5%'
   },
   photoAlign: {
     marginTop: "20%",
@@ -319,6 +437,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
     marginTop: '6%',
+    height: '20%'
   },
   profileSubTitle: {
     fontSize: 17,
@@ -341,6 +460,54 @@ const styles = StyleSheet.create({
     width: '25%',
     height: '80%',
   },
+
+  searchContainer: {
+
+    height: 45,
+    width: '62.5%',
+    backgroundColor: 'white',
+    borderColor: 'white',
+    borderRadius: 10,
+    flexDirection: 'row',
+    marginBotton: '5%'
+  },
+
+  searchBarContainer: {
+
+    height: 45,
+    marginLeft: '7%',
+    marginTop: '25%',
+    width: '84%',
+    backgroundColor: 'white',
+    borderColor: 'white',
+    borderRadius: 10,
+    flexDirection: 'row'
+  },
+  searchInput: {
+    backgroundColor: 'transparent',
+    height: 45,
+    marginTop: -7.5
+  },
+  searchText: {
+    marginTop: '5%',
+    marginLeft: '7.5%'
+  },
+
+  searchAlign: {
+    width: "100%",
+    flexDirection: "row",
+    marginLeft: '7%'
+  },
+  addTripButton: {
+    backgroundColor: "#83C3FF",
+    height: 45,
+    width: '16%',
+    marginLeft: "7.5%",
+    borderRadius: 7,
+    justifyContent: 'center',
+  },
+
+
 
   /*
   onlineStatusCircle: {
@@ -383,7 +550,7 @@ const styles = StyleSheet.create({
     tintColor: "#FFFFFF",
     backgroundColor: '#83C3FF',
 
-    height: "6%",
+    height: 45,
     marginLeft: "7%",
     marginTop: "5%",
     width: "86%",
@@ -392,10 +559,9 @@ const styles = StyleSheet.create({
 
   addFriendButton: {
     backgroundColor: "#83C3FF",
-    height: 40,
+    height: 45,
     width: '62.5%',
     marginLeft: "7%",
-    marginTop: "5%",
     borderRadius: 7,
     justifyContent: 'center',
 
@@ -406,10 +572,9 @@ const styles = StyleSheet.create({
   },
   messageButton: {
     backgroundColor: "#83C3FF",
-    height: 40,
+    height: 45,
     width: '16%',
     marginLeft: "7.5%",
-    marginTop: "5%",
     borderRadius: 7,
     justifyContent: 'center',
   },

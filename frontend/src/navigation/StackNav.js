@@ -11,8 +11,10 @@ import TextingScreen from '../screens/TextingScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import SearchScreen from '../screens/SearchScreen';
-import GroupTextingScreen
- from '../screens/GroupTextingScreen';
+import TripDiaryScreen from '../screens/TripDiaryScreen';
+import AddTripScreen from '../screens/AddTripScreen';
+import GroupTextingScreen from '../screens/GroupTextingScreen';
+
 const Stack = createNativeStackNavigator();
 
 const screenOptionStyle = {
@@ -53,10 +55,13 @@ const ChatStackNavigator = () => {
 }
 
 const ProfileStackNavigator = () => {
+    
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }
