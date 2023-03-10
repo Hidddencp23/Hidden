@@ -27,9 +27,8 @@ import { SearchBar } from 'react-native-elements';
 import Icon from "react-native-vector-icons/AntDesign";
 //import { Icon } from 'react-native-vector-icons';
 
-// placeholder images for now
-import deleteme from "../../assets/deleteme.png";
-import hiddenImg from "../../assets/favicon.png";
+// placeholder image for now
+import TripList from '../components/TripList';
 
 // need to connect db
 //import { db } from '../hooks/firebase';
@@ -52,129 +51,12 @@ const ProfileScreen = ({ navigation }) => {
   const [displayTrips, setdisplayTrips] = useState('My Trips');
   const [displayIndex, setDisplayIndex] = useState(0);
 
+  const addFriend = "   Add Friend";
+
   // search bar (for trips)
   const [searchTrips, setSearchTrips] = useState();
 
   const [search, setSearch] = useState('');
-
-  // placeholder trips to see if it works
-  const experience1 = {
-    title: "Pantheon",
-    date: "Friday, 23 Feb, 2022",
-    location: "Pantheon, Rome",
-    rating: 4.9,
-    image: hiddenImg
-  };
-
-  const experience2 = {
-    title: "Spanish Steps",
-    date: "Friday, 23 Feb, 2022",
-    location: "Rome",
-    rating: 4.3,
-    image: hiddenImg
-  };
-
-
-
-  const extrip1 = {
-    user: "Praneeth",
-    title: "Barcelona Trip",
-    image: deleteme,
-    date: "Friday, 23 Feb, 2022",
-    experiences: [experience1, experience2]
-  };
-
-  const extrip2 = {
-    user: "Arden",
-    title: "Rome Trip",
-    image: deleteme,
-    date: "Friday, 23 Feb, 2022",
-    experiences: [experience1, experience2]
-  };
-
-  const extrip3 = {
-    user: "Arden",
-    title: "Rome Trip",
-    image: deleteme,
-    date: "Friday, 23 Feb, 2022",
-    experiences: [experience1, experience2, experience1]
-  };
-
-  const extrip4 = {
-    user: "Arden",
-    title: "Rome Trip",
-    image: deleteme,
-    date: "Friday, 23 Feb, 2022",
-    experiences: [experience1, experience2]
-  };
-
-  
-
-  const exLikedTrips = [extrip1, extrip2, extrip3, extrip4];
-  const exMyTrips = [extrip3, extrip4];
-
-  const addFriend = "   Add Friend";
-
-  let likedKey = 0;
-  let myKey = 0;
-
-  // db is not connected yet
-  /*
-  React.useEffect(
-    () =>
-    onSnapshot(
-        query(collection(db, "posts"), where("username", "==", user.displayName) ,orderBy("timeStamp")),
-        (snapshot) => {
-            setData(snapshot.docs)
-        }
-    )
-  ) 
-  */
-
-
-  // Praneeth's Segmented Control
-  /*
-      <SegmentedControl
-        style={styles.toggleButton}
-        values={['My Trips', 'Liked Trips']}
-        selectedIndex={0}
-        onChange={(event) => {
-          if (displayTrips == 'My Trips'){
-            setdisplayTrips('Liked Trips');
-          }
-          else {
-            setdisplayTrips('My Trips');
-          }
-        }}
-      />
-  */
-
-
-
-
-  const TripView = ({ trip }) => (
-    
-    
-    <View
-      style={{
-        borderBottomColor: "black",
-        marginLeft: "5%",
-        marginRight: "5%",
-      }}
-    >
-      <TouchableOpacity style={styles.myTripTab} onPress={() => navigation.navigate("TripDiaryScreen", {experiences: trip.experiences})}>
-        <View style={styles.horizButtons}>
-          <Image source={trip.image} alt="Avatar" style={styles.tripImg}></Image>
-          <View style={styles.vertButtons}>
-            <Text style={styles.myTripsTitle}>{trip.title}</Text>
-            <Text style={styles.myTripsUser}>{"By: " + trip.user}</Text>
-            <Text style={styles.myTripsDate}>{trip.date}</Text>
-          </View>
-          <Icon name="right" size={20} style={styles.arrow} />
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
 
   return (
     <SafeAreaView style={{ 
@@ -314,24 +196,18 @@ const ProfileScreen = ({ navigation }) => {
 
 
       <ScrollView>
-        {displayTrips === "My Trips" ? (
+             {displayTrips === "My Trips" ? (
           <>
-          {exMyTrips
-            .filter(x => String(x.title).includes(search))
-            .map((item) => <TripView trip={item} key={myKey++}
-
-          />)}
+            <TripList navigation={navigation} displayTrips={"myTrips"}/>
           </>
         ) : null}
 
         {displayTrips === "Liked Trips" ? (
           <>
-          {exLikedTrips
-            .filter(x => String(x.title).includes(search))
-            .map((item) => <TripView trip={item} key={likedKey++}
-          />)}
+            <TripList navigation={navigation} displayTrips={"likedTrips"}/>
           </>
         ) : null}
+         
       </ScrollView>
 
 
