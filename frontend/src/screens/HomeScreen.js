@@ -10,7 +10,7 @@ import useAuth from '../hooks/useAuth'
 const HomeScreen = ({ navigation }) => {
     const {user, userInfo } = useAuth();
     console.log(user.uid)
-    console.log(userInfo["email"])
+    // console.log(userInfo)
     return (
         <View style={styles.homeScreen}>
             <Text>Home</Text>

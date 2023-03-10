@@ -1,6 +1,5 @@
-import React from "react";
+import React from 'react';
 import { useState } from "react";
-import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import {
   Text,
   StyleSheet,
@@ -10,63 +9,64 @@ import {
   FlatList,
   SafeAreaView,
   ScrollView,
-  Dimensions,
-  KeyboardAvoidingView
+  Dimensions
 } from "react-native";
-import {
-  collection,
-  where,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import useAuth from "../hooks/useAuth";
-import ProfileCard from "../components/ProfileCard";
+
 import { SearchBar } from 'react-native-elements';
 
-import Icon from "react-native-vector-icons/AntDesign";
-//import { Icon } from 'react-native-vector-icons';
-
+import Icon from "react-native-vector-icons/Entypo";
 // placeholder image for now
-import TripList from '../components/TripList';
+import deleteme from "../../assets/deleteme.png";
 
-// need to connect db
-//import { db } from '../hooks/firebase';
+const TripDiaryScreen = ({ route, navigation}) => {
 
-const ProfileScreen = ({ navigation }) => {
+  const { experiences } = route.params;
+  let myKey = 1;
 
-  //const { myprofile } = route.params;
-  const myprofile = 0; // need to connect to db
-
-  const { user, userInfo, logout } = useAuth();
-  const [data, setData] = React.useState([]);
-
-  // this info comes from firbase, placeholders for the moment
-  const [firstName, setFirstName] = useState("Juliet");
-  const [lastName, setLastName] = useState("Parker");
-  const [friends, setFriends] = useState(2000);
-  const [online, setOnline] = useState(1); // flag for indicator
-
-  // state for liked / my trips toggle
-  const [displayTrips, setdisplayTrips] = useState('My Trips');
-  const [displayIndex, setDisplayIndex] = useState(0);
-
-  const addFriend = "   Add Friend";
 
   // search bar (for trips)
-  const [searchTrips, setSearchTrips] = useState();
-
   const [search, setSearch] = useState('');
+
+  console.log(experiences
+    .filter(x => String(x.title).includes('Pantheon')))
+
+  const ExperienceView = ({ experience }) => (
+    
+    
+    <View
+      style={{
+        borderBottomColor: "black",
+        marginLeft: "5%",
+        marginRight: "5%",
+      }}
+    >
+      <TouchableOpacity style={styles.myTripTab}>
+        <View style={styles.horizButtons}>
+          <Image source={experience.image} alt="Avatar" style={styles.tripImg}></Image>
+          <View style={styles.vertButtons}>
+            <Text style={styles.myTripsTitle}>{experience.title}</Text>
+            <Text style={styles.myTripsUser}>{experience.date}</Text>
+
+            <View style={styles.locationTextAlign}>
+              <Icon name="location-pin" color="#83C3FF" size={20} />
+              <Text style={styles.myTripsDate}>{experience.location}</Text>
+            </View>
+          </View>
+          <Icon name="star" color="#FFEF00" size={20} style={styles.arrow} />
+          <Text style={styles.ratingText}>{experience.rating}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+
 
   return (
     <SafeAreaView style={{ 
       height: Dimensions.get('window').height
     }}>
+
     
 
-    <Text>Profile View</Text>
-
-      
     <View style={{
 
       position:'absolute',
@@ -81,174 +81,30 @@ const ProfileScreen = ({ navigation }) => {
       
     }}/>
 
-      
+    <SearchBar
+      lightTheme
+      round
+      containerStyle={styles.searchContainer}
+      inputContainerStyle={styles.searchInput}
+      placeholder="Search"
+      onChangeText={setSearch}
+      value={search}   
+    />
 
-      <View style={styles.profTop}>
-      
-        <View style={styles.circle} />
-        <Image source={{uri: userInfo.profilePic}} alt="Avatar" style={styles.photoURL} />
-        <Text style={styles.profileTitle}>
-          {userInfo.name}{" "}
-
-          {online ? 
-          <Icon name="checkcircle" size={17} color="#77C3EC"/>
-          :
-          <Icon name="checkcircleo" size={17}/>
+    <ScrollView>
+    { (search != null && experiences.length > 0)  ? (
+      <>
+          {experiences
+              .filter(x => String(x.title).includes(search))
+              .map((item) => <ExperienceView experience={item} key={myKey++}/>)
           }
+      </>
+      ) : null}
+    </ScrollView>
 
-        
-
-        </Text>
-        
-
-        
-        <Text style={styles.profileSubTitle}>Total Friends:
-          <Text style={styles.friendsSubTitle}> {userInfo.friendCount}</Text>
-        </Text>
-
-
-
-          
-
-        
-      </View>
-  
-
-      <View style={{
-
-        marginTop: 30
-      }}>
-
-      {myprofile === 1 ? (
-          <>
-            <View style={styles.horizButtons}>
-
-            <TouchableOpacity style={styles.addFriendButton}>
-
-              <Text style={styles.addFriendText}>
-              <Icon name="adduser" size={20}/>
-                
-                {addFriend}
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.messageButton}>
-              <Icon name="message1" size={20} style={{
-                marginLeft: '32.5%'
-              }}/>
-                
-            </TouchableOpacity>
-              
-            </View>
-          </>
-        ) : null
-      }
-
-      
-
-      <SegmentedControl
-        style={styles.toggleButton}
-        values={['My Trips', 'Liked Trips']}
-        selectedIndex={displayIndex}
-        onChange={(event) => {
-          if (displayTrips == 'My Trips'){
-            setdisplayTrips('Liked Trips');
-            setDisplayIndex(1);
-            setSearchTrips(exLikedTrips);
-          }
-          else {
-            setdisplayTrips('My Trips');
-            setDisplayIndex(0);
-            setSearchTrips(exMyTrips);
-          }
-        }}
-      />
-
-
-      {myprofile === 0 ? (
-          <>
-            <View style={styles.searchAlign}>
-              
-            <SearchBar
-              lightTheme
-              round
-              containerStyle={styles.searchContainer}
-              inputContainerStyle={styles.searchInput}
-              placeholder="Search"
-              onChangeText={setSearch}
-              value={search}   
-            />
-              
-              <TouchableOpacity 
-                style={styles.addTripButton}
-                onPress={() => navigation.navigate("AddTripScreen")}
-              >
-                <Icon name="plus" size={20} style={{
-                  marginLeft: '35%'
-                }}/>
-              </TouchableOpacity>
-            </View>
-          </>
-      ): null}
-      
-
-      </View>
-
-
-      <ScrollView>
-             {displayTrips === "My Trips" ? (
-          <>
-            <TripList navigation={navigation} displayTrips={"myTrips"}/>
-          </>
-        ) : null}
-
-        {displayTrips === "Liked Trips" ? (
-          <>
-            <TripList navigation={navigation} displayTrips={"likedTrips"}/>
-          </>
-        ) : null}
-         
-      </ScrollView>
-
-
-      
     </SafeAreaView>
-  );
+  )
 };
-
-/*
-              <SearchBar
-                lightTheme
-                round
-                containerStyle={styles.searchContainer}
-                inputContainerStyle={styles.searchInput}
-                placeholder="Search"
-                
-              />
-
-*/
-
-/*
-
-
-      <ScrollView>
-        {displayTrips === "My Trips" ? (
-          <FlatList
-            data={exMyTrips}
-            renderItem={({ item }) => <TripView trip={item} />}
-          />
-        ) : null}
-
-        {displayTrips === "Liked Trips" ? (
-          <FlatList
-            data={exLikedTrips}
-            renderItem={({ item }) => <TripView trip={item} />}
-          />
-        ) : null}
-      </ScrollView>
-
-
-*/
 
 const styles = StyleSheet.create({
 
@@ -290,8 +146,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 2,
     borderColor: 'black',
-    marginTop: '35%',
-    marginBottom: '5%'
+    marginTop: '10%',
   },
   photoAlign: {
     marginTop: "20%",
@@ -313,7 +168,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
     marginTop: '6%',
-    height: '20%'
   },
   profileSubTitle: {
     fontSize: 17,
@@ -338,17 +192,6 @@ const styles = StyleSheet.create({
   },
 
   searchContainer: {
-
-    height: 45,
-    width: '62.5%',
-    backgroundColor: 'white',
-    borderColor: 'white',
-    borderRadius: 10,
-    flexDirection: 'row',
-    marginBotton: '5%'
-  },
-
-  searchBarContainer: {
 
     height: 45,
     marginLeft: '7%',
@@ -426,7 +269,7 @@ const styles = StyleSheet.create({
     tintColor: "#FFFFFF",
     backgroundColor: '#83C3FF',
 
-    height: 45,
+    height: "6%",
     marginLeft: "7%",
     marginTop: "5%",
     width: "86%",
@@ -435,9 +278,10 @@ const styles = StyleSheet.create({
 
   addFriendButton: {
     backgroundColor: "#83C3FF",
-    height: 45,
+    height: 40,
     width: '62.5%',
     marginLeft: "7%",
+    marginTop: "5%",
     borderRadius: 7,
     justifyContent: 'center',
 
@@ -448,9 +292,10 @@ const styles = StyleSheet.create({
   },
   messageButton: {
     backgroundColor: "#83C3FF",
-    height: 45,
+    height: 40,
     width: '16%',
     marginLeft: "7.5%",
+    marginTop: "5%",
     borderRadius: 7,
     justifyContent: 'center',
   },
@@ -496,7 +341,7 @@ const styles = StyleSheet.create({
     marginBottom: "2.5%",
   },
   myTripsDate: {
-    marginLeft: "5%",
+    marginLeft: "2.5%",
     color: "#BEBEBE",
     textAlign: "left",
     fontSize: 14,
@@ -519,10 +364,23 @@ const styles = StyleSheet.create({
   },
 
   arrow: {
-    marginLeft: "85%",
+    marginLeft: "80%",
     float: "left",
-    marginTop: "7.5%",
+    marginTop: "1.5%",
     position: "absolute",
+  },
+
+  ratingText: {
+    marginLeft: "87.5%",
+    position: "absolute",
+    float: "left",
+    marginTop: "2%",
+    color: '#BEBEBE'
+  },
+
+  locationTextAlign: {
+    flexDirection: "row",
+    marginTop: '0%'
   },
 
   profileScreen: {
@@ -578,4 +436,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default TripDiaryScreen;
