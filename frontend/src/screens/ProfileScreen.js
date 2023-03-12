@@ -162,7 +162,9 @@ const ProfileScreen = ({ navigation }) => {
         marginRight: "5%",
       }}
     >
-      <TouchableOpacity style={styles.myTripTab} onPress={() => navigation.navigate("TripDiaryScreen", {experiences: trip.experiences})}>
+      <TouchableOpacity style={styles.myTripTab} onPress={() => 
+        navigation.navigate("TripDiaryScreen", {trip: [trip.title, trip.experiences]})
+      }>
         <View style={styles.horizButtons}>
           <Image source={trip.image} alt="Avatar" style={styles.tripImg}></Image>
           <View style={styles.vertButtons}>
@@ -185,19 +187,7 @@ const ProfileScreen = ({ navigation }) => {
     <Text>Profile View</Text>
 
       
-    <View style={{
-
-      position:'absolute',
-      borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-      width: Dimensions.get('window').width * 2,
-      height: Dimensions.get('window').width * 2,
-      top: -1 * (Dimensions.get('window').height * .88),
-      left: -1 * (Dimensions.get('window').width * .5),
-      backgroundColor:'#77C3EC',
-      justifyContent: 'center',
-      alignItems: 'center'
-      
-    }}/>
+    <View style={styles.halfCircle}/>
 
       
 
@@ -375,6 +365,18 @@ const ProfileScreen = ({ navigation }) => {
 */
 
 const styles = StyleSheet.create({
+
+  halfCircle: {
+    position:'absolute',
+    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    width: Dimensions.get('window').width * 2,
+    height: Dimensions.get('window').width * 2,
+    top: -1 * (Dimensions.get('window').height * .88),
+    left: -1 * (Dimensions.get('window').width * .5),
+    backgroundColor:'#77C3EC',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 
   profileHeader: {
     justifyContent: 'center',

@@ -20,15 +20,16 @@ import deleteme from "../../assets/deleteme.png";
 
 const TripDiaryScreen = ({ route, navigation}) => {
 
-  const { experiences } = route.params;
+  const { trip } = route.params;
+
+  const tripTitle = trip[0];
+  const experiences = trip[1];
   let myKey = 1;
 
 
   // search bar (for trips)
   const [search, setSearch] = useState('');
 
-  console.log(experiences
-    .filter(x => String(x.title).includes('Pantheon')))
 
   const ExperienceView = ({ experience }) => (
     
@@ -65,21 +66,13 @@ const TripDiaryScreen = ({ route, navigation}) => {
       height: Dimensions.get('window').height
     }}>
 
+
+
     
 
-    <View style={{
+    <View style={styles.halfCircle}/>
 
-      position:'absolute',
-      borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-      width: Dimensions.get('window').width * 2,
-      height: Dimensions.get('window').width * 2,
-      top: -1 * (Dimensions.get('window').height * .88),
-      left: -1 * (Dimensions.get('window').width * .5),
-      backgroundColor:'#77C3EC',
-      justifyContent: 'center',
-      alignItems: 'center'
-      
-    }}/>
+    <Text style={styles.tripTitle}>{tripTitle}</Text>
 
     <SearchBar
       lightTheme
@@ -100,13 +93,54 @@ const TripDiaryScreen = ({ route, navigation}) => {
           }
       </>
       ) : null}
+
     </ScrollView>
+
+    <TouchableOpacity
+        style={styles.circularButton}>
+        
+        <Icon name="plus" size={30} style={{
+            marginLeft: '0%'
+        }}/>
+    </TouchableOpacity>
 
     </SafeAreaView>
   )
 };
 
 const styles = StyleSheet.create({
+  halfCircle: {
+    position:'absolute',
+    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    width: Dimensions.get('window').width * 2,
+    height: Dimensions.get('window').width * 2,
+    top: -1 * (Dimensions.get('window').height * .88),
+    left: -1 * (Dimensions.get('window').width * .5),
+    backgroundColor:'#77C3EC',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  circularButton: {
+    position: 'absolute',
+    top: '72.5%',
+    left: '75%',
+
+    width: 70,
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
+    backgroundColor: '#77C3EC',
+  },
+
+  tripTitle: {
+    textAlign: 'center',
+    paddingTop: 65,
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
 
   profileHeader: {
     justifyContent: 'center',
@@ -195,7 +229,7 @@ const styles = StyleSheet.create({
 
     height: 45,
     marginLeft: '7%',
-    marginTop: '25%',
+    marginTop: '2.5%',
     width: '84%',
     backgroundColor: 'white',
     borderColor: 'white',
