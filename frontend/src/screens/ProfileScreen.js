@@ -154,12 +154,12 @@ const ProfileScreen = ({ navigation }) => {
           if (displayTrips == 'My Trips'){
             setdisplayTrips('Liked Trips');
             setDisplayIndex(1);
-            setSearchTrips(exLikedTrips);
+            //setSearchTrips(exLikedTrips);
           }
           else {
             setdisplayTrips('My Trips');
             setDisplayIndex(0);
-            setSearchTrips(exMyTrips);
+            //setSearchTrips(exMyTrips);
           }
         }}
       />
