@@ -18,17 +18,92 @@ import Icon from "react-native-vector-icons/Entypo";
 // placeholder image for now
 import deleteme from "../../assets/deleteme.png";
 
+
+import { collection, onSnapshot, orderBy, query, limit, where, Timestamp, doc, setDoc, addDoc } from 'firebase/firestore';
+import { db } from "../hooks/firebase";
+import useAuth from '../hooks/useAuth';
+
+import moment from 'moment';
+//import firestore from 'firebase/firestore';
+
+import firebase from "firebase/app";
+
 const TripDiaryScreen = ({ route, navigation}) => {
 
-  const { experiences } = route.params;
+  const { tripInfo } = route.params;
+
+  const { user, userInfo } = useAuth();
+  
+  const experience1 = {
+    title: "Pantheon",
+    date: "Friday, 23 Feb, 2022",
+    location: "Pantheon, Rome",
+    rating: 4.9,
+    image: deleteme
+  };
+
+  const experience2 = {
+    title: "Spanish Steps",
+    date: "Friday, 23 Feb, 2022",
+    location: "Rome",
+    rating: 4.3,
+    image: deleteme
+  };
+  
+
+  const tripTitle = tripInfo[0];
+  const experiences = tripInfo[1].experiences;
+  //console.log(experiences[0]);
+
   let myKey = 1;
 
 
   // search bar (for trips)
   const [search, setSearch] = useState('');
 
-  console.log(experiences
-    .filter(x => String(x.title).includes('Pantheon')))
+  const data = {
+    image: deleteme,
+    tripName: 'Australia',
+    experiences: [experience1, experience2]
+  }
+
+  async function fstore () {
+    console.log('storing:')
+    //const usersCollection = collection('Trips');
+
+    //const converted = doc.data().timestamp.toDate();
+    //const momentDate = moment(converted).format('MM-DD-YYYY')
+
+
+
+    const docData = {
+
+        datePosted: new Date(), // serverTimestamp()
+        decription: 'description here',
+        hiddenLocation: 'crF670JnA5KfvP1zeGy9', //HiddenLocations is a Collection
+        image: 'img string',
+        rating: 4.2,
+        userId: user.uid,
+        userName: 'Kiran'
+    }
+
+    
+    //console.log();
+
+  
+  // nned to add to liked trips in database first
+
+  // this works!
+  //const docRef = await addDoc(collection(db, "Experiences"), docData);
+
+  //console.log(docRef);
+
+  
+
+
+  const docRef = await addDoc(collection(db, "Timestamps"), docData);
+
+  }
 
   const ExperienceView = ({ experience }) => (
     
@@ -42,7 +117,7 @@ const TripDiaryScreen = ({ route, navigation}) => {
     >
       <TouchableOpacity style={styles.myTripTab}>
         <View style={styles.horizButtons}>
-          <Image source={experience.image} alt="Avatar" style={styles.tripImg}></Image>
+          <Image source={{ uri: experience.image }} alt="Avatar" style={styles.tripImg}></Image>
           <View style={styles.vertButtons}>
             <Text style={styles.myTripsTitle}>{experience.title}</Text>
             <Text style={styles.myTripsUser}>{experience.date}</Text>
@@ -60,26 +135,21 @@ const TripDiaryScreen = ({ route, navigation}) => {
   );
 
 
+  
+
+
   return (
     <SafeAreaView style={{ 
       height: Dimensions.get('window').height
     }}>
 
+
+
     
 
-    <View style={{
+    <View style={styles.halfCircle}/>
 
-      position:'absolute',
-      borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-      width: Dimensions.get('window').width * 2,
-      height: Dimensions.get('window').width * 2,
-      top: -1 * (Dimensions.get('window').height * .88),
-      left: -1 * (Dimensions.get('window').width * .5),
-      backgroundColor:'#77C3EC',
-      justifyContent: 'center',
-      alignItems: 'center'
-      
-    }}/>
+    <Text style={styles.tripTitle}>{tripTitle}</Text>
 
     <SearchBar
       lightTheme
@@ -100,13 +170,58 @@ const TripDiaryScreen = ({ route, navigation}) => {
           }
       </>
       ) : null}
+
     </ScrollView>
+
+    <TouchableOpacity
+        onPress={() => navigation.navigate("AddExperienceScreen", {
+          tripInfo: [tripTitle, tripInfo]
+        })}
+        style={styles.circularButton}>
+        
+        <Icon name="plus" size={30} style={{
+            marginLeft: '0%'
+        }}/>
+      
+    </TouchableOpacity>
 
     </SafeAreaView>
   )
 };
 
 const styles = StyleSheet.create({
+  halfCircle: {
+    position:'absolute',
+    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    width: Dimensions.get('window').width * 2,
+    height: Dimensions.get('window').width * 2,
+    top: -1 * (Dimensions.get('window').height * .88),
+    left: -1 * (Dimensions.get('window').width * .5),
+    backgroundColor:'#77C3EC',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  circularButton: {
+    position: 'absolute',
+    top: '72.5%',
+    left: '75%',
+
+    width: 70,
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
+    backgroundColor: '#77C3EC',
+  },
+
+  tripTitle: {
+    textAlign: 'center',
+    paddingTop: 65,
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
 
   profileHeader: {
     justifyContent: 'center',
@@ -187,15 +302,15 @@ const styles = StyleSheet.create({
   // may need to resize through js
   tripImg: {
     marginLeft: '3%',
-    width: '25%',
-    height: '80%',
+    width: 50,
+    height: 50,
   },
 
   searchContainer: {
 
     height: 45,
     marginLeft: '7%',
-    marginTop: '25%',
+    marginTop: '2.5%',
     width: '84%',
     backgroundColor: 'white',
     borderColor: 'white',
@@ -239,7 +354,6 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     position: "absolute",
   },
-
   offlineStatusCircle: {
     width: 10,
     height: 10,

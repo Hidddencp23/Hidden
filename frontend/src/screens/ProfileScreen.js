@@ -42,9 +42,11 @@ const ProfileScreen = ({ navigation }) => {
   const [data, setData] = React.useState([]);
 
   // this info comes from firbase, placeholders for the moment
+  /*
   const [firstName, setFirstName] = useState("Juliet");
   const [lastName, setLastName] = useState("Parker");
   const [friends, setFriends] = useState(2000);
+  */
   const [online, setOnline] = useState(1); // flag for indicator
 
   // state for liked / my trips toggle
@@ -154,12 +156,12 @@ const ProfileScreen = ({ navigation }) => {
           if (displayTrips == 'My Trips'){
             setdisplayTrips('Liked Trips');
             setDisplayIndex(1);
-            setSearchTrips(exLikedTrips);
+            //setSearchTrips(exLikedTrips);
           }
           else {
             setdisplayTrips('My Trips');
             setDisplayIndex(0);
-            setSearchTrips(exMyTrips);
+            //setSearchTrips(exMyTrips);
           }
         }}
       />
@@ -198,13 +200,13 @@ const ProfileScreen = ({ navigation }) => {
       <ScrollView>
              {displayTrips === "My Trips" ? (
           <>
-            <TripList navigation={navigation} displayTrips={"myTrips"}/>
+            <TripList navigation={navigation} displayTrips={"myTrips"} search={search}/>
           </>
         ) : null}
 
         {displayTrips === "Liked Trips" ? (
           <>
-            <TripList navigation={navigation} displayTrips={"likedTrips"}/>
+            <TripList navigation={navigation} displayTrips={"likedTrips"} search={search}/>
           </>
         ) : null}
          

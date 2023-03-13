@@ -5,10 +5,13 @@ import { db } from "../hooks/firebase";
 import useAuth from '../hooks/useAuth';
 import TripRow from './TripRow';
 
-const TripList = ({ navigation, displayTrips }) => {
+const TripList = ({ navigation, displayTrips, search }) => {
     const [trips, setTrips] = useState([]);
     const { user, userInfo } = useAuth();
+
     useEffect(() =>
+    //console.log(userInfo[displayTrips]),
+        
         onSnapshot(
             query(
                 collection(db, 'Trips'), 
@@ -22,15 +25,20 @@ const TripList = ({ navigation, displayTrips }) => {
                         ...doc.data()
                     }))
                 )
+
+    
             }
+            
         ),
         [])
 
 
-
     return (
         <ScrollView>
-            {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
+            {trips
+            .filter(x => String(x.tripName).includes(search))
+            .map((item) => <TripRow title={item.tripName} tripInfo={item} key={item.id} navigation={navigation} />)
+            }
         </ScrollView>
     )
 }

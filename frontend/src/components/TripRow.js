@@ -6,7 +6,7 @@ import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
 import { db } from "../hooks/firebase";
 import Icon from "react-native-vector-icons/AntDesign";
 
-const TripRow = ({ tripInfo, navigation }) => {
+const TripRow = ({ title, tripInfo, navigation }) => {
   const { user } = useAuth();
 
 
@@ -20,8 +20,8 @@ const TripRow = ({ tripInfo, navigation }) => {
     >
     <TouchableOpacity
       style={styles.tripTab}
-      onPress={() => navigation.navigate("TripScreen", {
-        tripInfo
+      onPress={() => navigation.navigate("TripDiaryScreen", {
+        tripInfo: [title, tripInfo]
       })
       }
     >
