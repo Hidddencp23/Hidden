@@ -15,6 +15,7 @@ import TripScreen from '../screens/TripScreen';
 import TripDiaryScreen from '../screens/TripDiaryScreen';
 import AddTripScreen from '../screens/AddTripScreen';
 import GroupTextingScreen from '../screens/GroupTextingScreen';
+import LocationScreen from '../screens/LocationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,8 @@ const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+
         </Stack.Navigator>
     );
 }
