@@ -84,6 +84,7 @@ const HomeScreen = ({ navigation }) => {
     }, [])
 
 
+    // console.log(userInfo)
     return (
         <SafeAreaView style={styles.homeScreen}>
             <Text>Home</Text>

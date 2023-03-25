@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: 'white'
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: 0, left: 0, right: 0, bottom: 0
     },
     headerImage: {
         height: 35,
@@ -49,7 +51,8 @@ const styles = StyleSheet.create({
     columnHeader: {
         flexDirection: 'row',
         alignItems: 'center'
-    }
+    },
+
 });
 
 export default TopNavBar;

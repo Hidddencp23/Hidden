@@ -4,56 +4,49 @@ import useAuth from '../hooks/useAuth'
 import getMatchedUserInfo from './getMatchedUserInfo'
 import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
 import { db } from "../hooks/firebase";
+import GroupTextingScreen from '../screens/GroupTextingScreen';
 
-const ChatRow = ({ chatInfo, navigation }) => {
+const ProxChatRow = ({ chatId, navigation }) => {
   const { user } = useAuth();
-  const [chatUser, setChatUser] = useState("");
-  const chatId = chatInfo.id
-  console.log(chatInfo)
-  const getUserNameFromUid = async (uid) => {
-    const docSnap = await getDoc(doc(db, "Users", uid));
-    if (docSnap.exists()) {
-      setChatUser(docSnap.data())
-      // console.log("Document data:", docSnap.data());
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
-  }
+  const [ chatInfo, setChatInfo ] = useState(null);
+  console.log("ProxChatId =" + chatId)
+  
 
   useEffect(() => {
-    onSnapshot(doc(db, "Chats", chatId), (doc) => {
-      console.log("Chat Doc Changed");
+    onSnapshot(doc(db, "ProximityChats", chatId), (doc) => {
+      console.log("Prox Chat Doc Changed");
       // console.log(doc)
-      const otherUserUid = doc.data()["users"].filter(id => id != user.uid)[0]
-      getUserNameFromUid(otherUserUid).catch(console.error)
+      setChatInfo(doc.data())
     })
   }, [])
 
 
   return (
-    <TouchableOpacity
+    <>
+{ chatInfo != null ?   (<TouchableOpacity
       style={styles.messagecard}
-      onPress={() => navigation.navigate("TextingScreen", {
-        chatId, chatUser
+      onPress={() => navigation.navigate("GroupTextingScreen", {
+        chatId, chatInfo
       })
       }
     >
       <Image
         style={styles.profPic}
-        source={{ uri: chatUser.profilePic }}
+        source={{ uri: chatInfo.chatPic }}
       />
 
       <View>
         <Text style={styles.text}>
-          {chatUser.name}
+          {chatInfo.name}
         </Text>
-        <Text>{chatInfo.latestMessage}</Text>
+        {/* <Text>{chatInfo.latestMessage}</Text>
         <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toDateString(): ""}</Text>
-        <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toLocaleTimeString(): ""}</Text>
+        <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toLocaleTimeString(): ""}</Text> */}
 
       </View>
-    </TouchableOpacity>
+    </TouchableOpacity>) : null}
+  
+  </>
   )
 }
 
@@ -80,4 +73,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ChatRow
+export default ProxChatRow
