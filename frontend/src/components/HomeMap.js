@@ -41,7 +41,7 @@ const HomeMap = ({ hiddenLocations }) => {
           longitudeDelta: 0.0421,
         });
         console.log(location);
-      });
+      })();
   }, []);
 
   return (
@@ -52,6 +52,7 @@ const HomeMap = ({ hiddenLocations }) => {
       region={position}
       showsUserLocation={true}
       followsUserLocation={true}
+     
     >
       {hiddenLocations.map((location, index) => (
         <Marker
