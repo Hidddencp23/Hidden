@@ -6,6 +6,7 @@ import SearchModal from '../components/SearchModal';
 import distance from '../hooks/distance';
 import useAuth from '../hooks/useAuth';
 import HomeMap from '../components/HomeMap';
+import LocationItem from '../components/LocationItem';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -38,7 +39,7 @@ const HomeScreen = ({ navigation }) => {
                 })
             }>
                 <View style={{
-                    backgroundColor: "grey",
+                    backgroundColor: "lightGrey",
                     height: 100,
                 }}>
                     <Text>{location.name}</Text>
@@ -60,18 +61,18 @@ const HomeScreen = ({ navigation }) => {
     // console.log(userInfo)
     return (
         <SafeAreaView style={styles.homeScreen}>
-            <Text>Home</Text>
             <HomeMap hiddenLocations={locations} ></HomeMap>
-            <ScrollView style={{ height: '10%' }}>
-
+            <ScrollView style={{ height: '10%' }}> 
+                {/* Temporary list to show locations. 
+                    Should be swipeable component in the future */}
+                
                 {locations.map((location, index) => (
-                    <LocationView
+                    <LocationItem
+                        navigation={navigation}
                         location={location}
                         key={index}
                     />
                 ))}
-
-
             </ScrollView>
         </SafeAreaView>
     )
