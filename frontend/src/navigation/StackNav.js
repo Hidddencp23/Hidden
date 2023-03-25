@@ -11,14 +11,11 @@ import TextingScreen from '../screens/TextingScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import SearchScreen from '../screens/SearchScreen';
-<<<<<<< HEAD
 import LocationScreen from '../screens/LocationScreen';
-=======
 import TripScreen from '../screens/TripScreen';
 import TripDiaryScreen from '../screens/TripDiaryScreen';
 import AddTripScreen from '../screens/AddTripScreen';
 import GroupTextingScreen from '../screens/GroupTextingScreen';
->>>>>>> 45dc6d1c1ace8191fa1f52fe35654247d3d8a808
 
 const Stack = createNativeStackNavigator();
 
