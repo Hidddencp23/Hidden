@@ -7,7 +7,7 @@ import distance from '../hooks/distance';
 import useAuth from '../hooks/useAuth'
 
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
     const {user, userInfo } = useAuth();
     console.log(user.uid)
     // console.log(userInfo)
@@ -21,7 +21,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     homeScreen: {
         backgroundColor: 'white',
-        paddingBottom: 75,
+        paddingTop: "10%",
         height: '100%'
     },
     sortBy: {
