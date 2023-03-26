@@ -57,7 +57,6 @@ const HomeScreen = ({ navigation }) => {
         }).catch(console.error);
     }, [])
 
-
     // console.log(userInfo)
     return (
         <SafeAreaView style={styles.homeScreen}>
@@ -81,6 +80,8 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     homeScreen: {
         backgroundColor: 'white',
+        paddingTop: "10%",
+        height: '100%'
         // paddingBottom: 75,
         height: '100%',
         // flex: 1,

@@ -21,11 +21,8 @@ import {
   query,
 } from "firebase/firestore";
 import useAuth from "../hooks/useAuth";
-import ProfileCard from "../components/ProfileCard";
 import { SearchBar } from 'react-native-elements';
-
 import Icon from "react-native-vector-icons/AntDesign";
-//import { Icon } from 'react-native-vector-icons';
 
 // placeholder image for now
 import TripList from '../components/TripList';
@@ -42,9 +39,6 @@ const ProfileScreen = ({ navigation }) => {
   const [data, setData] = React.useState([]);
 
   // this info comes from firbase, placeholders for the moment
-  const [firstName, setFirstName] = useState("Juliet");
-  const [lastName, setLastName] = useState("Parker");
-  const [friends, setFriends] = useState(2000);
   const [online, setOnline] = useState(1); // flag for indicator
 
   // state for liked / my trips toggle
@@ -59,203 +53,145 @@ const ProfileScreen = ({ navigation }) => {
   const [search, setSearch] = useState('');
 
   return (
-    <SafeAreaView style={{ 
-      height: Dimensions.get('window').height
-    }}>
-    
-
-    <Text>Profile View</Text>
-
-      
-    <View style={{
-
-      position:'absolute',
-      borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-      width: Dimensions.get('window').width * 2,
-      height: Dimensions.get('window').width * 2,
-      top: -1 * (Dimensions.get('window').height * .88),
-      left: -1 * (Dimensions.get('window').width * .5),
-      backgroundColor:'#77C3EC',
-      justifyContent: 'center',
-      alignItems: 'center'
-      
-    }}/>
-
-      
-
+    <SafeAreaView
+      style={{
+        height: Dimensions.get("window").height,
+        backgroundColor: 'white'
+      }}
+    >
+      <View style={{
+          position:'absolute',
+          borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
+          width: Dimensions.get('window').width * 2,
+          height: Dimensions.get('window').width * 2,
+          top: -1 * (Dimensions.get('window').height * .88),
+          left: -1 * (Dimensions.get('window').width * .5),
+          backgroundColor:'#83C3FF',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 50,
+          zIndex: -1,
+      }}/> 
       <View style={styles.profTop}>
-      
         <View style={styles.circle} />
-        <Image source={{uri: userInfo.profilePic}} alt="Avatar" style={styles.photoURL} />
+        <Image
+          source={{ uri: userInfo.profilePic }}
+          alt="Avatar"
+          style={styles.photoURL}
+        />
         <Text style={styles.profileTitle}>
           {userInfo.name}{" "}
-
-          {online ? 
-          <Icon name="checkcircle" size={17} color="#77C3EC"/>
-          :
-          <Icon name="checkcircleo" size={17}/>
-          }
-
-        
-
+          {online ? (
+            <Icon name="checkcircle" size={17} color="#77C3EC" />
+          ) : (
+            <Icon name="checkcircleo" size={17} />
+          )}
         </Text>
-        
 
-        
-        <Text style={styles.profileSubTitle}>Total Friends:
+        <Text style={styles.profileSubTitle}>
+          Total Friends:
           <Text style={styles.friendsSubTitle}> {userInfo.friendCount}</Text>
         </Text>
-
-
-
-          
-
-        
       </View>
-  
 
-      <View style={{
-
-        marginTop: 30
-      }}>
-
-      {myprofile === 1 ? (
+      <View
+        style={{
+          marginTop: 30,
+        }}
+      >
+        {myprofile === 1 ? (
           <>
             <View style={styles.horizButtons}>
+              <TouchableOpacity style={styles.addFriendButton}>
+                <Text style={styles.addFriendText}>
+                  <Icon name="adduser" size={20} />
 
-            <TouchableOpacity style={styles.addFriendButton}>
+                  {addFriend}
+                </Text>
+              </TouchableOpacity>
 
-              <Text style={styles.addFriendText}>
-              <Icon name="adduser" size={20}/>
-                
-                {addFriend}
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.messageButton}>
-              <Icon name="message1" size={20} style={{
-                marginLeft: '32.5%'
-              }}/>
-                
-            </TouchableOpacity>
-              
-            </View>
-          </>
-        ) : null
-      }
-
-      
-
-      <SegmentedControl
-        style={styles.toggleButton}
-        values={['My Trips', 'Liked Trips']}
-        selectedIndex={displayIndex}
-        onChange={(event) => {
-          if (displayTrips == 'My Trips'){
-            setdisplayTrips('Liked Trips');
-            setDisplayIndex(1);
-            setSearchTrips(exLikedTrips);
-          }
-          else {
-            setdisplayTrips('My Trips');
-            setDisplayIndex(0);
-            setSearchTrips(exMyTrips);
-          }
-        }}
-      />
-
-
-      {myprofile === 0 ? (
-          <>
-            <View style={styles.searchAlign}>
-              
-            <SearchBar
-              lightTheme
-              round
-              containerStyle={styles.searchContainer}
-              inputContainerStyle={styles.searchInput}
-              placeholder="Search"
-              onChangeText={setSearch}
-              value={search}   
-            />
-              
-              <TouchableOpacity 
-                style={styles.addTripButton}
-                onPress={() => navigation.navigate("AddTripScreen")}
-              >
-                <Icon name="plus" size={20} style={{
-                  marginLeft: '35%'
-                }}/>
+              <TouchableOpacity style={styles.messageButton}>
+                <Icon
+                  name="message1"
+                  size={20}
+                  style={{
+                    marginLeft: "32.5%",
+                  }}
+                />
               </TouchableOpacity>
             </View>
           </>
-      ): null}
-      
-
-      </View>
-
-
-      <ScrollView>
-             {displayTrips === "My Trips" ? (
-          <>
-            <TripList navigation={navigation} displayTrips={"myTrips"}/>
-          </>
         ) : null}
 
-        {displayTrips === "Liked Trips" ? (
+        <SegmentedControl
+          style={styles.toggleButton}
+          values={["My Trips", "Liked Trips"]}
+          selectedIndex={displayIndex}
+          onChange={(event) => {
+            if (displayTrips == "My Trips") {
+              setdisplayTrips("Liked Trips");
+              setDisplayIndex(1);
+              //setSearchTrips(exLikedTrips);
+            } else {
+              setdisplayTrips("My Trips");
+              setDisplayIndex(0);
+              //setSearchTrips(exMyTrips);
+            }
+          }}
+        />
+
+        {myprofile === 0 ? (
           <>
-            <TripList navigation={navigation} displayTrips={"likedTrips"}/>
-          </>
-        ) : null}
-         
-      </ScrollView>
-
-
-      
-    </SafeAreaView>
-  );
-};
-
-/*
+            <View style={styles.searchAlign}>
               <SearchBar
                 lightTheme
                 round
                 containerStyle={styles.searchContainer}
                 inputContainerStyle={styles.searchInput}
                 placeholder="Search"
-                
+                onChangeText={setSearch}
+                value={search}
               />
 
-*/
-
-/*
-
+              <TouchableOpacity
+                style={styles.addTripButton}
+                onPress={() => navigation.navigate("AddTripScreen")}
+              >
+                <Icon
+                  name="plus"
+                  size={20}
+                  style={{
+                    marginLeft: "35%",
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          </>
+        ) : null}
+      </View>
 
       <ScrollView>
         {displayTrips === "My Trips" ? (
-          <FlatList
-            data={exMyTrips}
-            renderItem={({ item }) => <TripView trip={item} />}
-          />
+          <>
+            <TripList navigation={navigation} displayTrips={"myTrips"} />
+          </>
         ) : null}
 
         {displayTrips === "Liked Trips" ? (
-          <FlatList
-            data={exLikedTrips}
-            renderItem={({ item }) => <TripView trip={item} />}
-          />
+          <>
+            <TripList navigation={navigation} displayTrips={"likedTrips"} />
+          </>
         ) : null}
       </ScrollView>
-
-
-*/
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
 
   profileHeader: {
     justifyContent: 'center',
     marginTop: '15%',
-    
     fontSize: 22,
     fontWeight: 'bold'
   },
@@ -284,14 +220,16 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   photoURL: {
-    height: 110,
-    width: 110,
+    position: 'relative',
+    height: 150,
+    width: 150,
     borderRadius: 100,
     borderStyle: "solid",
     borderWidth: 2,
     borderColor: 'black',
-    marginTop: '35%',
-    marginBottom: '5%'
+    marginTop: '5%',
+    marginBottom: '5%',
+    zIndex: 1
   },
   photoAlign: {
     marginTop: "20%",
@@ -312,21 +250,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "black",
-    marginTop: '6%',
+    paddingTop: '2%',
     height: '20%'
   },
   profileSubTitle: {
     fontSize: 17,
     fontWeight: "normal",
     color: "black",
-    marginTop: '4%',
     //fontFamily: ''
   },
   friendsSubTitle: {
     fontSize: 17,
     fontWeight: "normal",
     color: "#77C3EC",
-    marginTop: '4%',
     //fontFamily: ''
   },
 
@@ -339,13 +275,17 @@ const styles = StyleSheet.create({
 
   searchContainer: {
 
-    height: 45,
+    height: 48,
     width: '62.5%',
     backgroundColor: 'white',
     borderColor: 'white',
-    borderRadius: 10,
+    borderRadius: 15,
     flexDirection: 'row',
-    marginBotton: '5%'
+    marginBotton: '5%',
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    shadowOffset : { width: 1, height: 8},
   },
 
   searchBarContainer: {
@@ -381,33 +321,11 @@ const styles = StyleSheet.create({
     marginLeft: "7.5%",
     borderRadius: 7,
     justifyContent: 'center',
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    shadowOffset : { width: 1, height: 8},
   },
-
-
-
-  /*
-  onlineStatusCircle: {
-    width: 10,
-    height: 10,
-    borderRadius: 100,
-    backgroundColor: "white",
-    borderColor: "white",
-    marginLeft: "110%",
-    marginTop: "5%",
-    position: "absolute",
-  },
-
-  offlineStatusCircle: {
-    width: 10,
-    height: 10,
-    borderRadius: "50%",
-    backgroundColor: "grey",
-    borderColor: "white",
-    marginLeft: "110%",
-    marginTop: "5%",
-    position: "absolute",
-  },
-  */
 
   setHorizontalButtons: {
     width: "100%",
@@ -425,12 +343,11 @@ const styles = StyleSheet.create({
  
     tintColor: "#FFFFFF",
     backgroundColor: '#83C3FF',
-
     height: 45,
     marginLeft: "7%",
-    marginTop: "5%",
     width: "86%",
     marginBottom: "5%",
+
   },
 
   addFriendButton: {
