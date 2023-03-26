@@ -81,8 +81,6 @@ const styles = StyleSheet.create({
     homeScreen: {
         backgroundColor: 'white',
         paddingTop: "10%",
-        height: '100%'
-        // paddingBottom: 75,
         height: '100%',
         // flex: 1,
         // justifyContent: "center",
