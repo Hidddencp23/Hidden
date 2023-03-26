@@ -39,13 +39,13 @@ const HomeStackNavigator = () => {
     );
 }
 
-const SearchStackNavigator = () => {
-    return (
-        <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-        </Stack.Navigator>
-    );
-}
+// const SearchStackNavigator = () => {
+//     return (
+//         <Stack.Navigator screenOptions={screenOptionStyle}>
+//             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+//         </Stack.Navigator>
+//     );
+// }
 
 
 const ChatStackNavigator = () => {
@@ -82,4 +82,4 @@ const AuthStackNavigator = () => {
     );
 }
 
-export { HomeStackNavigator, SearchStackNavigator, ChatStackNavigator, ProfileStackNavigator, AuthStackNavigator };
+export { HomeStackNavigator, ChatStackNavigator, ProfileStackNavigator, AuthStackNavigator };
