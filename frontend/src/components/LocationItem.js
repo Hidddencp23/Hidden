@@ -1,28 +1,35 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const LocationItem = (props) => {
+const LocationItem = ({navigation, location}) => {
     return (
-        <TouchableOpacity style={styles.root} onPress={() => {
-                props.setSearch(props.description);
-                props.clearSearch();
-                props.setShowModal(false);
-            }}
-        >
-            <Text style={styles.text}>{props.description}</Text>
+        <TouchableOpacity 
+            style={styles.locationItem} 
+            onPress={() =>
+                navigation.navigate("LocationScreen", {
+                    location
+                })
+        }>
+            <View style={{
+                height: 100,
+            }}>
+                <Text>{location.name}</Text>
+                <Text>{location.description}</Text>
+                <Text>{location.address}</Text>
+            </View>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
-    root: {
-        height: 40,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        justifyContent: 'center'
-    },
-    text: {
-        fontSize: 14
-    }
+    locationItem: {
+        backgroundColor: "#FFFFFF",
+        marginTop: "5%",
+        marginLeft: "2.5%",
+        marginRight: "2.5%",
+        height: 90,
+        borderRadius: 20,
+      }
 })
 
 export default LocationItem;

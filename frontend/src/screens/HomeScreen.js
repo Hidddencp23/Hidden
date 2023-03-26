@@ -1,20 +1,79 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity } from 'react-native';
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useEffect, useState, useRef } from 'react';
+import { SafeAreaView, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
 import { db } from '../hooks/firebase';
 import SearchModal from '../components/SearchModal';
 import distance from '../hooks/distance';
-import useAuth from '../hooks/useAuth'
+import useAuth from '../hooks/useAuth';
+import HomeMap from '../components/HomeMap';
+import LocationItem from '../components/LocationItem';
 
 
-const HomeScreen = () => {
-    const {user, userInfo } = useAuth();
-    console.log(user.uid)
+const HomeScreen = ({ navigation }) => {
+    const { user, userInfo } = useAuth();
+    const [locations, setLocations] = useState([]);
+
+    const getAllLocations = async () => {
+        const querySnapshot = await getDocs(collection(db, "HiddenLocations"));
+        // setLocations(
+        //     querySnapshot.docs.map(doc => ({
+        //         id: doc.id,
+        //         ...doc.data()
+        //     }))
+        // )
+        let locs = []
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            locs.push({id: doc.id, ...doc.data()})
+            // setLocations([...locations, doc.data()])
+        });
+        setLocations(locs)
+    }
+
+    const LocationView = ({ location }) => {
+        return (
+            <TouchableOpacity onPress={() =>
+                navigation.navigate("LocationScreen", {
+                    location
+                })
+            }>
+                <View style={{
+                    backgroundColor: "lightGrey",
+                    height: 100,
+                }}>
+                    <Text>{location.name}</Text>
+                    <Text>{location.description}</Text>
+                    <Text>{location.address}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
+    useEffect(() => {
+        getAllLocations().then(() => {
+            console.log("locations");
+            console.log(locations)
+        }).catch(console.error);
+    }, [])
+
     // console.log(userInfo)
     return (
-        <View style={styles.homeScreen}>
-            <Text>Home</Text>
-        </View>
+        <SafeAreaView style={styles.homeScreen}>
+            <HomeMap hiddenLocations={locations} ></HomeMap>
+            <ScrollView style={{ height: '10%' }}> 
+                {/* Temporary list to show locations. 
+                    Should be swipeable component in the future */}
+                
+                {locations.map((location, index) => (
+                    <LocationItem
+                        navigation={navigation}
+                        location={location}
+                        key={index}
+                    />
+                ))}
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
@@ -23,6 +82,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingTop: "10%",
         height: '100%'
+        // paddingBottom: 75,
+        height: '100%',
+        // flex: 1,
+        // justifyContent: "center",
+        // alignItems: "center",
+    },
+    map: {
+        height: '100%',
+    },
+    swipePanel: {
+        marginTop: 1000
     },
     sortBy: {
         flexDirection: 'row',
