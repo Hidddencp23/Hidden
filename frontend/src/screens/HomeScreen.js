@@ -1,11 +1,4 @@
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
-import {
-  collection,
-  where,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
 import useAuth from "../hooks/useAuth";
 import LocationList from "../components/LocationList";
 import Icon from "react-native-vector-icons/AntDesign";
