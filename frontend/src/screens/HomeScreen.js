@@ -17,9 +17,7 @@ import { db } from '../hooks/firebase';
 import SearchModal from '../components/SearchModal';
 import distance from '../hooks/distance';
 import HomeMap from '../components/HomeMap';
-import SwipeUpDown from 'react-native-swipe-up-down';
-import { SwipeablePanel } from 'rn-swipeable-panel';
-
+import LocationItem from '../components/LocationItem';
 
 // placeholder image for now
 import deleteme from "../../assets/deleteme.png";
@@ -81,7 +79,7 @@ const HomeScreen = ({ navigation }) => {
                 })
             }>
                 <View style={{
-                    backgroundColor: "grey",
+                    backgroundColor: "lightGrey",
                     height: 100,
                 }}>
                     <Text>{location.name}</Text>
@@ -99,102 +97,22 @@ const HomeScreen = ({ navigation }) => {
         }).catch(console.error);
     }, [])
 
-
+    // console.log(userInfo)
     return (
         <SafeAreaView style={styles.homeScreen}>
-            <Text>Home</Text>
             <HomeMap hiddenLocations={locations} ></HomeMap>
-            <ScrollView style={{ height: '10%' }}>
-
+            <ScrollView style={{ height: '10%' }}> 
+                {/* Temporary list to show locations. 
+                    Should be swipeable component in the future */}
+                
                 {locations.map((location, index) => (
-                    <LocationView
+                    <LocationItem
+                        navigation={navigation}
                         location={location}
                         key={index}
                     />
                 ))}
-
-
             </ScrollView>
-            {/* <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
-                <ScrollView>
-                    <TouchableWithoutFeedback>
-                        <View>
-                            <TouchableOpacity >
-                                <Text>Close</Text>
-                            </TouchableOpacity>
-                            <View
-                                style={{
-                                    backgroundColor: "blue",
-                                    height: 200,
-                                }}
-                            />
-                            <View
-                                style={{
-                                    backgroundColor: "yellow",
-                                    height: 200,
-                                }}
-                            />
-
-                        </View>
-                    </TouchableWithoutFeedback>
-                </ScrollView>
-            </SwipeablePanel> */}
-            {/* <SwipeUpDown
-                ref={swipeUpDownRef}
-                itemMini={(show) => (
-                    <View
-                        style={{
-                            alignItems: "center",
-                            height: 500,
-                            backgroundColor: "blue",
-                        }}
-                    >
-                        <Text onPress={show}>This is the mini view, swipe up!</Text>
-                    </View>
-                )}
-                itemFull={(close) => (
-                    <ScrollView>
-                        <TouchableWithoutFeedback>
-                            <View>
-                                <TouchableOpacity onPress={close}>
-                                    <Text>Close</Text>
-                                </TouchableOpacity>
-                                <View
-                                    style={{
-                                        backgroundColor: "blue",
-                                        height: 200,
-                                    }}
-                                />
-                                <View
-                                    style={{
-                                        backgroundColor: "yellow",
-                                        height: 200,
-                                    }}
-                                />
-                                <View
-                                    style={{
-                                        backgroundColor: "pink",
-                                        height: 200,
-                                    }}
-                                />
-                                <View
-                                    style={{
-                                        backgroundColor: "red",
-                                        height: 200,
-                                    }}
-                                />
-                            </View>
-                        </TouchableWithoutFeedback>
-                    </ScrollView>
-                )}
-                onShowMini={() => console.log("mini")}
-                onShowFull={() => console.log("full")}
-                animation="spring"
-                extraMarginTop={24}
-                disablePressToShow={true} // Press item mini to show full
-                style={{ backgroundColor: "gray" }} // style for swipe
-            /> */}
-
         </SafeAreaView>
     )
 }
@@ -202,7 +120,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     homeScreen: {
         backgroundColor: 'white',
-        // paddingBottom: 75,
+        paddingTop: "10%",
         height: '100%',
         // flex: 1,
         // justifyContent: "center",

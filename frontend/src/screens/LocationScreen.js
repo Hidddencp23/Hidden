@@ -14,6 +14,7 @@ const LocationScreen = ({ navigation }) => {
     console.log(location);
 
     useEffect(() => {
+        // retrieves experiences that belong to this location
         onSnapshot(
             query(
                 collection(db, 'Experiences'),
@@ -38,6 +39,7 @@ const LocationScreen = ({ navigation }) => {
             <Text>{location.name}</Text>
             <Text>{location.description}</Text>
             <Text>{location.address}</Text>
+            <Text>Activity</Text>
             <ScrollView>
                 {experiences.map((experience, index) => (
                     <Experience experience={experience} key={index} />

@@ -14,19 +14,6 @@ const HomeMap = ({ hiddenLocations }) => {
   });
   const mapView = React.createRef();
 
-
-  exMarkers = [{
-    latlng: {
-      latitude: 33.672939,
-      longitude: -117.962395
-    },
-    title: "Example",
-    description: "test desc"
-  }]
-
-
-
-
   const animateMap = (coords) => {
     mapView.current.animateToRegion({ // Takes a region object as parameter
         latitude: coords.latitude,
@@ -38,7 +25,7 @@ const HomeMap = ({ hiddenLocations }) => {
 
   useEffect(() => {
     (
-      async () => {
+      async () => { // function to request for location from user
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
           setErrorMsg("Permission to access location was denied");
