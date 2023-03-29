@@ -5,6 +5,10 @@ import getMatchedUserInfo from './getMatchedUserInfo'
 import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
 import { db } from "../hooks/firebase";
 
+import moment from 'moment';
+
+import Icon from "react-native-vector-icons/AntDesign";
+
 const ChatRow = ({ chatInfo, navigation }) => {
   const { user } = useAuth();
   const [chatUser, setChatUser] = useState("");
@@ -31,6 +35,10 @@ const ChatRow = ({ chatInfo, navigation }) => {
   }, [])
 
 
+
+
+  const timeAgo = chatInfo.latestTimestamp != null ? moment.utc(chatInfo.latestTimestamp.toDate().toDateString()).local().startOf('seconds').fromNow(): "";
+
   return (
     <TouchableOpacity
       style={styles.messagecard}
@@ -44,13 +52,26 @@ const ChatRow = ({ chatInfo, navigation }) => {
         source={{ uri: chatUser.profilePic }}
       />
 
-      <View>
-        <Text style={styles.text}>
-          {chatUser.name}
-        </Text>
-        <Text>{chatInfo.latestMessage}</Text>
-        <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toDateString(): ""}</Text>
-        <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toLocaleTimeString(): ""}</Text>
+      <View style={styles.horizontal}>
+
+        <View style>
+          <Text style={styles.text}>
+            {chatUser.name}
+          </Text>
+          <Text style={styles.messagePad}>{chatInfo.latestMessage}</Text>
+        </View>
+
+        <View style={styles.alignRight}>
+          <Text style={styles.alignDate}>
+            {timeAgo}
+          </Text>
+
+
+          <View style={styles.arrowPad}>
+            <Icon name="right" size={20} style={styles.arrow} />
+          </View>
+        </View>
+        
 
       </View>
     </TouchableOpacity>
@@ -58,6 +79,19 @@ const ChatRow = ({ chatInfo, navigation }) => {
 }
 
 const styles = StyleSheet.create({
+  arrowPad: {
+    paddingTop: 10
+  },
+  alignDate: {
+    marginLeft: '50%', 
+    fontWeight: "bold"
+  },
+  alignRight: {
+    alignItems: 'flex-end'
+  },
+  messagePad: {
+    paddingTop: 5
+  },
   profPic: {
     width: 50,
     height: 50,
@@ -71,12 +105,22 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     margin: 5,
-    paddingBottom: 20,
-    paddingTop: 20
+    paddingBottom: 30,
+    paddingTop: 30
+
   },
   text: {
     fontWeight: 'bold',
     fontSize: 16
+  },
+  horizontal: {
+    flexDirection: 'row'
+  },
+  vertical: {
+    flexDirection: 'column'
+  },
+  time: {
+    textAlign: "right"
   }
 });
 

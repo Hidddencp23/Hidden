@@ -11,6 +11,7 @@ const TripScreen = ({navigation}) => {
     return (
         <View>
             <Text>About {tripInfo.author}'s trip to {tripInfo.tripName}</Text>
+
         </View>
     )
 }

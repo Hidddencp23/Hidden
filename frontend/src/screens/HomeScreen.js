@@ -60,7 +60,10 @@ const HomeScreen = ({ navigation }) => {
     // console.log(userInfo)
     return (
         <SafeAreaView style={styles.homeScreen}>
-            <HomeMap hiddenLocations={locations} ></HomeMap>
+            {/*
+                commented for now: laggy on emulator
+                <HomeMap hiddenLocations={locations} ></HomeMap>
+            */}
             <ScrollView style={{ height: '10%' }}> 
                 {/* Temporary list to show locations. 
                     Should be swipeable component in the future */}

@@ -8,6 +8,10 @@ import TripRow from './TripRow';
 const TripList = ({ navigation, displayTrips }) => {
     const [trips, setTrips] = useState([]);
     const { user, userInfo } = useAuth();
+
+    //console.log('trips:')
+    //console.log(trips[0]['experiences'])
+
     useEffect(() =>
         onSnapshot(
             query(

@@ -27,8 +27,13 @@ const TripDiaryScreen = ({ route, navigation}) => {
   // search bar (for trips)
   const [search, setSearch] = useState('');
 
+
+  //console.log('experiences: end')
+  //console.log(experiences[0]['image'])
+  /*
   console.log(experiences
     .filter(x => String(x.title).includes('Pantheon')))
+  */
 
   const ExperienceView = ({ experience }) => (
     
@@ -42,7 +47,7 @@ const TripDiaryScreen = ({ route, navigation}) => {
     >
       <TouchableOpacity style={styles.myTripTab}>
         <View style={styles.horizButtons}>
-          <Image source={experience.image} alt="Avatar" style={styles.tripImg}></Image>
+          <Image source={{ uri: experience.image}} alt="Avatar" style={styles.tripImg}></Image>
           <View style={styles.vertButtons}>
             <Text style={styles.myTripsTitle}>{experience.title}</Text>
             <Text style={styles.myTripsUser}>{experience.date}</Text>
@@ -72,7 +77,7 @@ const TripDiaryScreen = ({ route, navigation}) => {
       position:'absolute',
       borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
       width: Dimensions.get('window').width * 2,
-      height: Dimensions.get('window').width * 2,
+      height: Dimensions.get('window').height * 1.05,
       top: -1 * (Dimensions.get('window').height * .88),
       left: -1 * (Dimensions.get('window').width * .5),
       backgroundColor:'#77C3EC',
@@ -101,6 +106,16 @@ const TripDiaryScreen = ({ route, navigation}) => {
       </>
       ) : null}
     </ScrollView>
+
+    <TouchableOpacity
+        onPress={() => navigation.navigate("AddExperienceScreen")}
+        style={styles.circularButton}>
+        
+        <Icon name="plus" size={30} style={{
+            marginLeft: '0%'
+      }}/>
+      
+    </TouchableOpacity>
 
     </SafeAreaView>
   )
@@ -257,6 +272,20 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     borderRadius: 20,
+  },
+
+  circularButton: {
+    position: 'absolute',
+    top: '72.5%',
+    left: '75%',
+
+    width: 70,
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
+    backgroundColor: '#77C3EC',
   },
 
   toggleButton: {
