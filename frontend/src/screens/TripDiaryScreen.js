@@ -9,7 +9,8 @@ import {
   FlatList,
   SafeAreaView,
   ScrollView,
-  Dimensions
+  Dimensions,
+  Platform
 } from "react-native";
 
 import { SearchBar } from 'react-native-elements';
@@ -72,19 +73,34 @@ const TripDiaryScreen = ({ route, navigation}) => {
 
     
 
-    <View style={{
+{Platform.OS === 'ios' ?
+            <View style={{
+                position:'absolute',
+                borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
+                width: Dimensions.get('window').width * 2,
+                height: Dimensions.get('window').width * 2,
+                top: -1 * (Dimensions.get('window').height * .88),
+                left: -1 * (Dimensions.get('window').width * .5),
+                backgroundColor:'#83C3FF',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 90,
+            }}/> 
 
-      position:'absolute',
-      borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-      width: Dimensions.get('window').width * 2,
-      height: Dimensions.get('window').height * 1.05,
-      top: -1 * (Dimensions.get('window').height * .88),
-      left: -1 * (Dimensions.get('window').width * .5),
-      backgroundColor:'#77C3EC',
-      justifyContent: 'center',
-      alignItems: 'center'
-      
-    }}/>
+            :
+            <View style={{
+                position:'absolute',
+                borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
+                width: Dimensions.get('window').width * 2,
+                height: Dimensions.get('window').height * 0.91,
+                top: -1 * (Dimensions.get('window').height * .88),
+                left: -1 * (Dimensions.get('window').width * .5),
+                backgroundColor:'#83C3FF',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 90,
+            }}/> 
+            }
 
     <SearchBar
       lightTheme

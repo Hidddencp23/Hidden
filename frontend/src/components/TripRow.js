@@ -37,9 +37,8 @@ const TripRow = ({ tripInfo, navigation }) => {
         <Text style={styles.tripsUser}> {"By: " + tripInfo.author}</Text>
         <Text style={styles.tripsDate}> {tripInfo.tripPostTime != null ? tripInfo.tripPostTime.toDate().toDateString(): ""}</Text>
       </View>
-                <Icon name="right" size={20} style={styles.arrow} />
-
-              </View>
+        <Icon name="right" size={20} style={styles.arrow} />
+      </View>
 
     </TouchableOpacity>
         </View>

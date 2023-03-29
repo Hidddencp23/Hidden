@@ -11,7 +11,8 @@ import {
   SafeAreaView,
   ScrollView,
   Dimensions,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import {
   collection,
@@ -61,19 +62,34 @@ const ProfileScreen = ({ navigation }) => {
         backgroundColor: 'white'
       }}
     >
-      <View style={{
-          position:'absolute',
-          borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
-          width: Dimensions.get('window').width * 2,
-          height: Dimensions.get('window').height * 0.95,
-          top: -1 * (Dimensions.get('window').height * .88),
-          left: -1 * (Dimensions.get('window').width * .5),
-          backgroundColor:'#83C3FF',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 50,
-          zIndex: -1,
-      }}/> 
+      {Platform.OS === 'ios' ?
+            <View style={{
+                position:'absolute',
+                borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
+                width: Dimensions.get('window').width * 2,
+                height: Dimensions.get('window').width * 2,
+                top: -1 * (Dimensions.get('window').height * .88),
+                left: -1 * (Dimensions.get('window').width * .5),
+                backgroundColor:'#83C3FF',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 90,
+            }}/> 
+
+            :
+            <View style={{
+                position:'absolute',
+                borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
+                width: Dimensions.get('window').width * 2,
+                height: Dimensions.get('window').height * 0.91,
+                top: -1 * (Dimensions.get('window').height * .88),
+                left: -1 * (Dimensions.get('window').width * .5),
+                backgroundColor:'#83C3FF',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 90,
+            }}/> 
+            }
       <View style={styles.profTop}>
         <View style={styles.circle} />
         <Image
