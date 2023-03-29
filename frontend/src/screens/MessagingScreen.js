@@ -5,14 +5,16 @@ import ChatList from '../components/ChatList';
 
 const MessagingScreen = ({ navigation }) => {
   return (
-    <SafeAreaView>
-        <ChatHeader title='Chat' navigation={navigation}/>
+    <SafeAreaView style={styles.chat}>
         <ChatList navigation={navigation}/>
     </SafeAreaView>
   )
 };
 
 const styles = StyleSheet.create({
+  chat: {
+    marginTop: "10%"
+  },
   text: {
     fontSize: 30,
   },

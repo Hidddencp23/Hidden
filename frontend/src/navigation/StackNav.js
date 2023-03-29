@@ -17,6 +17,7 @@ import TripDiaryScreen from '../screens/TripDiaryScreen';
 import AddTripScreen from '../screens/AddTripScreen';
 import GroupTextingScreen from '../screens/GroupTextingScreen';
 import ProfileScreenNavBar from '../components/ProfileScreenNavBar';
+import ChatNavBar from '../components/ChatNavBar';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,7 +52,7 @@ const HomeStackNavigator = () => {
 const ChatStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <ChatNavBar navigation={navigation} /> }} />
             <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
 
