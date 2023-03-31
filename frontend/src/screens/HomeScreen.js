@@ -19,7 +19,7 @@ const HomeScreen = ({ navigation }) => {
     const [panelProps, setPanelProps] = useState({
         isActive: true,
         fullWidth: true,
-        openLarge: false,
+        onlySmall: true,
         showCloseButton: false,
         onClose: () => closePanel(),
         allowTouchOutside:true,
