@@ -22,15 +22,17 @@ const HomeScreen = ({ navigation }) => {
     const { user, userInfo } = useAuth();
     const [locations, setLocations] = useState([])
     const [panelProps, setPanelProps] = useState({
+        isActive: true,
         fullWidth: true,
         openLarge: false,
         showCloseButton: false,
         onClose: () => closePanel(),
+        allowTouchOutside:true
         // onPressCloseButton: () => closePanel(),
         // closeOnTouchOutside: true
         // ...or any prop you want
     });
-    const [isPanelActive, setIsPanelActive] = useState(true);
+    const [isPanelActive, setIsPanelActive] = useState(false);
     const swipeUpDownRef = useRef();
     // swipeUpDownRef.current.showFull();
 
@@ -97,11 +99,37 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
         )
     }
+    const ItemMini = () => {
+        return (
+            <View style={{height: "100%", width: "100%", color: "black"}}>
+                <Text>HIDSfj</Text>
+            </View>
+        )
+    }
+    const ItemFull = () => {
+        return (
+            <View >
+                <Text style={styles.searchtitle} >Search Results</Text>
+                    <SearchFilters></SearchFilters>
+                    <View>
+                    <ScrollView style={{ height: '100%' }}>
+
+                        {locations.map((location, index) => (
+                            <LocationView
+                                location={location}
+                                key={index}
+                            />
+                        ))}
+                    </ScrollView>
+                    </View>
+            </View>
+        )
+    }
 
     useEffect(() => {
         getAllLocations().then(() => {
-            console.log("locations");
-            console.log(locations)
+            // console.log("locations");
+            // console.log(locations)
         }).catch(console.error);
     }, [])
 
@@ -111,7 +139,16 @@ const HomeScreen = ({ navigation }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={styles.homeScreen} >
                 <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
-                
+                {/* <SwipeUpDown   
+    ref={showFull()}
+    itemMini={<ItemMini />} // Pass props component when collapsed
+    itemFull={<ItemFull />} // Pass props component when show full
+    onShowMini={() => console.log('mini')}
+    onShowFull={() => console.log('full')}
+    disablePressToShow={true} // Press item mini to show full
+    style={{ backgroundColor: 'green' }} // style for swipe
+/> */}
+
                 <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
             
                     <Text style={styles.searchtitle} >Search Results</Text>
@@ -128,6 +165,9 @@ const HomeScreen = ({ navigation }) => {
                     </ScrollView>
                     </View>
                 </SwipeablePanel>
+                <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
+                    <Icon name="enviroment" color={"#83C3FF"} size={30}> </Icon>
+                </TouchableOpacity>
             </SafeAreaView>
             </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -171,7 +211,13 @@ const styles = StyleSheet.create({
         height: 25,
         borderRadius: 20,
     },
-
+    listButton: {
+        backgroundColor: "white",
+        borderRadius: 50,
+        position: "absolute",
+        bottom: "5%",
+        right: "5%",
+      },
     icons: {
         paddingLeft: "10%",
         paddingRight: "15%",
@@ -186,7 +232,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     swipePanel: {
-        paddingTop: 10,
+       top: "25%",
     },
     sortBy: {
         flexDirection: 'row',
