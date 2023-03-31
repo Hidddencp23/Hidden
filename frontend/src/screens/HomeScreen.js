@@ -10,13 +10,8 @@ import { db } from '../hooks/firebase';
 import distance from '../hooks/distance';
 import HomeMap from '../components/HomeMap';
 import LocationItem from '../components/LocationItem';
-import SwipeUpDown from 'react-native-swipe-up-down';
 import { SwipeablePanel } from 'rn-swipeable-panel';
 
-// placeholder image for now
-
-// need to connect db
-//import { db } from '../hooks/firebase';
 
 const HomeScreen = ({ navigation }) => {
     const { user, userInfo } = useAuth();
@@ -27,7 +22,8 @@ const HomeScreen = ({ navigation }) => {
         openLarge: false,
         showCloseButton: false,
         onClose: () => closePanel(),
-        allowTouchOutside:true
+        allowTouchOutside:true,
+        smallPanelHeight: 700
         // onPressCloseButton: () => closePanel(),
         // closeOnTouchOutside: true
         // ...or any prop you want
@@ -99,56 +95,18 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
         )
     }
-    const ItemMini = () => {
-        return (
-            <View style={{height: "100%", width: "100%", color: "black"}}>
-                <Text>HIDSfj</Text>
-            </View>
-        )
-    }
-    const ItemFull = () => {
-        return (
-            <View >
-                <Text style={styles.searchtitle} >Search Results</Text>
-                    <SearchFilters></SearchFilters>
-                    <View>
-                    <ScrollView style={{ height: '100%' }}>
-
-                        {locations.map((location, index) => (
-                            <LocationView
-                                location={location}
-                                key={index}
-                            />
-                        ))}
-                    </ScrollView>
-                    </View>
-            </View>
-        )
-    }
 
     useEffect(() => {
         getAllLocations().then(() => {
-            // console.log("locations");
-            // console.log(locations)
         }).catch(console.error);
     }, [])
 
-    // console.log(userInfo)
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={styles.homeScreen} >
                 <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
-                {/* <SwipeUpDown   
-    ref={showFull()}
-    itemMini={<ItemMini />} // Pass props component when collapsed
-    itemFull={<ItemFull />} // Pass props component when show full
-    onShowMini={() => console.log('mini')}
-    onShowFull={() => console.log('full')}
-    disablePressToShow={true} // Press item mini to show full
-    style={{ backgroundColor: 'green' }} // style for swipe
-/> */}
-
+                
                 <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
             
                     <Text style={styles.searchtitle} >Search Results</Text>
@@ -166,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
                     </View>
                 </SwipeablePanel>
                 <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
-                    <Icon name="enviroment" color={"#83C3FF"} size={30}> </Icon>
+                    <Icon name="enviroment" color={"#83C3FF"} size={30} style={{justifyContent:"center"}}> </Icon>
                 </TouchableOpacity>
             </SafeAreaView>
             </TouchableWithoutFeedback>
@@ -179,9 +137,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         paddingTop: 0,
         height: '100%',
-        // flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
     },
     map: {
         position: 'absolute',
@@ -232,7 +187,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     swipePanel: {
-       top: "25%",
+       paddingTop: "2%",
     },
     sortBy: {
         flexDirection: 'row',
