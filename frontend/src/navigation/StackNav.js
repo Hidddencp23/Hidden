@@ -18,6 +18,7 @@ import GroupTextingScreen from '../screens/GroupTextingScreen';
 import LocationScreen from '../screens/LocationScreen';
 import ProfileScreenNavBar from '../components/ProfileScreenNavBar';
 import SearchNavBar from '../components/SearchNavBar';
+import LocationNav from '../components/LocationNav';
 const Stack = createNativeStackNavigator();
 
 const screenOptionStyle = {
@@ -33,7 +34,7 @@ const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <SearchNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
 
         </Stack.Navigator>
     );
