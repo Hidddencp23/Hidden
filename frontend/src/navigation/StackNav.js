@@ -11,13 +11,14 @@ import TextingScreen from '../screens/TextingScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import SearchScreen from '../screens/SearchScreen';
-import LocationScreen from '../screens/LocationScreen';
 import TripScreen from '../screens/TripScreen';
 import TripDiaryScreen from '../screens/TripDiaryScreen';
 import AddTripScreen from '../screens/AddTripScreen';
 import GroupTextingScreen from '../screens/GroupTextingScreen';
+import LocationScreen from '../screens/LocationScreen';
 import ProfileScreenNavBar from '../components/ProfileScreenNavBar';
-
+import SearchNavBar from '../components/SearchNavBar';
+import LocationNav from '../components/LocationNav';
 const Stack = createNativeStackNavigator();
 
 const screenOptionStyle = {
@@ -32,8 +33,8 @@ const screenOptionStyle = {
 const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <SearchNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
 
         </Stack.Navigator>
     );
@@ -42,7 +43,7 @@ const HomeStackNavigator = () => {
 const SearchStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ header: ({ navigation }) => <SearchNavBar navigation={navigation} /> }} />
         </Stack.Navigator>
     );
 }

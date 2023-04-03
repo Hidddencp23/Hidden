@@ -7,24 +7,13 @@ import Icon from "react-native-vector-icons/AntDesign";
 const TopNavBar = ({ navigation }) => {
     return (
         <>
-            <View style={{
-                position:'absolute',
-                borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
-                width: Dimensions.get('window').width * 2,
-                height: Dimensions.get('window').width * 2,
-                top: -1 * (Dimensions.get('window').height * .88),
-                left: -1 * (Dimensions.get('window').width * .5),
-                backgroundColor:'#83C3FF',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 90,
-            }}/> 
-            <View style={styles.header}>
-                    <Image style={styles.headerImage} source={require('../Images/hidden_logo.png')} />
-                    <TouchableOpacity style={styles.addButton}>
-                        <Icon name="plus" size={20} />
-                    </TouchableOpacity>
-            </View>
+            <View style={styles.circle}></View> 
+                <View style={styles.header}>
+                        <Image style={styles.headerImage} source={require('../Images/hidden_logo.png')} />
+                        <TouchableOpacity style={styles.addButton}>
+                            <Icon name="plus" size={20} />
+                        </TouchableOpacity>
+                </View>
         </>
     )
 }
@@ -52,7 +41,21 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: "center"
-      },
+      },   
+    
+    circle: {
+        position:'absolute',
+        borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
+        width: Dimensions.get('window').width * 2,
+        height: Dimensions.get('window').width * 2,
+        top: -1 * (Dimensions.get('window').height * .88),
+        left: -1 * (Dimensions.get('window').width * .5),
+        backgroundColor:'#83C3FF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 90,
+    },
+    
 
 });
 
