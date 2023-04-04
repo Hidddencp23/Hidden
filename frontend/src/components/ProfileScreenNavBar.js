@@ -6,15 +6,22 @@ import Icon from "react-native-vector-icons/AntDesign";
 
 const ProfileScreenNavBar = ({ navigation }) => {
     return (
-        <View style={styles.header}>
-                <TouchableOpacity style={styles.Button}>
-                    <Icon name="notification" size={20} />
-                </TouchableOpacity>
-                <Text style={styles.baseText}>Profile</Text>
-                <TouchableOpacity style={styles.Button}>
-                    <Icon name="setting" size={20} />
-                </TouchableOpacity>
-        </View>
+        <>
+            {/* {Platform.OS === 'ios' ?
+                    <View style={circleStyles.iosCircle}/> 
+                    :
+                    <View style={circleStyles.androidCircle}/> 
+            } */}        
+            <View style={styles.header}>
+                    <TouchableOpacity style={styles.Button}>
+                        <Icon name="notification" size={20} />
+                    </TouchableOpacity>
+                    <Text style={styles.baseText}>Profile</Text>
+                    <TouchableOpacity style={styles.Button}>
+                        <Icon name="setting" size={20} />
+                    </TouchableOpacity>
+            </View>
+        </>
     )
 }
 
