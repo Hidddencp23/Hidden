@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Image, Dimensions, Platform } from 'react-nativ
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 
+import circleStyles  from '../styles/circle';
+
 
 const TopNavBar = ({ navigation }) => {
     return (
@@ -10,32 +12,9 @@ const TopNavBar = ({ navigation }) => {
 
 
             {Platform.OS === 'ios' ?
-            <View style={{
-                position:'absolute',
-                borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
-                width: Dimensions.get('window').width * 2,
-                height: Dimensions.get('window').width * 2,
-                top: -1 * (Dimensions.get('window').height * .88),
-                left: -1 * (Dimensions.get('window').width * .5),
-                backgroundColor:'#83C3FF',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 90,
-            }}/> 
-
+            <View style={circleStyles.iosCircle}/> 
             :
-            <View style={{
-                position:'absolute',
-                borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
-                width: Dimensions.get('window').width * 2,
-                height: Dimensions.get('window').height * 0.91,
-                top: -1 * (Dimensions.get('window').height * .88),
-                left: -1 * (Dimensions.get('window').width * .5),
-                backgroundColor:'#83C3FF',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: 90,
-            }}/> 
+            <View style={circleStyles.androidCircle}/> 
             }
 
             <View style={styles.header}>
