@@ -1,17 +1,48 @@
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
+import useAuth from "../hooks/useAuth";
+import LocationList from "../components/LocationList";
+import Icon from "react-native-vector-icons/AntDesign";
+//import { Icon } from 'react-native-vector-icons';
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
+import { Image, SafeAreaView, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { db } from '../hooks/firebase';
-import SearchModal from '../components/SearchModal';
 import distance from '../hooks/distance';
-import useAuth from '../hooks/useAuth';
 import HomeMap from '../components/HomeMap';
 import LocationItem from '../components/LocationItem';
+import { SwipeablePanel } from 'rn-swipeable-panel';
 
 
 const HomeScreen = ({ navigation }) => {
     const { user, userInfo } = useAuth();
-    const [locations, setLocations] = useState([]);
+    const [locations, setLocations] = useState([])
+    const [panelProps, setPanelProps] = useState({
+        isActive: true,
+        fullWidth: true,
+        onlySmall: true,
+        showCloseButton: false,
+        onClose: () => closePanel(),
+        allowTouchOutside:true,
+        smallPanelHeight: 700
+        // onPressCloseButton: () => closePanel(),
+        // closeOnTouchOutside: true
+        // ...or any prop you want
+    });
+    const [isPanelActive, setIsPanelActive] = useState(false);
+    const swipeUpDownRef = useRef();
+    // swipeUpDownRef.current.showFull();
+
+    console.log(user.uid)
+    console.log(userInfo["email"])
+
+
+    const openPanel = () => {
+        setIsPanelActive(true);
+    };
+
+    const closePanel = () => {
+        setIsPanelActive(false);
+    };
 
     const getAllLocations = async () => {
         const querySnapshot = await getDocs(collection(db, "HiddenLocations"));
@@ -30,21 +61,36 @@ const HomeScreen = ({ navigation }) => {
         });
         setLocations(locs)
     }
-
+    const SearchFilters = () => {
+        return (
+            <View style={styles.filterRow}>
+                <TouchableOpacity style={styles.filterTouch}>
+                    <View style={{flexDirection: 'row'}}>
+                        <Icon name="heart" size={15} style={[styles.icons, {color: 'red'}]} />
+                        <Text style={styles.filterText}> Favorites</Text>
+                    </View>
+                </TouchableOpacity>
+                
+            </View>
+        )
+    }
     const LocationView = ({ location }) => {
         return (
-            <TouchableOpacity onPress={() =>
+            <TouchableOpacity style={styles.locCard} onPress={() =>
                 navigation.navigate("LocationScreen", {
                     location
                 })
             }>
-                <View style={{
-                    backgroundColor: "lightGrey",
-                    height: 100,
-                }}>
-                    <Text>{location.name}</Text>
-                    <Text>{location.description}</Text>
-                    <Text>{location.address}</Text>
+                <View style={styles.horizView}>
+                    <Image source={{ uri: location.image }} style={styles.locImg} />
+                    <View style={styles.vertView}>
+                        <Text style={styles.locName}>{location.name}</Text>
+                        <Text style={styles.locType}>{location.description}</Text>
+                        <Text style={styles.locType}>{location.address}</Text>
+                    </View>
+                    <TouchableOpacity style={styles.favLocation}>
+                     <Icon name="heart" size={20} style={styles.heartIcon} />
+                    </TouchableOpacity>
                 </View>
             </TouchableOpacity>
         )
@@ -52,48 +98,96 @@ const HomeScreen = ({ navigation }) => {
 
     useEffect(() => {
         getAllLocations().then(() => {
-            console.log("locations");
-            console.log(locations)
         }).catch(console.error);
     }, [])
 
-    // console.log(userInfo)
     return (
-        <SafeAreaView style={styles.homeScreen}>
-            {/*
-                commented for now: laggy on emulator
-                <HomeMap hiddenLocations={locations} ></HomeMap>
-            */}
-            <ScrollView style={{ height: '10%' }}> 
-                {/* Temporary list to show locations. 
-                    Should be swipeable component in the future */}
+        <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <SafeAreaView style={styles.homeScreen} >
+                <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
                 
-                {locations.map((location, index) => (
-                    <LocationItem
-                        navigation={navigation}
-                        location={location}
-                        key={index}
-                    />
-                ))}
-            </ScrollView>
-        </SafeAreaView>
+                <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
+            
+                    <Text style={styles.searchtitle} >Search Results</Text>
+                    <SearchFilters></SearchFilters>
+                    <View>
+                    <ScrollView style={{ height: '100%' }}>
+
+                        {locations.map((location, index) => (
+                            <LocationView
+                                location={location}
+                                key={index}
+                            />
+                        ))}
+                    </ScrollView>
+                    </View>
+                </SwipeablePanel>
+                <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
+                    <Icon name="enviroment" color={"#83C3FF"} size={30} style={{justifyContent:"center"}}> </Icon>
+                </TouchableOpacity>
+            </SafeAreaView>
+            </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
     homeScreen: {
-        backgroundColor: 'white',
-        paddingTop: "10%",
+        backgroundColor: 'transparent',
+        paddingTop: 0,
         height: '100%',
-        // flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
     },
     map: {
-        height: '100%',
+        position: 'absolute',
+        top: '0%',
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    filterRow: {
+        flexDirection: 'row',
+        paddingLeft: "5%",
+        paddingTop: "2.5%"
+    },
+    filterText: {
+        paddingLeft: "5%",
+        marginRight: "2.5%",
+        color: "black",
+        textAlign: "left",
+        fontSize: 14,
+    },
+    filterTouch: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "#BFBFBF",
+        paddingLeft: "2.5%",
+        paddingRight: "2.5%",
+        height: 25,
+        borderRadius: 20,
+    },
+    listButton: {
+        backgroundColor: "white",
+        borderRadius: 50,
+        position: "absolute",
+        bottom: "5%",
+        right: "5%",
+      },
+    icons: {
+        paddingLeft: "10%",
+        paddingRight: "15%",
+        paddingTop: "1%",
+        position: "absolute",
+    },
+    searchtitle: {
+        marginLeft: "5%",
+        color: "black",
+        fontWeight: "bold",
+        textAlign: "left",
+        fontSize: 20,
     },
     swipePanel: {
-        marginTop: 1000
+       paddingTop: "2%",
     },
     sortBy: {
         flexDirection: 'row',
@@ -109,6 +203,35 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderWidth: 1,
         height: 25
+    },
+    locImg: {
+        marginLeft: '3%',
+        width: 50,
+        height: 50,
+        borderRadius: 40
+      },
+    locCard: {
+        backgroundColor: "#FFFFFF",
+        borderColor: "#FFFFFF",
+        marginTop: "5%",
+        marginLeft: "2.5%",
+        marginRight: "2.5%",
+        height: 90,
+        borderRadius: 15,
+        shadowColor: 'black',
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+        shadowOffset : { width: 1, height: 5},
+      },
+    favLocation: {
+        alignItems: 'center',
+        paddingTop: "1%",
+        width: "10%",
+        height: "40%",
+        borderRadius: 5,
+    },
+    heartIcon: {
+        color: "#BFBFBF",
     },
     rowTextStyle: {
         fontSize: 18
@@ -149,7 +272,36 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: 'black',
         textAlign: 'center'
-    }
+    },
+
+    horizView: {
+        backgroundColor: "lightGrey",
+        flexDirection: "row",
+        marginTop: '3%'
+    },
+    vertView: {
+        flex: 1,
+        flexDirection: "column",
+    },
+    
+    locName: {
+        marginLeft: "5%",
+        color: "black",
+        fontWeight: "bold",
+        textAlign: "left",
+        fontSize: 16,
+        marginTop: "3%",
+        marginLeft: "5%",
+      },
+    
+      locType: {
+        marginLeft: "5%",
+        color: "#BEBEBE",
+        textAlign: "left",
+        fontSize: 14,
+        marginBottom: "2.5%",
+      },
+     
 });
 
 export default HomeScreen;
