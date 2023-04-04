@@ -9,6 +9,10 @@ import Icon from "react-native-vector-icons/AntDesign";
 const TripRow = ({ tripInfo, navigation }) => {
   const { user } = useAuth();
 
+  //console.log('ripinfo:');
+  //console.log(tripInfo);
+
+  const experiences = tripInfo['experiences'];
 
   return (
     <View
@@ -20,8 +24,8 @@ const TripRow = ({ tripInfo, navigation }) => {
     >
     <TouchableOpacity
       style={styles.tripTab}
-      onPress={() => navigation.navigate("TripScreen", {
-        tripInfo
+      onPress={() => navigation.navigate("TripDiaryScreen", {
+        experiences
       })
       }
     >
@@ -33,9 +37,8 @@ const TripRow = ({ tripInfo, navigation }) => {
         <Text style={styles.tripsUser}> {"By: " + tripInfo.author}</Text>
         <Text style={styles.tripsDate}> {tripInfo.tripPostTime != null ? tripInfo.tripPostTime.toDate().toDateString(): ""}</Text>
       </View>
-                <Icon name="right" size={20} style={styles.arrow} />
-
-              </View>
+        <Icon name="right" size={20} style={styles.arrow} />
+      </View>
 
     </TouchableOpacity>
         </View>

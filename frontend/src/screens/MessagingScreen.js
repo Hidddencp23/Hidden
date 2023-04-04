@@ -5,8 +5,7 @@ import ChatList from '../components/ChatList';
 
 const MessagingScreen = ({ navigation }) => {
   return (
-    <SafeAreaView>
-        <ChatHeader title='Chat' navigation={navigation}/>
+    <SafeAreaView style={styles.padDown}>
         <ChatList navigation={navigation}/>
     </SafeAreaView>
   )
@@ -21,6 +20,9 @@ const styles = StyleSheet.create({
   },  
   messagingScreen: {
     paddingBottom: 75
+  },
+  padDown: {
+    paddingTop: 25
   }
 });
 

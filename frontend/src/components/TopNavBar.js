@@ -1,19 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
+
+import circleStyles  from '../styles/circle';
 
 
 const TopNavBar = ({ navigation }) => {
     return (
         <>
-            <View style={styles.circle}></View> 
-                <View style={styles.header}>
-                        <Image style={styles.headerImage} source={require('../Images/hidden_logo.png')} />
-                        <TouchableOpacity style={styles.addButton}>
-                            <Icon name="plus" size={20} />
-                        </TouchableOpacity>
-                </View>
+            {Platform.OS === 'ios' ?
+            <View style={circleStyles.iosCircle}/> 
+            :
+            <View style={circleStyles.androidCircle}/> 
+            }
+
+            <View style={styles.header}>
+                    <Image style={styles.headerImage} source={require('../Images/hidden_logo.png')} />
+                    <TouchableOpacity style={styles.addButton}>
+                        <Icon name="plus" size={20} />
+                    </TouchableOpacity>
+            </View>
         </>
     )
 }

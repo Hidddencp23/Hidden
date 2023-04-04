@@ -31,6 +31,9 @@ const ChatList = ({ navigation }) => {
             console.log(doc.id, " => ", doc.data().chatId);
           });
       }
+
+
+
   
 
 

@@ -17,6 +17,9 @@ import AddTripScreen from '../screens/AddTripScreen';
 import GroupTextingScreen from '../screens/GroupTextingScreen';
 import LocationScreen from '../screens/LocationScreen';
 import ProfileScreenNavBar from '../components/ProfileScreenNavBar';
+
+// temp
+import AddExperienceScreen from '../screens/AddExperienceScreen';
 import SearchNavBar from '../components/SearchNavBar';
 import LocationNav from '../components/LocationNav';
 const Stack = createNativeStackNavigator();
@@ -69,6 +72,7 @@ const ProfileStackNavigator = () => {
             <Stack.Screen name="TripScreen" component={TripScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }

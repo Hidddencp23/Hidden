@@ -7,7 +7,8 @@ import { View, Text,
      SafeAreaView, 
      TouchableWithoutFeedback,
      Keyboard, 
-     FlatList
+     FlatList,
+     TouchableOpacity
     } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ChatHeader from '../components/ChatHeader'
@@ -18,14 +19,27 @@ import SenderMessage from '../components/SenderMessage'
 import ReceiverMessage from '../components/ReceiverMessage'
 import { updateDoc, addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc } from 'firebase/firestore'
 import { db } from '../hooks/firebase'
+import Icon from "react-native-vector-icons/AntDesign";
+import Ionicon from 'react-native-vector-icons/Ionicons';
 
 const TextingScreen = ({ navigation }) => {
-    const { user } = useAuth();
+
+
+
+    
+    const { user, userInfo } = useAuth();
     const {params} = useRoute();
     const [input, setInput] =  useState("");
     const [messages, setMessages] = useState([]);
-    const { chatId, chatUser } = params;
+    const { chatId, chatUser} = params;
     console.log("TextchatID: ");
+
+
+    // get other's profile
+    // send into ReceiverMessage
+    // move receiver cards right
+    // fix tab colors
+    // clean up bottom search bar
 
     useEffect(() => 
         onSnapshot(
@@ -57,8 +71,9 @@ const TextingScreen = ({ navigation }) => {
         setInput("");
     };
 
+    
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1}}> 
         <ChatHeader navigation={navigation} title={chatUser["name"]} />
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -76,7 +91,7 @@ const TextingScreen = ({ navigation }) => {
                             message.sender === user.uid ? (
                                 <SenderMessage key={message.id} message={message} />
                             ) : (
-                                <ReceiverMessage key={message.id} message={message} />
+                                <ReceiverMessage key={message.id} message={message} chatUser={chatUser}/>
                             )
                         }
                     />
@@ -84,21 +99,59 @@ const TextingScreen = ({ navigation }) => {
 
 
                 <View style={{ flexDirection: "row" }}>
+                    <Icon
+                        name="plus"
+                        size={20}
+                        style={{
+                            marginLeft: 15,
+                            marginTop: 22
+                        }}
+                    />
+
                     <TextInput 
                         style={styles.messageinputbar}
-                        placeholder="Send Message..."
+                        placeholder=""
                         placeholderTextColor="grey" 
                         onChangeText={setInput}
                         onSubmitEditing={sendMessage}
                         value={input}
+                        backgroundColor="#EBECF0"
                     />
-                    <Button onPress={sendMessage} title="Send" color="#FF5864"/>
+
+
+
+                    <TouchableOpacity
+                    onPress={sendMessage} title="Send" color="#FF5864"
+                    >
+                    <Ionicon
+                        name="send"
+                        size={20}
+                        style={{
+                            marginTop: 22
+                        }}
+                        color="#83C3FF"
+                    />
+
+
+                    </TouchableOpacity>
+                
                 </View>
+
+
+
+
+                
+            
+
+
+
 
         </KeyboardAvoidingView>
     </SafeAreaView>
   )
+  
 }
+
 
 const styles = StyleSheet.create({
     messageinputbar: {
@@ -106,8 +159,9 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 0.5,
         padding: 10,
-        borderColor: "grey",
+        borderColor: "transparent",
         width: "75%",
+        borderRadius: 10
     },
 })
 
