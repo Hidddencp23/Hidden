@@ -9,8 +9,6 @@ import circleStyles  from '../styles/circle';
 const TopNavBar = ({ navigation }) => {
     return (
         <>
-
-
             {Platform.OS === 'ios' ?
             <View style={circleStyles.iosCircle}/> 
             :
@@ -50,7 +48,21 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: "center"
-      },
+      },   
+    
+    circle: {
+        position:'absolute',
+        borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
+        width: Dimensions.get('window').width * 2,
+        height: Dimensions.get('window').width * 2,
+        top: -1 * (Dimensions.get('window').height * .88),
+        left: -1 * (Dimensions.get('window').width * .5),
+        backgroundColor:'#83C3FF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 90,
+    },
+    
 
 });
 
