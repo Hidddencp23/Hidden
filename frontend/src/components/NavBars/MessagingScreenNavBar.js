@@ -3,10 +3,10 @@ import { StyleSheet, Text, View, Image, Dimensions, Platform } from 'react-nativ
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 
-import circleStyles  from '../styles/circle';
+import circleStyles  from '../../styles/circle';
 
 
-const TopNavBar = ({ navigation }) => {
+const MessagingScreenNavBar = ({ navigation }) => {
     return (
         <>
             {/* {Platform.OS === 'ios' ?
@@ -16,24 +16,24 @@ const TopNavBar = ({ navigation }) => {
             } */}
 
             <View style={styles.header}>
-                    <Image style={styles.headerImage} source={require('../Images/hidden_logo.png')} />
-                    <TouchableOpacity style={styles.addButton}>
-                        <Icon name="plus" size={20} />
-                    </TouchableOpacity>
+                <Text style={styles.baseText}>Messages</Text>
             </View>
         </>
     )
 }
 
 const styles = StyleSheet.create({
+    baseText: {
+        fontWeight:'bold',
+        fontSize: 20,
+        paddingLeft: "5%",
+    },
     header: {
         height: 100,
         paddingRight: "10%",
         paddingBottom: "3%",
         paddingTop: "13%",
-        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
         backgroundColor: '#83C3FF',
         overflow: 'hidden',
     },
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default TopNavBar;
+export default MessagingScreenNavBar;
