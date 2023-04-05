@@ -1,4 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
+
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen'
 import HomeScreen from "../screens/HomeScreen";
@@ -33,6 +36,8 @@ const screenOptionStyle = {
 };
 
 
+
+
 const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
@@ -52,14 +57,55 @@ const SearchStackNavigator = () => {
 }
 
 
-const ChatStackNavigator = () => {
+
+function getActiveRouteName(state) {
+    if (!state || typeof state.index !== 'number') {
+      return 'Unknown';
+    }
+    const route = state.routes[state.index];
+    if (route.state) {
+      return getActiveRouteName(route.state);
+    }
+    return route.name;
+  }
+
+// tabBarStyle: { display: 'none' },
+const ChatStackNavigator = (setShowNav) => {
+
+    const [routeName, setRouteName] = useState('Unknown');
+
     return (
+        <NavigationContainer
+            onStateChange={state => {
+            const newRouteName = getActiveRouteName(state);
+
+            if (routeName !== newRouteName) {
+                setRouteName(newRouteName);
+                if (routeName === 'TextingScreen'){
+                    setShowNav(0);
+                }
+                else {
+                    setShowNav(1);
+                }
+            }
+            else {
+                setShowNav(1);
+            }
+            }} 
+            independent={true}
+        >
+
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
 
         </Stack.Navigator>
+
+
+        </NavigationContainer>
+
+        
     );
 }
 

@@ -35,10 +35,10 @@ import circleStyles from '../styles/circle.js';
 // need to connect db
 //import { db } from '../hooks/firebase';
 
-const ProfileScreen = ({ navigation }) => {
+const OtherProfileScreen = ({ navigation }) => {
 
   //const { myprofile } = route.params;
-  const myprofile = 0; // need to connect to db
+  const myprofile = 1; // need to connect to db
 
   const { user, userInfo, logout } = useAuth();
   const [data, setData] = React.useState([]);
@@ -192,4 +192,4 @@ const ProfileScreen = ({ navigation }) => {
 
 
 
-export default ProfileScreen;
+export default OtherProfileScreen;
