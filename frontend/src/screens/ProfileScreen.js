@@ -67,6 +67,7 @@ const ProfileScreen = ({ navigation }) => {
       }}
     >
 
+
       {/* pass header in
       {Platform.OS === 'ios' ?
             <View style={circleStyles.iosCircle}/> 
