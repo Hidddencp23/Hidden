@@ -22,44 +22,9 @@ import { db } from '../hooks/firebase'
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-
-import moment from 'moment';
-
-const formatMessages = (messages) => {
-
-    let messagetimes = [];
-
-    if (messages){
-        for (let i in messages){
-            if (messages[i] != null && messages[i].timestamp != null){
-                console.log(messages[i].timestamp)
-                let timeAgoMessage = moment.utc(messages[i].timestamp.toDate().toISOString()).local().startOf('seconds').fromNow();
-                messagetimes.push(timeAgoMessage);
-            }
-        }
-    }
-
-    
-    let newArr = [];
-
-    let i = 0;
-    for (i in messagetimes){
-        if (( i === 0 || messagetimes[i] !== messagetimes[i - 1])){
-            newArr.push(messagetimes[i]);
-        }
-        else {
-            newArr.push(null)
-        }
-    }
-
-    return newArr;
-}
-
-
-
-
-
 const TextingScreen = ({ navigation }) => {
+
+
 
     
     const { user, userInfo } = useAuth();
@@ -67,46 +32,7 @@ const TextingScreen = ({ navigation }) => {
     const [input, setInput] =  useState("");
     const [messages, setMessages] = useState([]);
     const { chatId, chatUser} = params;
-
-
-
-
-    useEffect(() => {
-        navigation.getParent()?.setOptions({
-          tabBarStyle: {
-            display: "none"
-          }
-        });
-        return () => navigation.getParent()?.setOptions({
-          tabBarStyle: undefined
-        });
-      }, [navigation]);
-    
-      
-
-    
-    const [showmessages, setshowmessages] = useState([]);
-    
-
-
-
-    useEffect(() => {
-        let showtimes = formatMessages(messages);
-        let tempmessages = messages;
-
-        let i = 0;
-        for (i in tempmessages){
-            tempmessages[i].timestamp = showtimes[i];
-        }
-        
-        setshowmessages(tempmessages);
-    }, 
-    [messages]);
-
-
-    
-
-
+    console.log("TextchatID: ");
 
 
     // get other's profile
@@ -148,10 +74,7 @@ const TextingScreen = ({ navigation }) => {
     
   return (
     <SafeAreaView style={{flex: 1}}> 
-
-    {/*
         <ChatHeader navigation={navigation} title={chatUser["name"]} />
-    */}
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
@@ -159,14 +82,14 @@ const TextingScreen = ({ navigation }) => {
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList 
-                        data={showmessages}
+                        data={messages}
                         inverted={-1}
                         style={{paddingLeft: 4,
                                 }}
                         keyExtractor={item => item.id}
                         renderItem={({item: message}) => 
                             message.sender === user.uid ? (
-                                <SenderMessage key={message.id} message={message}/>
+                                <SenderMessage key={message.id} message={message} />
                             ) : (
                                 <ReceiverMessage key={message.id} message={message} chatUser={chatUser}/>
                             )

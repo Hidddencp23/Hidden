@@ -7,19 +7,12 @@ import { AuthProvider } from './src/hooks/useAuth';
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core']);
 
-
-import { useState } from 'react';
-
-
-
-
 function App() {
-
 
   return (
     <NavigationContainer>
       <AuthProvider>
-        <Navigator/>
+        <Navigator />
       </AuthProvider>
     </NavigationContainer>
   );
