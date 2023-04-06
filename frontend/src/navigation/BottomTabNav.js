@@ -60,18 +60,7 @@ const ChatTabOptions = {
   }
 }
 
-const ChatTabOptionsNoNav = {
-  tabBarStyle: { display: 'none' },
-  tabBarIcon: (tabInfo) => {
-    return (
-      <Ionicons
-        name="chatbubble-sharp"
-        size={24}
-        color={tabInfo.focused ? activeColor : inActiveColor}
-      />
-    );
-  }
-}
+
 
 
 
@@ -103,21 +92,19 @@ const ProfileTabOptions = {
 
 const BottomTabNav = () => {
 
-  const [showNav, setShowNav] = useState(1);
+  //const [showNav, setShowNav] = useState(1);
 
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Home" component={HomeStackNavigator} options={HomeTabOptions}/>
+      <Tab.Screen name="Home" component={() => HomeStackNavigator()} options={HomeTabOptions}/>
       {/* <Tab.Screen name="Search" component={SearchStackNavigator} options={SearchTabOptions}/> */}
       
 
-      {showNav === 1 ? 
-      <Tab.Screen name="Chat" component={() => ChatStackNavigator(setShowNav)} options={ChatTabOptionsNoNav} />
-        :
-        <Tab.Screen name="Chat" component={() => ChatStackNavigator(setShowNav)} options={ChatTabOptions} />
-      }
-      <Tab.Screen name="Profile" component={ProfileStackNavigator} options={ProfileTabOptions} />
+      <Tab.Screen name="Chat" component={() => ChatStackNavigator()} options={ChatTabOptions} />
+
+
+      <Tab.Screen name="Profile" component={() => ProfileStackNavigator()} options={ProfileTabOptions} />
     </Tab.Navigator>
   );
 };

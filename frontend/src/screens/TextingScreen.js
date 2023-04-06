@@ -70,9 +70,26 @@ const TextingScreen = ({ navigation }) => {
 
 
 
+
+    useEffect(() => {
+        navigation.getParent()?.setOptions({
+          tabBarStyle: {
+            display: "none"
+          }
+        });
+        return () => navigation.getParent()?.setOptions({
+          tabBarStyle: undefined
+        });
+      }, [navigation]);
+    
+      
+
     
     const [showmessages, setshowmessages] = useState([]);
     
+
+
+
     useEffect(() => {
         let showtimes = formatMessages(messages);
         let tempmessages = messages;
@@ -83,7 +100,6 @@ const TextingScreen = ({ navigation }) => {
         }
         
         setshowmessages(tempmessages);
-
     }, 
     [messages]);
 

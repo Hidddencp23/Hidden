@@ -131,6 +131,8 @@ const HomeScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </SafeAreaView>
             </TouchableWithoutFeedback>
+
+
     
 
 

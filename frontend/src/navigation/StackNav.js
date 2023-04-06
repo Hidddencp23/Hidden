@@ -58,42 +58,14 @@ const SearchStackNavigator = () => {
 
 
 
-function getActiveRouteName(state) {
-    if (!state || typeof state.index !== 'number') {
-      return 'Unknown';
-    }
-    const route = state.routes[state.index];
-    if (route.state) {
-      return getActiveRouteName(route.state);
-    }
-    return route.name;
-  }
 
 // tabBarStyle: { display: 'none' },
-const ChatStackNavigator = (setShowNav) => {
+const ChatStackNavigator = () => {
 
     const [routeName, setRouteName] = useState('Unknown');
 
     return (
-        <NavigationContainer
-            onStateChange={state => {
-            const newRouteName = getActiveRouteName(state);
 
-            if (routeName !== newRouteName) {
-                setRouteName(newRouteName);
-                if (routeName === 'TextingScreen'){
-                    setShowNav(0);
-                }
-                else {
-                    setShowNav(1);
-                }
-            }
-            else {
-                setShowNav(1);
-            }
-            }} 
-            independent={true}
-        >
 
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
@@ -103,7 +75,6 @@ const ChatStackNavigator = (setShowNav) => {
         </Stack.Navigator>
 
 
-        </NavigationContainer>
 
         
     );
