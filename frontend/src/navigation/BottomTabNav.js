@@ -1,15 +1,24 @@
 // ./navigation/TabNavigator.js
 
-import React from "react";
+import React from 'react';
+import { useState } from 'react';
+
+import { NavigationContainer } from '@react-navigation/native';
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeStackNavigator, SearchStackNavigator, TripStackNavigator, ChatStackNavigator, ProfileStackNavigator } from "./StackNav";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import { useRoute } from '@react-navigation/native';
+
 const Tab = createBottomTabNavigator();
-const activeColor = "#1D92FF"
-const inActiveColor = "#9DB2CE"
+const activeColor = "#1D92FF";
+const inActiveColor = "#9DB2CE";
+
+
 
 const HomeTabOptions = {
+  tabBarStyle: { display: 'flex' },
   tabBarIcon: (tabInfo) => {
     return (
       <Ionicons
@@ -22,6 +31,7 @@ const HomeTabOptions = {
 }
 
 const SearchTabOptions = {
+  tabBarStyle: { display: 'flex' },
   tabBarIcon: (tabInfo) => {
     return (
       <Ionicons
@@ -33,7 +43,12 @@ const SearchTabOptions = {
   }
 }
 
+// if texting Screen, set
+// tabBarStyle: { display: 'none' },
+// ChatStackNavigator
+
 const ChatTabOptions = {
+  tabBarStyle: { display: 'flex' },
   tabBarIcon: (tabInfo) => {
     return (
       <Ionicons
@@ -45,7 +60,18 @@ const ChatTabOptions = {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
 const ProfileTabOptions = {
+  tabBarStyle: { display: 'flex' },
   headerShown: false,
   tabBarIcon: (tabInfo) => {
     return (
@@ -58,13 +84,27 @@ const ProfileTabOptions = {
   }
 }
 
+
+
+
+
+
+
 const BottomTabNav = () => {
+
+  //const [showNav, setShowNav] = useState(1);
+
+
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Home" component={HomeStackNavigator} options={HomeTabOptions}/>
+      <Tab.Screen name="Home" component={() => HomeStackNavigator()} options={HomeTabOptions}/>
       {/* <Tab.Screen name="Search" component={SearchStackNavigator} options={SearchTabOptions}/> */}
-      <Tab.Screen name="Chat" component={ChatStackNavigator} options={ChatTabOptions}/>
-      <Tab.Screen name="Profile" component={ProfileStackNavigator} options={ProfileTabOptions} />
+      
+
+      <Tab.Screen name="Chat" component={() => ChatStackNavigator()} options={ChatTabOptions} />
+
+
+      <Tab.Screen name="Profile" component={() => ProfileStackNavigator()} options={ProfileTabOptions} />
     </Tab.Navigator>
   );
 };
