@@ -1,4 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
+
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen'
 import HomeScreen from "../screens/HomeScreen";
@@ -33,6 +36,8 @@ const screenOptionStyle = {
 };
 
 
+
+
 const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
@@ -52,14 +57,26 @@ const SearchStackNavigator = () => {
 }
 
 
+
+
+// tabBarStyle: { display: 'none' },
 const ChatStackNavigator = () => {
+
+    const [routeName, setRouteName] = useState('Unknown');
+
     return (
+
+
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
 
         </Stack.Navigator>
+
+
+
+        
     );
 }
 
