@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-import moment from 'moment';
+//import moment from 'moment';
 
 const SenderMessage = ({ message }) => {
 
@@ -47,6 +47,7 @@ const SenderMessage = ({ message }) => {
 
   // hour:min
   return (
+    <>
     <View style={{
         alignSelf: "flex-start",
         marginLeft: "auto",
@@ -70,6 +71,7 @@ const SenderMessage = ({ message }) => {
 
 
     </View>
+    </>
   )
 }
 

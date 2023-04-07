@@ -52,14 +52,12 @@ const ChatRow = ({ chatInfo, navigation }) => {
   }
 
 
-  // TODO: post new timestamp to server
-  const handleDiffTime = () => {
-
-    
-    
-  }
+  
 
   return (
+
+
+    
     <TouchableOpacity
       style={styles.messagecard}
       onPress={() => navigation.navigate("TextingScreen", {
@@ -89,7 +87,6 @@ const ChatRow = ({ chatInfo, navigation }) => {
 
             {timeAgo != timeAgoNow ?
               <>
-                {handleDiffTime}
                 {timeAgo} 
               </>
               : 
@@ -106,6 +103,9 @@ const ChatRow = ({ chatInfo, navigation }) => {
 
       </View>
     </TouchableOpacity>
+
+
+    
   )
 }
 

@@ -61,13 +61,37 @@ const ChatList = ({ navigation }) => {
 
 
 
-    return (
-        <ScrollView>
-            <>
-                {proxChats.map((item) => <ProxChatRow chatId={item} key={item} navigation={navigation} />)}
-            </>
+    const UserChats = () => {
+        return (
             <>
                 {chats.map((item) => <ChatRow chatInfo={item} key={item.id} navigation={navigation} />)}
+            </>
+        );
+    }
+
+    return (
+        <ScrollView>
+
+       
+            <>
+                {proxChats !== null ?
+                <>
+                    {proxChats.map((item) => <ProxChatRow chatId={item} key={item} navigation={navigation} />)}
+                </>
+
+                : null}
+            
+            </>
+            
+
+            <>
+                {true ?
+                    <>
+                        {chats.map((item) => <ChatRow chatInfo={item} key={item.id} navigation={navigation} />)}
+
+                    </>
+                : null}
+            
             </>
 
         </ScrollView>

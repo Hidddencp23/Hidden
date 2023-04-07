@@ -59,13 +59,9 @@ const SearchStackNavigator = () => {
 
 
 
-// tabBarStyle: { display: 'none' },
 const ChatStackNavigator = () => {
 
-    const [routeName, setRouteName] = useState('Unknown');
-
     return (
-
 
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
@@ -73,8 +69,6 @@ const ChatStackNavigator = () => {
             <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
 
         </Stack.Navigator>
-
-
 
         
     );

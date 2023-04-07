@@ -18,7 +18,6 @@ const inActiveColor = "#9DB2CE";
 
 
 const HomeTabOptions = {
-  tabBarStyle: { display: 'flex' },
   tabBarIcon: (tabInfo) => {
     return (
       <Ionicons
@@ -31,7 +30,6 @@ const HomeTabOptions = {
 }
 
 const SearchTabOptions = {
-  tabBarStyle: { display: 'flex' },
   tabBarIcon: (tabInfo) => {
     return (
       <Ionicons
@@ -48,7 +46,6 @@ const SearchTabOptions = {
 // ChatStackNavigator
 
 const ChatTabOptions = {
-  tabBarStyle: { display: 'flex' },
   tabBarIcon: (tabInfo) => {
     return (
       <Ionicons
@@ -71,7 +68,6 @@ const ChatTabOptions = {
 
 
 const ProfileTabOptions = {
-  tabBarStyle: { display: 'flex' },
   headerShown: false,
   tabBarIcon: (tabInfo) => {
     return (
@@ -97,14 +93,14 @@ const BottomTabNav = () => {
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Home" component={() => HomeStackNavigator()} options={HomeTabOptions}/>
+      <Tab.Screen name="Home" component={HomeStackNavigator} options={HomeTabOptions}/>
       {/* <Tab.Screen name="Search" component={SearchStackNavigator} options={SearchTabOptions}/> */}
       
 
-      <Tab.Screen name="Chat" component={() => ChatStackNavigator()} options={ChatTabOptions} />
+      <Tab.Screen name="Chat" component={ChatStackNavigator} options={ChatTabOptions} />
 
 
-      <Tab.Screen name="Profile" component={() => ProfileStackNavigator()} options={ProfileTabOptions} />
+      <Tab.Screen name="Profile" component={ProfileStackNavigator} options={ProfileTabOptions} />
     </Tab.Navigator>
   );
 };
