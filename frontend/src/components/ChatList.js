@@ -13,24 +13,32 @@ const ChatList = ({ navigation }) => {
 
     const { user, userInfo } = useAuth();
 
-    const getProxChats = async () => {
-        const querySnapshot = await getDocs(collection(db, "Users", user.uid, "proximityChats"));
-        querySnapshot.forEach((doc) => {
-            // let leftTimeDifference = 0
-            // console.log(doc.data().leftProximity )
-            // console.log(db.firestore.Timestamp.now().toDate())
+    // const getProxChats = async () => {
+    //     const querySnapshot = await getDocs(collection(db, "Users", user.uid, "proximityChats"));
+    //     querySnapshot.forEach((doc) => {
+    //         // let leftTimeDifference = 0
+    //         // console.log(doc.data().leftProximity )
+    //         // console.log(db.firestore.Timestamp.now().toDate())
 
-            // if (doc.data().leftProximity != null){
-            //     leftTimeDifference = serverTimestamp().toDate() - doc.data().leftProximity.toDate();
-            //     console.log("Left time diff = " + leftTimeDifference)
-            // }
-            // if (leftTimeDifference > proxChatLeftLimit){
-            //     deleteDoc(doc(db, "Users", user.uid, "proximityChats", doc.id)).catch(console.error)
-            // }
-            setProxChats([...proxChats, doc.data().chatId])
-            console.log(doc.id, " => ", doc.data().chatId);
-          });
-      }
+    //         // if (doc.data().leftProximity != null){
+    //         //     leftTimeDifference = serverTimestamp().toDate() - doc.data().leftProximity.toDate();
+    //         //     console.log("Left time diff = " + leftTimeDifference)
+    //         // }
+    //         // if (leftTimeDifference > proxChatLeftLimit){
+    //         //     deleteDoc(doc(db, "Users", user.uid, "proximityChats", doc.id)).catch(console.error)
+    //         // }
+    //         setProxChats([...proxChats, doc.data().chatId])
+    //         console.log(doc.id, " => ", doc.data().chatId);
+    //       });
+    //   }
+
+    const getProxChats = () => {
+        if (userInfo.proximityChats.length != 0 ){
+            setProxChats(userInfo.proximityChats.map((item) => {
+                return item.chatId;
+            }))
+        }
+    }
 
 
 
@@ -54,7 +62,7 @@ const ChatList = ({ navigation }) => {
             }
         );
         
-        getProxChats().catch(console.error)
+        getProxChats()
         },
         
         [])
