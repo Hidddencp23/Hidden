@@ -29,8 +29,6 @@ const LocationScreen = ({ navigation }) => {
                     }))
                 )
         );
-        console.log("experiences");
-        console.log(experiences);
     },
         [])
 
@@ -40,8 +38,7 @@ const LocationScreen = ({ navigation }) => {
             <TouchableOpacity style={styles.heartBox}>
                         <Icon name="heart" size={20} style={styles.heartIcon} />
             </TouchableOpacity>
-            <ScrollView>
-           
+            <ScrollView> 
                 <Text style={styles.title2}>{location.name}</Text>
                 <Text style={styles.descTitle}>Description</Text>
                 <Text style={styles.desc}>{descParagraph}</Text>
@@ -63,9 +60,9 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
+        height: "100%",
         justifyContent: 'space-around',
         alignItems: 'center',
-        height: '100%',
         backgroundColor: 'white',
       },
     circle: {

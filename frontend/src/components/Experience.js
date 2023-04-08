@@ -32,7 +32,7 @@ const Experience = ({ experience }) => {
             </View>
            
             <View>
-                <Image source={{ uri: experience.image }} style={styles.locImg} /> 
+                {experience.image ? (<Image source={{ uri: experience.image }} style={styles.locImg} /> ) : null}
                 <Text style={styles.desc}>{experience.description}</Text>
             </View>
             
@@ -42,10 +42,10 @@ const Experience = ({ experience }) => {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems: 'center',
-        height: '100%',
         backgroundColor: 'white',
       },
       horizView: {
@@ -55,9 +55,11 @@ const styles = StyleSheet.create({
       },
       locImg: {
         width: "90%",
-        height: "40%",
-        marginVertical: "2.5%",
+        height: 200,
+        // width: "90%",
+        // height: "20%",
         marginHorizontal: "5%",
+        marginVertical: "2.5%",
         borderRadius: "15%"
     },
     profName: {

@@ -54,7 +54,6 @@ const AddExperienceScreen = ({ navigation }) => {
           console.log("Experience added");
         } catch (e) {
           console.error("Error adding document: ", e);
-          console.error(userId, hiddenLocation, rating, image, description);
         }
   }
   /*arguments to pass:
