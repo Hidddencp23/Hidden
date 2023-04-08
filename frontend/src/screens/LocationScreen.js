@@ -48,7 +48,8 @@ const LocationScreen = ({ navigation }) => {
             
             <View style={styles.actRow}>
                 <Text style={styles.actTitle}>Activity</Text>
-                <TouchableOpacity style={styles.addIcon} onPress={() => navigation.navigate("AddExperienceScreen")}>
+                <TouchableOpacity style={styles.addIcon} onPress={() => navigation.navigate("AddExperienceScreen", {
+                    location})}>
                     <Icon name="plus" size={20} />
                 </TouchableOpacity>
             </View>
