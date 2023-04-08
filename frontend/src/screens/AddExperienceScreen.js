@@ -110,7 +110,11 @@ const AddExperienceScreen = ({ navigation }) => {
           alignItems: 'center'
         }}>
           <View style={styles.header}>
-            <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("HomeScreen")}>
+            <TouchableOpacity style={styles.Button} onPress={() =>
+                navigation.navigate("LocationScreen", {
+                    location
+                })
+            }>
                 <Icon name="left" size={20}/>
             </TouchableOpacity>
             <Text style={styles.text}>Add Experience</Text>
@@ -177,6 +181,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   header: {
+    zIndex: 1,
     position: 'absolute',
     height: 100,
     width: "100%",
