@@ -19,6 +19,7 @@ import LocationScreen from '../screens/LocationScreen';
 import ProfileScreenNavBar from '../components/NavBars/ProfileScreenNavBar';
 import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
 import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+import EditProfileNavBar from '../components/NavBars/EditProfileNavBar';
 
 // temp
 import AddExperienceScreen from '../screens/AddExperienceScreen';
@@ -70,7 +71,7 @@ const ProfileStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header: ({ navigation }) => <ProfileScreenNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <EditProfileNavBar navigation={navigation} /> }}/>
             <Stack.Screen name="TripScreen" component={TripScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ headerShown: false }} />
