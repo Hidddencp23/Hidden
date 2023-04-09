@@ -1,6 +1,8 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
+//import moment from 'moment';
+
 const SenderMessage = ({ message }) => {
 
   // since the user can make a new message, need to check null date
@@ -20,6 +22,7 @@ const SenderMessage = ({ message }) => {
 
   // hour:min
   return (
+    <>
     <View style={{
         alignSelf: "flex-start",
         marginLeft: "auto",
@@ -50,6 +53,7 @@ const SenderMessage = ({ message }) => {
 
 
     </View>
+    </>
   )
 }
 

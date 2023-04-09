@@ -7,6 +7,7 @@ const ReceiverMessage = ({ message, chatUser }) => {
 
   return (
 
+    <>
     <View style={{
       flexDirection: 'row'
     }}>
@@ -53,6 +54,7 @@ const ReceiverMessage = ({ message, chatUser }) => {
 
 
     </View>
+    </>
   )
 }
 

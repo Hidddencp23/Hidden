@@ -55,6 +55,7 @@ const SearchStackNavigator = () => {
 }
 
 
+
 const ChatStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>

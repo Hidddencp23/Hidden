@@ -35,11 +35,27 @@ const ChatRow = ({ chatInfo, navigation }) => {
   }, [])
 
 
+  const timeAgo = chatInfo.latestTimestamp != null ? 
+  moment.utc(chatInfo.latestTimestamp.toDate().toDateString()).local().startOf('seconds').fromNow(): "";
+
+  const timeAgoNow = moment.utc(moment().toISOString()).local().startOf('seconds').fromNow()
+  // moment().toISOString()
+  console.log(timeAgoNow);
 
 
-  const timeAgo = chatInfo.latestTimestamp != null ? moment.utc(chatInfo.latestTimestamp.toDate().toDateString()).local().startOf('seconds').fromNow(): "";
+  if (timeAgo != timeAgoNow){
+    console.log('diff time!')
+    console.log("server timestamp: " + timeAgo);
+    console.log("current time: " + timeAgoNow);
+  }
+
+
+ 
 
   return (
+
+
+    
     <TouchableOpacity
       style={styles.messagecard}
       onPress={() => navigation.navigate("TextingScreen", {
@@ -63,7 +79,14 @@ const ChatRow = ({ chatInfo, navigation }) => {
 
         <View style={styles.alignRight}>
           <Text style={styles.alignDate}>
-            {timeAgo}
+
+            {timeAgo != timeAgoNow ?
+              <>
+                {timeAgo} 
+              </>
+              : 
+              null
+            }
           </Text>
 
 
@@ -75,6 +98,9 @@ const ChatRow = ({ chatInfo, navigation }) => {
 
       </View>
     </TouchableOpacity>
+
+
+    
   )
 }
 

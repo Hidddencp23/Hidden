@@ -21,18 +21,105 @@ import { updateDoc, addDoc, collection, onSnapshot, orderBy, query, serverTimest
 import { db } from '../hooks/firebase'
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
+
 
 const TextingScreen = ({ navigation }) => {
-
-
-
     
     const { user, userInfo } = useAuth();
     const {params} = useRoute();
     const [input, setInput] =  useState("");
     const [messages, setMessages] = useState([]);
     const { chatId, chatUser} = params;
-    console.log("TextchatID: ");
+
+
+    const [showmessages, setshowmessages] = useState([]);
+
+
+
+
+    const formatMessages = (messages) => {
+
+        let messagetimes = [];
+    
+        if (messages){
+            for (let i in messages){
+                if (messages[i] != null && messages[i].timestamp != null){
+                    console.log(messages[i].timestamp)
+                    let timeAgoMessage = moment.utc(messages[i].timestamp.toDate().toISOString()).local().startOf('seconds').fromNow();
+                    messagetimes.push(timeAgoMessage);
+                }
+            }
+        }
+    
+        
+        let newArr = [];
+    
+        let i = 0;
+        for (i in messagetimes){
+            if (( i === 0 || messagetimes[i] !== messagetimes[i - 1])){
+                newArr.push(messagetimes[i]);
+            }
+            else {
+                newArr.push(null)
+            }
+        }
+    
+        return newArr;
+    }
+
+
+
+
+    const sendMessage = () => {
+        
+        addDoc(collection(db , 'Chats', chatId, 'Messages'), {
+            timestamp: serverTimestamp(),
+            sender: user.uid,
+            message: input
+        });
+        updateDoc(doc(db , 'Chats', chatId), {
+            latestTimestamp: serverTimestamp(),
+            latestMessage: input
+        });
+
+        setInput("");
+    };
+
+
+    
+    useEffect(() => {
+        navigation.getParent()?.setOptions({
+          tabBarStyle: {
+            display: "none"
+          }
+        });
+        return () => navigation.getParent()?.setOptions({
+          tabBarStyle: undefined
+        });
+      }, [navigation]);
+    
+      
+    
+
+
+
+    useEffect(() => {
+
+        if (messages != null){
+            let showtimes = formatMessages(messages);
+            let tempmessages = messages;
+
+            let i = 0;
+            for (i in tempmessages){
+                tempmessages[i].timestamp = showtimes[i];
+            }
+            
+            setshowmessages(tempmessages);
+        }
+    }, 
+    [messages]);
+    
 
 
     // get other's profile
@@ -57,19 +144,9 @@ const TextingScreen = ({ navigation }) => {
         ),
     [])
 
-    const sendMessage = () => {
-        addDoc(collection(db , 'Chats', chatId, 'Messages'), {
-            timestamp: serverTimestamp(),
-            sender: user.uid,
-            message: input
-        });
-        updateDoc(doc(db , 'Chats', chatId), {
-            latestTimestamp: serverTimestamp(),
-            latestMessage: input
-        });
 
-        setInput("");
-    };
+
+    
 
     
   return (

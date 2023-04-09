@@ -63,7 +63,8 @@ const BottomTabNav = () => {
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Home" component={HomeStackNavigator} options={HomeTabOptions}/>
       {/* <Tab.Screen name="Search" component={SearchStackNavigator} options={SearchTabOptions}/> */}
-      <Tab.Screen name="Chat" component={ChatStackNavigator} options={ChatTabOptions}/>
+
+      <Tab.Screen name="Chat" component={ChatStackNavigator} options={ChatTabOptions} />
       <Tab.Screen name="Profile" component={ProfileStackNavigator} options={ProfileTabOptions} />
     </Tab.Navigator>
   );
