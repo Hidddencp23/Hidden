@@ -21,18 +21,10 @@ import { updateDoc, addDoc, collection, onSnapshot, orderBy, query, serverTimest
 import { db } from '../hooks/firebase'
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from 'react-native-vector-icons/Ionicons';
-
-
 import moment from 'moment';
 
 
-
-
-
-
-
 const TextingScreen = ({ navigation }) => {
-
     
     const { user, userInfo } = useAuth();
     const {params} = useRoute();
@@ -128,14 +120,6 @@ const TextingScreen = ({ navigation }) => {
     }, 
     [messages]);
     
-    
-
-    
-
-
-    
-
-
 
 
     // get other's profile
@@ -167,10 +151,7 @@ const TextingScreen = ({ navigation }) => {
     
   return (
     <SafeAreaView style={{flex: 1}}> 
-
-    {/*
         <ChatHeader navigation={navigation} title={chatUser["name"]} />
-    */}
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
@@ -178,14 +159,14 @@ const TextingScreen = ({ navigation }) => {
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList 
-                        data={showmessages}
+                        data={messages}
                         inverted={-1}
                         style={{paddingLeft: 4,
                                 }}
                         keyExtractor={item => item.id}
                         renderItem={({item: message}) => 
                             message.sender === user.uid ? (
-                                <SenderMessage key={message.id} message={message}/>
+                                <SenderMessage key={message.id} message={message} />
                             ) : (
                                 <ReceiverMessage key={message.id} message={message} chatUser={chatUser}/>
                             )

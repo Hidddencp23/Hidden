@@ -17,7 +17,7 @@ const ProfileScreenNavBar = ({ navigation }) => {
                         <Icon name="notification" size={20} />
                     </TouchableOpacity>
                     <Text style={styles.baseText}>Profile</Text>
-                    <TouchableOpacity style={styles.Button}>
+                    <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("EditProfileScreen")}>
                         <Icon name="setting" size={20} />
                     </TouchableOpacity>
             </View>

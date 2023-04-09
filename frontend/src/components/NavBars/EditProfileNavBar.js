@@ -3,39 +3,41 @@ import { StyleSheet, Text, View, Image, Dimensions, Platform } from 'react-nativ
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 
-import circleStyles  from '../styles/circle';
+import circleStyles  from '../../styles/circle';
 
 
-const TopNavBar = ({ navigation }) => {
+const EditProfileNavBar = ({ navigation }) => {
     return (
         <>
-        {/*
-            {Platform.OS === 'ios' ?
+            {/* {Platform.OS === 'ios' ?
             <View style={circleStyles.iosCircle}/> 
             :
             <View style={circleStyles.androidCircle}/> 
-            }
-        */}
+            } */}
 
             <View style={styles.header}>
-                    <Image style={styles.headerImage} source={require('../Images/hidden_logo.png')} />
-                    <TouchableOpacity style={styles.addButton}>
-                        <Icon name="plus" size={20} />
-                    </TouchableOpacity>
+                <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
+                    <Icon name="left" size={20} />
+                </TouchableOpacity>                
+                <Text style={styles.baseText}>Settings</Text>
             </View>
         </>
     )
 }
 
 const styles = StyleSheet.create({
+    baseText: {
+        fontWeight:'bold',
+        fontSize: 20,
+        paddingLeft: "30%",
+    },
     header: {
         height: 100,
-        paddingRight: "10%",
+        paddingLeft: "5%",
         paddingBottom: "3%",
         paddingTop: "13%",
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
         backgroundColor: '#83C3FF',
         overflow: 'hidden',
     },
@@ -43,15 +45,15 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100,
     },
-    addButton: {
+    Button: {
         backgroundColor: "white",
         height: "100%",
         width: "200%",
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: "center"
-      },   
-    
+      },
+
     circle: {
         position:'absolute',
         borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
@@ -68,4 +70,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default TopNavBar;
+export default  EditProfileNavBar;

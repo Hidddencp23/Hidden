@@ -9,31 +9,7 @@ const SenderMessage = ({ message }) => {
   let hours = null;
   let minutes = null;
 
-  /*
-
-  // client timestamp now
-  const timeAgo = moment.utc(moment().toISOString()).local().startOf('seconds').fromNow();
-
-  // time of most recent message
-  const timeAgoNow = serverTime != null ? moment.utc(serverTime.toDate().toISOString()).local().startOf('seconds').fromNow(): "";
-
-  // time of this message
-  const timeAgoMessage = message.timestamp != null ? moment.utc(message.timestamp.toDate().toISOString()).local().startOf('seconds').fromNow(): "";
-
   
-  console.log(timeAgoMessage)
-  */
-
-
-  /*
-    if time ago (curennt) != timeAgo of message[0], 
-      - display current time ago
-  */
-
-
-      
-  /*
-
   if (typeof message !== 'undefined'){
       if (message.timestamp !== null){
           const date = new Date(message.timestamp.seconds)
@@ -41,7 +17,6 @@ const SenderMessage = ({ message }) => {
           minutes = ('0' + date.getMinutes()).slice(-2);
       }
   }
-  */
   
   
 
@@ -65,7 +40,14 @@ const SenderMessage = ({ message }) => {
 
       <Text style={{ color: "black", textAlign: "right" }}>
 
-        {message.timestamp}
+        { hours && minutes ? 
+        <>
+          {hours}:{minutes} 
+        </>
+        : 
+        <>
+        </>
+        }
       </Text>
 
 
