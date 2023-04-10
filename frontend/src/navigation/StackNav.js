@@ -1,14 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
-
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen'
 import HomeScreen from "../screens/HomeScreen";
 import MessagingScreen from '../screens/MessagingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
-import TopNavBar from '../components/TopNavBar';
+import TopNavBar from '../components/NavBars/TopNavBar';
 import useAuth from '../hooks/useAuth';
 import TextingScreen from '../screens/TextingScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
@@ -19,7 +16,10 @@ import TripDiaryScreen from '../screens/TripDiaryScreen';
 import AddTripScreen from '../screens/AddTripScreen';
 import GroupTextingScreen from '../screens/GroupTextingScreen';
 import LocationScreen from '../screens/LocationScreen';
-import ProfileScreenNavBar from '../components/ProfileScreenNavBar';
+import ProfileScreenNavBar from '../components/NavBars/ProfileScreenNavBar';
+import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
+import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+import EditProfileNavBar from '../components/NavBars/EditProfileNavBar';
 
 // temp
 import AddExperienceScreen from '../screens/AddExperienceScreen';
@@ -34,8 +34,6 @@ const screenOptionStyle = {
     headerTintColor: "white",
     headerBackTitle: "Back",
 };
-
-
 
 
 const HomeStackNavigator = () => {
@@ -58,19 +56,14 @@ const SearchStackNavigator = () => {
 
 
 
-
 const ChatStackNavigator = () => {
-
     return (
-
         <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} /> }} />
 
         </Stack.Navigator>
-
-        
     );
 }
 
@@ -79,7 +72,7 @@ const ProfileStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header: ({ navigation }) => <ProfileScreenNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
+            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <EditProfileNavBar navigation={navigation} /> }}/>
             <Stack.Screen name="TripScreen" component={TripScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ headerShown: false }} />

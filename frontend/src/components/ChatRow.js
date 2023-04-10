@@ -13,7 +13,7 @@ const ChatRow = ({ chatInfo, navigation }) => {
   const { user } = useAuth();
   const [chatUser, setChatUser] = useState("");
   const chatId = chatInfo.id
-  //console.log(chatInfo)
+  console.log(chatInfo)
   const getUserNameFromUid = async (uid) => {
     const docSnap = await getDoc(doc(db, "Users", uid));
     if (docSnap.exists()) {
@@ -21,20 +21,18 @@ const ChatRow = ({ chatInfo, navigation }) => {
       // console.log("Document data:", docSnap.data());
     } else {
       // doc.data() will be undefined in this case
-      //console.log("No such document!");
+      console.log("No such document!");
     }
   }
 
   useEffect(() => {
     onSnapshot(doc(db, "Chats", chatId), (doc) => {
-      //console.log("Chat Doc Changed");
+      console.log("Chat Doc Changed");
       // console.log(doc)
       const otherUserUid = doc.data()["users"].filter(id => id != user.uid)[0]
       getUserNameFromUid(otherUserUid).catch(console.error)
     })
   }, [])
-
-
 
 
   const timeAgo = chatInfo.latestTimestamp != null ? 
@@ -52,7 +50,7 @@ const ChatRow = ({ chatInfo, navigation }) => {
   }
 
 
-  
+ 
 
   return (
 
@@ -65,9 +63,6 @@ const ChatRow = ({ chatInfo, navigation }) => {
       })
       }
     >
-    
-    
-    
       <Image
         style={styles.profPic}
         source={{ uri: chatUser.profilePic }}

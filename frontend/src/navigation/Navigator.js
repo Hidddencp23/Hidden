@@ -5,7 +5,6 @@ import useAuth from '../hooks/useAuth';
 
 
 const Navigator = () => {
-
     const { user, userInfo } = useAuth();
 
     return (

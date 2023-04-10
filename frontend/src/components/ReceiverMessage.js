@@ -3,7 +3,7 @@ import React from 'react'
 
 const ReceiverMessage = ({ message, chatUser }) => {
 
-  //const date = new Date(message.timestamp.seconds)
+  const date = new Date(message.timestamp.seconds)
 
   return (
 
@@ -47,7 +47,7 @@ const ReceiverMessage = ({ message, chatUser }) => {
   }}>
       <Text style={{ color: "black" }}>{message.message}</Text>
 
-      <Text style={{ color: "#808080" }}>{message.timestamp}</Text>
+      <Text style={{ color: "#808080" }}>{date.getHours()}:{('0' + date.getMinutes()).slice(-2)}</Text>
 
     </View>
 

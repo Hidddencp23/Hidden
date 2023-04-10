@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 import { SearchBar } from 'react-native-elements';
-import TopNavBar from './TopNavBar';
+import TopNavBar from './NavBars/TopNavBar';
 import React, { useEffect, useState } from "react";
 
 const SearchNavBar = ({ navigation }) => {
