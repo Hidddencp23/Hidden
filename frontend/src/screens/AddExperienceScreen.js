@@ -1,39 +1,40 @@
 
-import React from 'react';
-import { useState } from "react";
+import React, { Fragment, Component, useState } from 'react';
+import { useRoute } from '@react-navigation/native'
+
+
 import {
-  Text,
-  StyleSheet,
   SafeAreaView,
-  Dimensions
-} from "react-native";
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
+  Image,
+  Button,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+
+import UploadImageAndroid from '../components/UploadImageAndroid';
 
 
+
+
+// for testing, don't merge in
 
 const AddExperienceScreen = ({ navigation }) => {
 
 
   return (
-    <SafeAreaView style={{ 
-      height: Dimensions.get('window').height
-    }}>
-
-    <Text style={styles.text}>Add Experience Screen</Text>
-
-    </SafeAreaView>
+    <View style={{ marginTop: 200}}>
+      <UploadImageAndroid />
+    </View>
   )
+
+  
 };
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 30,
-  },
-  editProf: {
-    height: '100%'
-  },  
-  editProfScreen: {
-    paddingBottom: 75
-  }
-});
+
 
 export default AddExperienceScreen;
