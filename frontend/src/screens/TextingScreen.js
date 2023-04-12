@@ -45,8 +45,9 @@ const TextingScreen = ({ navigation }) => {
         if (messages){
             for (let i in messages){
                 if (messages[i] != null && messages[i].timestamp != null){
-                    console.log(messages[i].timestamp)
+                    console.log(moment.utc((messages[i].timestamp).toDate().toISOString()).local().startOf('seconds').fromNow())
                     let timeAgoMessage = moment.utc(messages[i].timestamp.toDate().toISOString()).local().startOf('seconds').fromNow();
+                    //let timeAgoMessage = moment.utc((messages[i].timestamp).toDate().toDateString()).local().startOf('seconds').fromNow();
                     messagetimes.push(timeAgoMessage);
                 }
             }

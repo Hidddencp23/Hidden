@@ -1,8 +1,8 @@
 
-import React, { useState } from "react";
+
+import React, { Fragment, Component, useState } from 'react';
+import { useRoute } from '@react-navigation/native'
 import {
-  Text,
-  StyleSheet,
   SafeAreaView,
   View,
   TouchableOpacity,
@@ -19,9 +19,9 @@ import { db } from '../hooks/firebase';
 import useAuth from '../hooks/useAuth'
 import { useRoute } from '@react-navigation/native'
 
+import UploadImageAndroid from '../components/UploadImageAndroid';
 
 // source: https://www.atomlab.dev/tutorials/react-native-star-rating
-
 
 const AddExperienceScreen = ({ navigation }) => {
   const { params } = useRoute();
@@ -144,6 +144,7 @@ const AddExperienceScreen = ({ navigation }) => {
      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   )
+
 };
 
 const styles = StyleSheet.create({
