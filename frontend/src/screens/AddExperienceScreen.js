@@ -1,9 +1,10 @@
 
 
 import React, { Fragment, Component, useState } from 'react';
-import { useRoute } from '@react-navigation/native'
 import {
+  StyleSheet,
   SafeAreaView,
+  Text,
   View,
   TouchableOpacity,
   TextInput,
@@ -18,7 +19,6 @@ import { collection, serverTimestamp, addDoc} from "firebase/firestore";
 import { db } from '../hooks/firebase';
 import useAuth from '../hooks/useAuth'
 import { useRoute } from '@react-navigation/native'
-
 import UploadImageAndroid from '../components/UploadImageAndroid';
 
 // source: https://www.atomlab.dev/tutorials/react-native-star-rating
@@ -119,10 +119,11 @@ const AddExperienceScreen = ({ navigation }) => {
             <Text style={styles.text}>Add Experience</Text>
           </View>
           <View style={styles.body}>
-            <TouchableOpacity style={styles.box}>
+            <UploadImageAndroid />
+            {/* <TouchableOpacity style={styles.box}>
                 <Icon name='cloudupload' size={50} color={"#83C3FF"}/>
                 <Text>Upload Photo/Video</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View style={styles.rating}>
               <Text style={styles.text1}>Rating</Text>
               <StarRating/>
