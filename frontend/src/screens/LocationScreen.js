@@ -29,46 +29,40 @@ const LocationScreen = ({ navigation }) => {
                     }))
                 )
         );
-        console.log("experiences");
-        console.log(experiences);
     },
         [])
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.circle}></View>
             <Image source={{ uri: location.image }} style={styles.locImg} />
             <TouchableOpacity style={styles.heartBox}>
                         <Icon name="heart" size={20} style={styles.heartIcon} />
             </TouchableOpacity>
-            <ScrollView>
-            <View >
+            <ScrollView> 
                 <Text style={styles.title2}>{location.name}</Text>
                 <Text style={styles.descTitle}>Description</Text>
                 <Text style={styles.desc}>{descParagraph}</Text>
-            </View>
             
             <View style={styles.actRow}>
                 <Text style={styles.actTitle}>Activity</Text>
-                <TouchableOpacity style={styles.addIcon}>
+                <TouchableOpacity style={styles.addIcon} onPress={() => navigation.navigate("AddExperienceScreen", {
+                    location})}>
                     <Icon name="plus" size={20} />
                 </TouchableOpacity>
             </View>
-            
-                {experiences.map((experience, index) => (
-                    <Experience experience={experience} key={index} />
-                ))}
+            {experiences.map((experience, index) => <Experience experience={experience} key={index} />)}
+           
             </ScrollView>
-        </SafeAreaView>
+          </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
+        height: "100%",
         justifyContent: 'space-around',
         alignItems: 'center',
-        height: '100%',
         backgroundColor: 'white',
       },
     circle: {
