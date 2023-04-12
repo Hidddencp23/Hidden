@@ -183,6 +183,8 @@ const profileStyles = StyleSheet.create({
       marginLeft: "7%",
       borderRadius: 7,
       justifyContent: 'center',
+      marginTop: "-5%",
+      marginBottom: "5%"
   
     },
     addFriendText: {
@@ -196,6 +198,8 @@ const profileStyles = StyleSheet.create({
       marginLeft: "7.5%",
       borderRadius: 7,
       justifyContent: 'center',
+      marginTop: "-5%",
+      marginBottom: "5%"
     },
     messageIcon: {
       textAlign: 'center',
