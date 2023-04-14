@@ -35,10 +35,10 @@ import circleStyles from '../styles/circle.js';
 // need to connect db
 //import { db } from '../hooks/firebase';
 
-const ProfileScreen = ({ navigation }) => {
+const OtherProfileScreen = ({ navigation }) => {
 
   //const { myprofile } = route.params;
-  const myprofile = 0; // need to connect to db
+  const myprofile = 1; // need to connect to db
 
   const { user, userInfo, logout } = useAuth();
   const [data, setData] = React.useState([]);
@@ -121,38 +121,38 @@ const ProfileScreen = ({ navigation }) => {
 
         {myprofile === 0 ? 
             <SegmentedControl
-              style={profileStyles.toggleButton}
-              values={["My Trips", "Liked Trips"]}
-              selectedIndex={displayIndex}
-              onChange={(event) => {
+            style={profileStyles.toggleButton}
+            values={["My Trips", "Liked Trips"]}
+            selectedIndex={displayIndex}
+            onChange={(event) => {
                 if (displayTrips == "My Trips") {
-                  setdisplayTrips("Liked Trips");
-                  setDisplayIndex(1);
-                  //setSearchTrips(exLikedTrips);
+                setdisplayTrips("Liked Trips");
+                setDisplayIndex(1);
+                //setSearchTrips(exLikedTrips);
                 } else {
-                  setdisplayTrips("My Trips");
-                  setDisplayIndex(0);
-                  //setSearchTrips(exMyTrips);
+                setdisplayTrips("My Trips");
+                setDisplayIndex(0);
+                //setSearchTrips(exMyTrips);
                 }
-              }}
+            }}
             />
 
-          :
+            :
         
-          <SegmentedControl
+            <SegmentedControl
             style={profileStyles.toggleButton}
             values={["Their Trips", "Liked Trips"]}
             selectedIndex={displayIndex}
             onChange={(event) => {
-              if (displayTrips == "My Trips") {
+                if (displayTrips == "My Trips") {
                 setdisplayTrips("Liked Trips");
                 setDisplayIndex(1);
                 //setSearchTrips(exLikedTrips);
-              } else {
+                } else {
                 setdisplayTrips("My Trips");
                 setDisplayIndex(0);
                 //setSearchTrips(exMyTrips);
-              }
+                }
             }}/>
         }
 
@@ -205,4 +205,4 @@ const ProfileScreen = ({ navigation }) => {
 
 
 
-export default ProfileScreen;
+export default OtherProfileScreen;
