@@ -39,9 +39,11 @@ const LocationScreen = ({ navigation }) => {
             </View>
             <ScrollView> 
             <Image source={{ uri: location.image }} style={styles.locImg} />
-            <TouchableOpacity style={styles.heartBox}>
-                        <Icon name="heart" size={20} style={styles.heartIcon} />
-            </TouchableOpacity>
+            <View style={styles.heartContainer}>
+                <TouchableOpacity style={styles.heartBox}>
+                            <Icon name="heart" size={20} style={styles.heartIcon} />
+                </TouchableOpacity>
+            </View>
                 <Text style={styles.descTitle}>Description</Text>
                 <Text style={styles.desc}>{descParagraph}</Text>
             
@@ -82,17 +84,21 @@ const styles = StyleSheet.create({
         marginHorizontal: "5%",
         marginTop: "10%"
     },
+    heartContainer:{
+        position: "absolute",
+        paddingTop: "15%",
+        paddingLeft: "85%",
+        paddingRight: "7%"
+    },
+
     heartIcon: {
         color: "#BFBFBF",
     },
     heartBox: {
-        top: "2%",
-        right: "8%",
         alignItems: 'center',
         justifyContent: 'center',
         padding: "1%",
         borderRadius: 5,
-        position: "absolute",
         backgroundColor: "white"
     },
     descTitle: {
