@@ -34,12 +34,14 @@ const LocationScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <View style={styles.titleView}>
+                <Text style={styles.title}>{location.name}</Text>
+            </View>
+            <ScrollView> 
             <Image source={{ uri: location.image }} style={styles.locImg} />
             <TouchableOpacity style={styles.heartBox}>
                         <Icon name="heart" size={20} style={styles.heartIcon} />
             </TouchableOpacity>
-            <ScrollView> 
-                <Text style={styles.title2}>{location.name}</Text>
                 <Text style={styles.descTitle}>Description</Text>
                 <Text style={styles.desc}>{descParagraph}</Text>
             
@@ -65,17 +67,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
       },
-    circle: {
-        position:'absolute',
-        borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
-        width: Dimensions.get('window').width * 2,
-        height: Dimensions.get('window').width * 2,
-        top: -1 * (Dimensions.get('window').height * .88),
-        left: -1 * (Dimensions.get('window').width * .5),
-        backgroundColor:'#83C3FF',
-        justifyContent: 'center',
-        alignItems: 'center',
-        },
     actRow: {
         flexDirection: 'row',
         display: 'flex',
@@ -84,8 +75,12 @@ const styles = StyleSheet.create({
     },
     locImg: {
         width: "90%",
-        height: "25%",
+        height: 200,
+        // width: "90%",
+        // height: "25%",
         borderRadius: 15,
+        marginHorizontal: "5%",
+        marginTop: "10%"
     },
     heartIcon: {
         color: "#BFBFBF",
@@ -116,13 +111,20 @@ const styles = StyleSheet.create({
         fontSize: 20,
 
     },
-    title2: {
-        marginLeft: "5%",
+    titleView: {
+        backgroundColor: 'white',
+        position: 'absolute',
+        width: "100%",
+        zIndex: 1,
+        paddingLeft: "5%",
+        paddingHorizontal: "2.5%"
+
+    },
+    title: {
         color: "#6E6E6E",
         fontWeight: "bold",
         textAlign: "left",
         fontSize: 27,
-        paddingVertical: "2.5%"
     },
     desc: {
        padding: "5%",
