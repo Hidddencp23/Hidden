@@ -12,24 +12,24 @@ const TripList = ({ navigation, displayTrips }) => {
     //console.log('trips:')
     //console.log(trips[0]['experiences'])
 
-    useEffect(() =>
+    useEffect(() => {
 
-        
-        onSnapshot(
-            query(
-                collection(db, 'Trips'), 
-                orderBy("__name__"),
-                where("__name__", "in", userInfo[displayTrips]),
-            ),
-            (snapshot) => {
-                setTrips(
-                    snapshot.docs.map(doc => ({
-                        id: doc.id,
-                        ...doc.data()
-                    }))
-                )
-            }
-        ),
+        if (userInfo[displayTrips].length > 0){
+            onSnapshot(
+                query(
+                    collection(db, 'Trips'), 
+                    orderBy("__name__"),
+                    where("__name__", "in", userInfo[displayTrips]),
+                ),
+                (snapshot) => {
+                    setTrips(
+                        snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }))
+                    )
+                }
+            )}},
         [])
 
 
