@@ -14,7 +14,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard
 } from "react-native";
-
+import { setDoc, doc, updateDoc } from "firebase/firestore";
 import Icon from "react-native-vector-icons/AntDesign";
 
 import * as ImagePicker from 'expo-image-picker';
@@ -32,8 +32,14 @@ const EditProfileScreen = ({ navigation }) => {
   };
 
   const handleSubmit = async () => {
-    userInfo.profilePic = image;
-    userInfo.name = changeName;
+    try {
+      updateDoc(doc(db, "Users", user.uid), {
+        name: changeName,
+        profilePic: image,
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 
   const addImage = async () => {
