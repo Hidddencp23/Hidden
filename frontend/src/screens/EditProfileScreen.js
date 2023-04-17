@@ -32,7 +32,8 @@ const EditProfileScreen = ({ navigation }) => {
   };
 
   const handleSubmit = async () => {
-    console.log("here")
+    userInfo.profilePic = image;
+    userInfo.name = changeName;
   }
 
   const addImage = async () => {
@@ -51,8 +52,6 @@ const EditProfileScreen = ({ navigation }) => {
       // could pass in a setter to get this value to the form
       // (or just pull out the function to the AddExperienceScreen)
       //setImageString(base64);
-      console.log(base64);
-
     }
   };
 
