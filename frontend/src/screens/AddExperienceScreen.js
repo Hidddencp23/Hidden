@@ -48,13 +48,12 @@ const AddExperienceScreen = ({ navigation }) => {
     if (!_image.cancelled) {
       setImage(_image.assets[0]['uri']);
 
-      const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
+      // const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
       
       // this is the base64 string of the uploaded image
       // could pass in a setter to get this value to the form
       // (or just pull out the function to the AddExperienceScreen)
       //setImageString(base64);
-      console.log(base64);
 
     }
   };
