@@ -3,6 +3,7 @@ import { SafeAreaView, Image, View, Text, StyleSheet, FlatList, TouchableWithout
 import { where, getDoc, addDoc, onSnapshot, orderBy, query, serverTimestamp, doc } from 'firebase/firestore'
 import { db } from "../hooks/firebase";
 import Icon from "react-native-vector-icons/AntDesign";
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Experience = ({ experience }) => {
     const [poster, setPoster] = useState("");
@@ -26,16 +27,27 @@ const Experience = ({ experience }) => {
     }, [])
         return (
         <View>
-            <View style={styles.horizView}>
+            <TouchableOpacity style={styles.horizView}>
                 <Image source={{ uri: poster["profilePic"] }} style={styles.profImg}/>
                 <Text style={styles.profName}> {poster["name"]}</Text>
-            </View>
-           
+            </TouchableOpacity>
+                       
             <View>
                 {experience.image ? (<Image source={{ uri: experience.image }} style={styles.locImg} /> ) : null}
-                <Text style={styles.desc}>{experience.description}</Text>
             </View>
-            
+            <View style={styles.buttons}>
+                <View style={styles.activity}>
+                    <TouchableOpacity >
+                        <Icon name='heart' size={20} color={"#BFBFBF"}></Icon>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.activity}>
+                    <MaterialIcons name='star' size={20} color={"#ffb300"}></MaterialIcons>
+                    <Text> {experience.rating}</Text>
+                </View>
+            </View>
+            <Text style={styles.desc}>{experience.description}</Text>
+
         </View>
     )
 }
@@ -51,8 +63,21 @@ const styles = StyleSheet.create({
       horizView: {
         flexDirection: "row",
         alignItems:"center",
-        marginTop: '3%'
+        marginTop: '3%',
+        width: "100%"
       },
+      buttons: {
+        flexDirection: 'row',
+        display: 'flex',
+        paddingHorizontal: "5%",
+        paddingVertical: "2.5%",
+        justifyContent: 'space-between'
+      },
+      activity: {
+        flexDirection: "row",
+        alignItems:"center",
+      },
+    
       locImg: {
         width: "90%",
         height: 200,

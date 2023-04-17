@@ -133,6 +133,7 @@ const AddExperienceScreen = ({ navigation }) => {
                       style={styles.textInput}
                       value={description}
                       onChangeText={handleDescriptionChange}
+                      maxLength={300}
                       multiline={true}
                       placeholder="Description"
                       placeholderTextColor="#8e8e8e" />
