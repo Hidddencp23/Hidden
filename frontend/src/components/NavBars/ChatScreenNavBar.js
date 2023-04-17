@@ -3,15 +3,19 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 
+import circleStyles  from '../../styles/circle';
+
 
 const ChatScreenNavBar = ({ navigation }) => {
     return (
         <>
-            {/* {Platform.OS === 'ios' ?
+        
+             {Platform.OS === 'ios' ?
                     <View style={circleStyles.iosCircle}/> 
                     :
                     <View style={circleStyles.androidCircle}/> 
-            } */}        
+            }      
+        
             <View style={styles.header}>
                     <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
                         <Icon name="left" size={20} />
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#83C3FF',
+        //backgroundColor: '#83C3FF',
         overflow: 'hidden',
     },
     headerImage: {

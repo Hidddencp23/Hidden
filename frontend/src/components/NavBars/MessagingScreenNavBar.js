@@ -9,11 +9,13 @@ import circleStyles  from '../../styles/circle';
 const MessagingScreenNavBar = ({ navigation }) => {
     return (
         <>
-            {/* {Platform.OS === 'ios' ?
+        
+             {Platform.OS === 'ios' ?
             <View style={circleStyles.iosCircle}/> 
             :
             <View style={circleStyles.androidCircle}/> 
-            } */}
+            } 
+        
 
             <View style={styles.header}>
                 <Text style={styles.baseText}>Messages</Text>
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
         paddingBottom: "3%",
         paddingTop: "13%",
         alignItems: 'center',
-        backgroundColor: '#83C3FF',
+        //backgroundColor: '#83C3FF',
         overflow: 'hidden',
     },
     headerImage: {
