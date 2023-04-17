@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 
 import circleStyles  from '../../styles/circle';
 
+import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
+import { db } from "../../hooks/firebase";
 
-const ChatScreenNavBar = ({ navigation }) => {
+
+const ChatScreenNavBar = ({ navigation, userName }) => {
+
+
     return (
         <>
-        
              {Platform.OS === 'ios' ?
                     <View style={circleStyles.iosCircle}/> 
                     :
@@ -20,7 +24,7 @@ const ChatScreenNavBar = ({ navigation }) => {
                     <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
                         <Icon name="left" size={20} />
                     </TouchableOpacity>
-                    <Text style={styles.baseText}>Name</Text>
+                    <Text style={styles.baseText}>{userName}</Text>
                     <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("")}>
                         <Icon name="info" size={20} />
                     </TouchableOpacity>

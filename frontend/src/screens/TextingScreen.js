@@ -23,6 +23,8 @@ import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
+import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+
 
 const TextingScreen = ({ navigation }) => {
     
@@ -157,6 +159,8 @@ const TextingScreen = ({ navigation }) => {
     
   return (
     <SafeAreaView style={{flex: 1}}> 
+
+        <ChatScreenNavBar userName={chatUser.name}/>
 
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}

@@ -73,6 +73,8 @@ const SenderMessage = ({ message }) => {
       
       <Text style={{ color: "black" }}>{message.message}</Text>
 
+      
+      
       {hours && minutes ? 
       <Text style={{ color: "black", textAlign: "right" }}>
           {hours}:{minutes} {ampm}
@@ -80,12 +82,13 @@ const SenderMessage = ({ message }) => {
         : 
         null
       }
-      
-      
 
 
 
     </View>
+
+    
+    
     </>
   )
 }

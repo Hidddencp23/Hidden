@@ -20,7 +20,7 @@ import GroupTextingScreen from '../screens/GroupTextingScreen';
 import LocationScreen from '../screens/LocationScreen';
 import ProfileScreenNavBar from '../components/NavBars/ProfileScreenNavBar';
 import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
-import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+//import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
 import EditProfileNavBar from '../components/NavBars/EditProfileNavBar';
 
 // temp
@@ -73,14 +73,16 @@ const SearchStackNavigator = () => {
 }
 
 
+// header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} /> }}
+// header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} />
 
 const ChatStackNavigator = () => {
     return (
 
             <Stack.Navigator screenOptions={screenOptionStyle}>
                 <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
-                <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} /> }} />
-                <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} /> }} />
+                <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ headerShown: false }}  />
+                <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ headerShown: false }} />
 
             </Stack.Navigator>
 
