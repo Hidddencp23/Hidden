@@ -110,21 +110,21 @@ export const AuthProvider = ({ children }) => {
     []
   );
 
-  const signInWithGoogle = async () => {
-    setLoading(true);
-    console.log("here")
-    await Google.logInAsync(config).then(async (logInResult) => {
-      if (logInResult.type == 'success') {
-        const { idToken, accessToken } = logInResult;
-        const credential = GoogleAuthProvider.credential(idToken, accessToken);
-        await signInWithCredential(auth, credential);
-      }
+  // const signInWithGoogle = async () => {
+  //   setLoading(true);
+  //   console.log("here")
+  //   await Google.logInAsync(config).then(async (logInResult) => {
+  //     if (logInResult.type == 'success') {
+  //       const { idToken, accessToken } = logInResult;
+  //       const credential = GoogleAuthProvider.credential(idToken, accessToken);
+  //       await signInWithCredential(auth, credential);
+  //     }
 
-      return Promise.reject();
-    })
-      .catch(error => setError(error))
-      .finally(() => setLoading(false));
-  }
+  //     return Promise.reject();
+  //   })
+  //     .catch(error => setError(error))
+  //     .finally(() => setLoading(false));
+  // }
 
   const logout = () => {
     setLoading(true);
@@ -139,7 +139,6 @@ export const AuthProvider = ({ children }) => {
     userInfo,
     loading,
     error,
-    signInWithGoogle,
     logout
   }), [user, userInfo, loading, error])
 
