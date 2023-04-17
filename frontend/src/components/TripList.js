@@ -13,6 +13,8 @@ const TripList = ({ navigation, displayTrips }) => {
     //console.log(trips[0]['experiences'])
 
     useEffect(() =>
+
+        
         onSnapshot(
             query(
                 collection(db, 'Trips'), 
@@ -37,6 +39,7 @@ const TripList = ({ navigation, displayTrips }) => {
             {trips !== null ?
             <>
                 {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
+            </> 
             : 
             null
             }
