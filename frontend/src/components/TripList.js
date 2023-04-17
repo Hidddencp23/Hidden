@@ -34,7 +34,12 @@ const TripList = ({ navigation, displayTrips }) => {
 
     return (
         <ScrollView>
-            {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
+            {trips !== null ?
+            <>
+                {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
+            : 
+            null
+            }
         </ScrollView>
     )
 }
