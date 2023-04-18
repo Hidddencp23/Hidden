@@ -37,7 +37,7 @@ const ReceiverMessage = ({ message, chatUser }) => {
 
           //console.log(local)
           hours = serverDate.getHours();
-
+ 
           var ampm = hours >= 12 ? 'PM' : 'AM';
 
           hours = hours % 12;
