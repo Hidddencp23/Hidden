@@ -11,8 +11,6 @@ const LocationScreen = ({ navigation }) => {
     const { params } = useRoute();
     const { location } = params;
     const [experiences, setExperiences] = useState([]);
-    const descParagraph = 
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
     useEffect(() => {
         // retrieves experiences that belong to this location
         onSnapshot(
@@ -45,7 +43,7 @@ const LocationScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
                 <Text style={styles.descTitle}>Description</Text>
-                <Text style={styles.desc}>{descParagraph}</Text>
+                <Text style={styles.desc}>{location.description}</Text>
             
             <View style={styles.actRow}>
                 <Text style={styles.actTitle}>Activity</Text>
@@ -121,9 +119,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         position: 'absolute',
         width: "100%",
+        alignItems: 'center',
         zIndex: 1,
-        paddingLeft: "5%",
-        paddingHorizontal: "2.5%"
 
     },
     title: {

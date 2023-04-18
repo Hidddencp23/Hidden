@@ -85,7 +85,7 @@ const HomeScreen = ({ navigation }) => {
                     <Image source={{ uri: location.image }} style={styles.locImg} />
                     <View style={styles.vertView}>
                         <Text style={styles.locName}>{location.name}</Text>
-                        <Text style={styles.locType}>{location.description}</Text>
+                        <Text style={styles.locType}>{location.category}</Text>
                         <Text style={styles.locType}>{location.address}</Text>
                     </View>
                     <TouchableOpacity style={styles.favLocation}>
