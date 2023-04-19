@@ -11,8 +11,16 @@ const LocationScreen = ({ navigation }) => {
     const { params } = useRoute();
     const { location } = params;
     const [experiences, setExperiences] = useState([]);
-    const descParagraph = 
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    const [likeLocation, setLikeLocation] = useState(false);
+    const handleLike = async () => {
+        if(likeLocation == false)
+        {
+            setLikeLocation(true)
+        }
+        else {
+            setLikeLocation(false)
+        }
+      }
     useEffect(() => {
         // retrieves experiences that belong to this location
         onSnapshot(
@@ -34,14 +42,18 @@ const LocationScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Image source={{ uri: location.image }} style={styles.locImg} />
-            <TouchableOpacity style={styles.heartBox}>
-                        <Icon name="heart" size={20} style={styles.heartIcon} />
-            </TouchableOpacity>
+            <View style={styles.titleView}>
+                <Text style={styles.title}>{location.name}</Text>
+            </View>
             <ScrollView> 
-                <Text style={styles.title2}>{location.name}</Text>
+            <Image source={{ uri: location.image }} style={styles.locImg} />
+            <View style={styles.heartContainer}>
+                <TouchableOpacity style={styles.heartBox} onPress={handleLike}>
+                {likeLocation ? (<Icon name="heart" size={20} style={styles.isliked} />) : (<Icon name="heart" size={20} style={styles.notliked} />)}
+                </TouchableOpacity>
+            </View>
                 <Text style={styles.descTitle}>Description</Text>
-                <Text style={styles.desc}>{descParagraph}</Text>
+                <Text style={styles.desc}>{location.description}</Text>
             
             <View style={styles.actRow}>
                 <Text style={styles.actTitle}>Activity</Text>
@@ -61,21 +73,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         height: "100%",
-        justifyContent: 'space-around',
-        alignItems: 'center',
         backgroundColor: 'white',
       },
-    circle: {
-        position:'absolute',
-        borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
-        width: Dimensions.get('window').width * 2,
-        height: Dimensions.get('window').width * 2,
-        top: -1 * (Dimensions.get('window').height * .88),
-        left: -1 * (Dimensions.get('window').width * .5),
-        backgroundColor:'#83C3FF',
-        justifyContent: 'center',
-        alignItems: 'center',
-        },
     actRow: {
         flexDirection: 'row',
         display: 'flex',
@@ -84,20 +83,29 @@ const styles = StyleSheet.create({
     },
     locImg: {
         width: "90%",
-        height: "25%",
+        height: 200,
+        // width: "90%",
+        // height: "25%",
         borderRadius: 15,
+        marginHorizontal: "5%",
+        marginTop: "10%"
     },
-    heartIcon: {
+    heartContainer:{
+        position: "absolute",
+        paddingTop: "15%",
+        paddingLeft: "85%",
+        paddingRight: "7%"
+    },
+    notliked: {
         color: "#BFBFBF",
     },
+    isliked: {
+        color: "#D42638",
+    },
     heartBox: {
-        top: "2%",
-        right: "8%",
         alignItems: 'center',
-        justifyContent: 'center',
         padding: "1%",
         borderRadius: 5,
-        position: "absolute",
         backgroundColor: "white"
     },
     descTitle: {
@@ -106,7 +114,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "left",
         fontSize: 20,
-        paddingVertical: "2.5%"
+        paddingVertical: "2.5%",
+        
 
     },
     actTitle: {
@@ -116,13 +125,19 @@ const styles = StyleSheet.create({
         fontSize: 20,
 
     },
-    title2: {
-        marginLeft: "5%",
+    titleView: {
+        backgroundColor: 'white',
+        position: 'absolute',
+        width: "100%",
+        alignItems: 'center',
+        zIndex: 1,
+
+    },
+    title: {
         color: "#6E6E6E",
         fontWeight: "bold",
         textAlign: "left",
         fontSize: 27,
-        paddingVertical: "2.5%"
     },
     desc: {
        padding: "5%",

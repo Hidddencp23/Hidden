@@ -19,7 +19,9 @@ import { collection, serverTimestamp, addDoc} from "firebase/firestore";
 import { db } from '../hooks/firebase';
 import useAuth from '../hooks/useAuth'
 import { useRoute } from '@react-navigation/native'
-import UploadImageAndroid from '../components/UploadImageAndroid';
+import * as ImagePicker from 'expo-image-picker';
+
+import * as FileSystem from 'expo-file-system';
 
 // source: https://www.atomlab.dev/tutorials/react-native-star-rating
 
@@ -33,6 +35,29 @@ const AddExperienceScreen = ({ navigation }) => {
   const handleDescriptionChange = (text) => {
     setDescription(text);
   };
+  //const [image, setImage] = useState(null);
+
+  
+  const addImage = async () => {
+    let _image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4,3],
+      quality: 1,
+    });
+    if (!_image.canceled) {
+      setImage(_image.assets[0]['uri']);
+
+      // const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
+      
+      // this is the base64 string of the uploaded image
+      // could pass in a setter to get this value to the form
+      // (or just pull out the function to the AddExperienceScreen)
+      //setImageString(base64);
+
+    }
+  };
+  
 
   const handleSubmit = async () => {
     try {
@@ -40,6 +65,7 @@ const AddExperienceScreen = ({ navigation }) => {
     } catch (error) {
       console.error("Unable to post", error);
     }
+    navigation.goBack()
   }
   const addPost = async (userId, hiddenLocation, rating, image, description) => {
     try {
@@ -119,11 +145,10 @@ const AddExperienceScreen = ({ navigation }) => {
             <Text style={styles.text}>Add Experience</Text>
           </View>
           <View style={styles.body}>
-            <UploadImageAndroid />
-            {/* <TouchableOpacity style={styles.box}>
-                <Icon name='cloudupload' size={50} color={"#83C3FF"}/>
-                <Text>Upload Photo/Video</Text>
-            </TouchableOpacity> */}
+          <TouchableOpacity style={styles.box} onPress={addImage}>
+            <Icon name='cloudupload' size={50} color={"#83C3FF"}/>
+            <Text>Upload Photo/Video</Text>
+          </TouchableOpacity>
             <View style={styles.rating}>
               <Text style={styles.text1}>Rating</Text>
               <StarRating/>
@@ -133,6 +158,7 @@ const AddExperienceScreen = ({ navigation }) => {
                       style={styles.textInput}
                       value={description}
                       onChangeText={handleDescriptionChange}
+                      maxLength={300}
                       multiline={true}
                       placeholder="Description"
                       placeholderTextColor="#8e8e8e" />
