@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Text,
   StyleSheet,
@@ -14,49 +13,45 @@ import {
 } from "react-native";
 
 import { SearchBar } from 'react-native-elements';
-
+import LocationView from '../components/LocationView';
 import Icon from "react-native-vector-icons/Entypo";
 // placeholder image for now
 import deleteme from "../../assets/deleteme.png";
+import { useRoute } from '@react-navigation/native'
+import { collection, onSnapshot, orderBy, query, limit, where } from 'firebase/firestore';
+import { db } from '../hooks/firebase';
 
 import profileStyles from '../styles/profiles.js';
 import circleStyles from '../styles/circle';
 
 const TripDiaryScreen = ({ route, navigation}) => {
 
-  const { experiences } = route.params;
+  const { tripInfo } = route.params;
   let myKey = 1;
-
+  const { params } = useRoute();
+  const [locations, setLocations] = useState([]);
 
   // search bar (for trips)
   const [search, setSearch] = useState('');
 
+  useEffect(() =>
+  onSnapshot(
+      query(
+          collection(db, 'HiddenLocations'), 
+          orderBy("__name__"),
+          where("__name__", "in", tripInfo['locations']),
+      ),
+      (snapshot) => {
+          setLocations(
+              snapshot.docs.map(doc => ({
+                  id: doc.id,
+                  ...doc.data()
+              }))
+          )
+      }
+  ),
+  [])
 
-
-  const ExperienceView = ({ experience }) => (
-    
-    
-    <View
-      style={profileStyles.tripAlign}
-    >
-      <TouchableOpacity style={profileStyles.myTripTab}>
-        <View style={profileStyles.horizButtons}>
-          <Image source={{ uri: experience.image}} alt="Avatar" style={profileStyles.tripImg}></Image>
-          <View style={profileStyles.vertButtons}>
-            <Text style={profileStyles.myTripsTitle}>{experience.title}</Text>
-            <Text style={profileStyles.myTripsUser}>{experience.date}</Text>
-
-            <View style={profileStyles.locationTextAlign}>
-              <Icon name="location-pin" color="#83C3FF" size={20} />
-              <Text style={profileStyles.myTripsDate}>{experience.location}</Text>
-            </View>
-          </View>
-          <Icon name="star" color="#FFEF00" size={20} style={profileStyles.arrow} />
-          <Text style={profileStyles.ratingText}>{experience.rating}</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
 
 
   return (
@@ -83,18 +78,18 @@ const TripDiaryScreen = ({ route, navigation}) => {
     />
 
     <ScrollView>
-    { (search != null && experiences.length > 0)  ? (
+    { (search != null && locations.length > 0)  ? (
       <>
-          {experiences
+          {locations
               .filter(x => String(x.title).includes(search))
-              .map((item) => <ExperienceView experience={item} key={myKey++}/>)
+              .map((item) => <LocationView location={item} key={myKey++} navigation={navigation} />)
           }
       </>
       ) : null}
     </ScrollView>
 
     <TouchableOpacity
-        onPress={() => navigation.navigate("AddExperienceScreen")}
+        onPress={() => navigation.navigate("AddLocationScreen", {tripInfo})}
         style={profileStyles.circularButton}>
         
         <Icon name="plus" size={30} style={{
