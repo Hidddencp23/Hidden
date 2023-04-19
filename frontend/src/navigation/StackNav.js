@@ -24,6 +24,7 @@ import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
 import EditProfileNavBar from '../components/NavBars/EditProfileNavBar';
 
 // temp
+import AddLocationScreen from '../screens/AddLocationScreen';
 import AddExperienceScreen from '../screens/AddExperienceScreen';
 import SearchNavBar from '../components/SearchNavBar';
 import LocationNav from '../components/LocationNav';
@@ -59,6 +60,7 @@ const HomeStackNavigator = () => {
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <SearchNavBar navigation={navigation} /> }} />
             <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="AddLocationScreen" component={AddLocationScreen} options={{ headerShown: false }} />
 
         </Stack.Navigator>
     );
