@@ -124,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
                     </View>
                 </SwipeablePanel>
                 <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
-                    <Icon name="enviroment" color={"#83C3FF"} size={30} style={{justifyContent:"center"}}> </Icon>
+                    <Icon name="minus" color={"#BFBFBF"}  size={50} style={{justifyContent:"center"}}> </Icon>
                 </TouchableOpacity>
             </SafeAreaView>
             </TouchableWithoutFeedback>
@@ -168,10 +168,11 @@ const styles = StyleSheet.create({
     },
     listButton: {
         backgroundColor: "white",
-        borderRadius: 50,
+        borderRadius: 15,
         position: "absolute",
-        bottom: "5%",
-        right: "5%",
+        width: "100%",
+        bottom: "-3%",
+        alignItems: "center"
       },
     icons: {
         paddingLeft: "10%",
