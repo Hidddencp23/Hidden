@@ -12,7 +12,6 @@ const TripRow = ({ tripInfo, navigation }) => {
   //console.log('ripinfo:');
   //console.log(tripInfo);
 
-  const experiences = tripInfo['experiences'];
 
   return (
     <View
@@ -25,7 +24,7 @@ const TripRow = ({ tripInfo, navigation }) => {
     <TouchableOpacity
       style={styles.tripTab}
       onPress={() => navigation.navigate("TripDiaryScreen", {
-        experiences
+        tripInfo
       })
       }
     >

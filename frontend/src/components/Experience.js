@@ -7,6 +7,16 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 const Experience = ({ experience }) => {
     const [poster, setPoster] = useState("");
+    const [likeLocation, setLikeLocation] = useState(false);
+    const handleLike = async () => {
+        if(likeLocation == false)
+        {
+            setLikeLocation(true)
+        }
+        else {
+            setLikeLocation(false)
+        }
+    }
     const getUserNameFromUid = async (uid) => {
         const docRef = doc(db, "Users", uid);
         try {
@@ -37,8 +47,8 @@ const Experience = ({ experience }) => {
             </View>
             <View style={styles.buttons}>
                 <View style={styles.activity}>
-                    <TouchableOpacity >
-                        <Icon name='heart' size={20} color={"#BFBFBF"}></Icon>
+                    <TouchableOpacity onPress={handleLike}>
+                        {likeLocation ? (<Icon name="heart" size={20} style={styles.isliked} />) : (<Icon name="heart" size={20} style={styles.notliked} />)}
                     </TouchableOpacity>
                 </View>
                 <View style={styles.activity}>
@@ -77,7 +87,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems:"center",
       },
-    
+      notliked: {
+        color: "#BFBFBF",
+    },
+    isliked: {
+        color: "#D42638",
+    },
       locImg: {
         width: "90%",
         height: 200,

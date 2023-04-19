@@ -11,8 +11,16 @@ const LocationScreen = ({ navigation }) => {
     const { params } = useRoute();
     const { location } = params;
     const [experiences, setExperiences] = useState([]);
-    const descParagraph = 
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    const [likeLocation, setLikeLocation] = useState(false);
+    const handleLike = async () => {
+        if(likeLocation == false)
+        {
+            setLikeLocation(true)
+        }
+        else {
+            setLikeLocation(false)
+        }
+      }
     useEffect(() => {
         // retrieves experiences that belong to this location
         onSnapshot(
@@ -40,12 +48,12 @@ const LocationScreen = ({ navigation }) => {
             <ScrollView> 
             <Image source={{ uri: location.image }} style={styles.locImg} />
             <View style={styles.heartContainer}>
-                <TouchableOpacity style={styles.heartBox}>
-                            <Icon name="heart" size={20} style={styles.heartIcon} />
+                <TouchableOpacity style={styles.heartBox} onPress={handleLike}>
+                {likeLocation ? (<Icon name="heart" size={20} style={styles.isliked} />) : (<Icon name="heart" size={20} style={styles.notliked} />)}
                 </TouchableOpacity>
             </View>
                 <Text style={styles.descTitle}>Description</Text>
-                <Text style={styles.desc}>{descParagraph}</Text>
+                <Text style={styles.desc}>{location.description}</Text>
             
             <View style={styles.actRow}>
                 <Text style={styles.actTitle}>Activity</Text>
@@ -65,8 +73,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         height: "100%",
-        justifyContent: 'space-around',
-        alignItems: 'center',
         backgroundColor: 'white',
       },
     actRow: {
@@ -90,13 +96,14 @@ const styles = StyleSheet.create({
         paddingLeft: "85%",
         paddingRight: "7%"
     },
-
-    heartIcon: {
+    notliked: {
         color: "#BFBFBF",
+    },
+    isliked: {
+        color: "#D42638",
     },
     heartBox: {
         alignItems: 'center',
-        justifyContent: 'center',
         padding: "1%",
         borderRadius: 5,
         backgroundColor: "white"
@@ -107,7 +114,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "left",
         fontSize: 20,
-        paddingVertical: "2.5%"
+        paddingVertical: "2.5%",
+        
 
     },
     actTitle: {
@@ -121,9 +129,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         position: 'absolute',
         width: "100%",
+        alignItems: 'center',
         zIndex: 1,
-        paddingLeft: "5%",
-        paddingHorizontal: "2.5%"
 
     },
     title: {

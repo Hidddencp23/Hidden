@@ -37,7 +37,7 @@ const UploadImageAndroid = () => {
       aspect: [4,3],
       quality: 1,
     });
-    if (!_image.cancelled) {
+    if (!_image.canceled) {
       setImage(_image.assets[0]['uri']);
 
       const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
