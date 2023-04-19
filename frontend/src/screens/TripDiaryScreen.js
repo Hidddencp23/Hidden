@@ -82,14 +82,19 @@ const TripDiaryScreen = ({ route, navigation}) => {
       value={search}   
     />
 
-    <ScrollView>
-    { (search != null && experiences.length > 0)  ? (
+    <ScrollView> 
+    { (search != null && experiences != null)  ? (
       <>
-          {experiences
-              .filter(x => String(x.title).includes(search))
-              .map((item) => <ExperienceView experience={item} key={myKey++}/>)
-          }
+        {experiences.length > 0 ? 
+          <>
+              {experiences
+                  .filter(x => String(x.title).includes(search))
+                  .map((item) => <ExperienceView experience={item} key={myKey++}/>)
+              }
+          </>
+        : null }
       </>
+
       ) : null}
     </ScrollView>
 

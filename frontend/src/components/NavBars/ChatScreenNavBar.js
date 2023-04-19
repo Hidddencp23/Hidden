@@ -14,11 +14,13 @@ const ChatScreenNavBar = ({ navigation, userName }) => {
 
     return (
         <>
+            {/*
              {Platform.OS === 'ios' ?
                     <View style={circleStyles.iosCircle}/> 
                     :
                     <View style={circleStyles.androidCircle}/> 
             }      
+            */}
         
             <View style={styles.header}>
                     <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        //backgroundColor: '#83C3FF',
+        backgroundColor: '#83C3FF',
         overflow: 'hidden',
     },
     headerImage: {
