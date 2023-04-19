@@ -1,7 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-//import moment from 'moment';
+import moment from 'moment';
+
+
+
 
 const SenderMessage = ({ message }) => {
 
@@ -9,14 +12,46 @@ const SenderMessage = ({ message }) => {
   let hours = null;
   let minutes = null;
 
+
+ 
+  const datesAreOnSameDay = (first, second) =>
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate();
+
+
+  // current time on client side
+  const currentTime = moment().toDate();
+
+
+  //console.log(timeagonow); 
+  
   
   if (typeof message !== 'undefined'){
       if (message.timestamp !== null){
-          const date = new Date(message.timestamp.seconds)
-          hours = date.getHours();
-          minutes = ('0' + date.getMinutes()).slice(-2);
+        if (datesAreOnSameDay(message.timestamp.toDate(), currentTime)){
+        
+          // server timestamp
+          const serverDate = new Date(message.timestamp.toDate());
+
+          // local time
+          const local = serverDate.toLocaleString();
+
+          //console.log(local)
+          hours = serverDate.getHours();
+
+          var ampm = hours >= 12 ? 'PM' : 'AM';
+
+          hours = hours % 12;
+          hours = hours ? hours : 12; // the hour '0' should be '12'
+
+          minutes = ('0' + serverDate.getMinutes()).slice(-2);
+
+        }
+
       }
   }
+  
   
   
 
@@ -35,24 +70,25 @@ const SenderMessage = ({ message }) => {
         backgroundColor: "#83C3FF", 
         borderRadius: 15,
     }}>
+      
       <Text style={{ color: "black" }}>{message.message}</Text>
 
-
+      
+      
+      {hours && minutes ? 
       <Text style={{ color: "black", textAlign: "right" }}>
-
-        { hours && minutes ? 
-        <>
-          {hours}:{minutes} 
-        </>
+          {hours}:{minutes} {ampm}
+          </Text>
         : 
-        <>
-        </>
-        }
-      </Text>
+        null
+      }
 
 
 
     </View>
+
+    
+    
     </>
   )
 }

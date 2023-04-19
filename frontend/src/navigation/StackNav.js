@@ -1,5 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+//import ReactNavigation from "react-navigation";
+
 import LoginScreen from '../screens/LoginScreen'
 import HomeScreen from "../screens/HomeScreen";
 import MessagingScreen from '../screens/MessagingScreen';
@@ -18,7 +20,7 @@ import GroupTextingScreen from '../screens/GroupTextingScreen';
 import LocationScreen from '../screens/LocationScreen';
 import ProfileScreenNavBar from '../components/NavBars/ProfileScreenNavBar';
 import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
-import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+//import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
 import EditProfileNavBar from '../components/NavBars/EditProfileNavBar';
 
 // temp
@@ -26,15 +28,30 @@ import AddLocationScreen from '../screens/AddLocationScreen';
 import AddExperienceScreen from '../screens/AddExperienceScreen';
 import SearchNavBar from '../components/SearchNavBar';
 import LocationNav from '../components/LocationNav';
+
+//import { CardStyleInterpolators } from '@react-navigation/stack';
+
+
+
 const Stack = createNativeStackNavigator();
 
 const screenOptionStyle = {
+
     headerStyle: {
         backgroundColor: "#9AC4F8",
+        position: 'sticky'
     },
     headerTintColor: "white",
     headerBackTitle: "Back",
+
+    // used for newer versions of react-navigation/stack
+    //cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+    //cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+
+    animation: "slide_from_right",
+    //animation: "slide_from_bottom"
 };
+
 
 
 const HomeStackNavigator = () => {
@@ -58,15 +75,19 @@ const SearchStackNavigator = () => {
 }
 
 
+// header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} /> }}
+// header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} />
 
 const ChatStackNavigator = () => {
     return (
-        <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ header: ({ navigation }) => <ChatScreenNavBar navigation={navigation} /> }} />
 
-        </Stack.Navigator>
+            <Stack.Navigator screenOptions={screenOptionStyle}>
+                <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
+                <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ headerShown: false }}  />
+                <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ headerShown: false }} />
+
+            </Stack.Navigator>
+
     );
 }
 

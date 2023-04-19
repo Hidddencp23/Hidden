@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 
+import circleStyles  from '../../styles/circle';
 
-const ChatScreenNavBar = ({ navigation }) => {
+import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
+import { db } from "../../hooks/firebase";
+
+
+const ChatScreenNavBar = ({ navigation, userName }) => {
+
+
     return (
         <>
-            {/* {Platform.OS === 'ios' ?
+             {Platform.OS === 'ios' ?
                     <View style={circleStyles.iosCircle}/> 
                     :
                     <View style={circleStyles.androidCircle}/> 
-            } */}        
+            }      
+        
             <View style={styles.header}>
                     <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
                         <Icon name="left" size={20} />
                     </TouchableOpacity>
-                    <Text style={styles.baseText}>Name</Text>
+                    <Text style={styles.baseText}>{userName}</Text>
                     <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("")}>
                         <Icon name="info" size={20} />
                     </TouchableOpacity>
@@ -41,7 +49,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#83C3FF',
+        //backgroundColor: '#83C3FF',
         overflow: 'hidden',
     },
     headerImage: {

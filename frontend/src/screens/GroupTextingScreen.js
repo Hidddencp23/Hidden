@@ -7,7 +7,8 @@ import { View, Text,
      SafeAreaView, 
      TouchableWithoutFeedback,
      Keyboard, 
-     FlatList
+     FlatList,
+     TouchableOpacity
     } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ChatHeader from '../components/ChatHeader'
@@ -18,6 +19,10 @@ import SenderMessage from '../components/SenderMessage'
 import GroupReceiverMessage from '../components/GroupReceiverMessage'
 import { updateDoc, addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc } from 'firebase/firestore'
 import { db } from '../hooks/firebase'
+import Icon from "react-native-vector-icons/AntDesign";
+import Ionicon from 'react-native-vector-icons/Ionicons'; 
+
+import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
 
 const GroupTextingScreen = ({ navigation }) => {
     const { user } = useAuth();
@@ -57,9 +62,22 @@ const GroupTextingScreen = ({ navigation }) => {
         setInput("");
     };
 
+    useEffect(() => {
+        navigation.getParent()?.setOptions({
+          tabBarStyle: {
+            display: "none"
+          }
+        });
+        return () => navigation.getParent()?.setOptions({
+          tabBarStyle: undefined
+        });
+      }, [navigation]);
+
   return (
     <SafeAreaView style={{flex: 1}}>
-        <ChatHeader navigation={navigation} title={chatInfo.name} />
+
+        <ChatScreenNavBar userName={chatInfo.name}/>
+        {/*<ChatHeader navigation={navigation} title={chatInfo.name} />*/}
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
@@ -82,7 +100,7 @@ const GroupTextingScreen = ({ navigation }) => {
                     />
                 </TouchableWithoutFeedback>
 
-
+{/*
                 <View style={{ flexDirection: "row" }}>
                     <TextInput 
                         style={styles.messageinputbar}
@@ -93,6 +111,46 @@ const GroupTextingScreen = ({ navigation }) => {
                         value={input}
                     />
                     <Button onPress={sendMessage} title="Send" color="#FF5864"/>
+                </View>
+*/}
+
+                <View style={{ flexDirection: "row" }}>
+                    <Icon
+                        name="plus"
+                        size={20}
+                        style={{
+                            marginLeft: 15,
+                            marginTop: 22
+                        }}
+                    />
+
+                    <TextInput 
+                        style={styles.messageinputbar}
+                        placeholder=""
+                        placeholderTextColor="grey" 
+                        onChangeText={setInput}
+                        onSubmitEditing={sendMessage}
+                        value={input}
+                        backgroundColor="#EBECF0"
+                    />
+
+
+
+                    <TouchableOpacity
+                    onPress={sendMessage} title="Send" color="#FF5864"
+                    >
+                    <Ionicon
+                        name="send"
+                        size={20}
+                        style={{
+                            marginTop: 22
+                        }}
+                        color="#83C3FF"
+                    />
+
+
+                    </TouchableOpacity>
+                
                 </View>
 
         </KeyboardAvoidingView>
@@ -106,8 +164,9 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 0.5,
         padding: 10,
-        borderColor: "grey",
+        borderColor: "transparent",
         width: "75%",
+        borderRadius: 10
     },
 })
 

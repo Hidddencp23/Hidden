@@ -12,29 +12,37 @@ const TripList = ({ navigation, displayTrips }) => {
     //console.log('trips:')
     //console.log(trips[0]['experiences'])
 
-    useEffect(() =>
-        onSnapshot(
-            query(
-                collection(db, 'Trips'), 
-                orderBy("__name__"),
-                where("__name__", "in", userInfo[displayTrips]),
-            ),
-            (snapshot) => {
-                setTrips(
-                    snapshot.docs.map(doc => ({
-                        id: doc.id,
-                        ...doc.data()
-                    }))
-                )
-            }
-        ),
+    useEffect(() => {
+
+        if (userInfo[displayTrips].length > 0){
+            onSnapshot(
+                query(
+                    collection(db, 'Trips'), 
+                    orderBy("__name__"),
+                    where("__name__", "in", userInfo[displayTrips]),
+                ),
+                (snapshot) => {
+                    setTrips(
+                        snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }))
+                    )
+                }
+            )}},
         [])
 
 
 
     return (
         <ScrollView>
-            {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
+            {trips !== null ?
+            <>
+                {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
+            </> 
+            : 
+            null
+            }
         </ScrollView>
     )
 }

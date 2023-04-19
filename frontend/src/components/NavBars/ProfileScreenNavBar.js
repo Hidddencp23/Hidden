@@ -3,15 +3,18 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 
+import circleStyles  from '../../styles/circle';
 
 const ProfileScreenNavBar = ({ navigation }) => {
     return (
         <>
-            {/* {Platform.OS === 'ios' ?
+        {/*
+             {Platform.OS === 'ios' ?
                     <View style={circleStyles.iosCircle}/> 
                     :
                     <View style={circleStyles.androidCircle}/> 
-            } */}        
+            }
+        */}         
             <View style={styles.header}>
                     <TouchableOpacity style={styles.Button}>
                         <Icon name="notification" size={20} />

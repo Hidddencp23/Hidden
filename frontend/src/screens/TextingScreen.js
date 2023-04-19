@@ -23,6 +23,8 @@ import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
+import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+
 
 const TextingScreen = ({ navigation }) => {
     
@@ -33,11 +35,14 @@ const TextingScreen = ({ navigation }) => {
     const { chatId, chatUser} = params;
 
 
-    const [showmessages, setshowmessages] = useState([]);
+    //const [showmessages, setshowmessages] = useState([]);
 
 
 
+    
 
+
+    /*
     const formatMessages = (messages) => {
 
         let messagetimes = [];
@@ -68,6 +73,7 @@ const TextingScreen = ({ navigation }) => {
     
         return newArr;
     }
+    */
 
 
 
@@ -103,7 +109,7 @@ const TextingScreen = ({ navigation }) => {
       
     
 
-
+/*
 
     useEffect(() => {
 
@@ -120,6 +126,7 @@ const TextingScreen = ({ navigation }) => {
         }
     }, 
     [messages]);
+    */
     
 
 
@@ -152,7 +159,9 @@ const TextingScreen = ({ navigation }) => {
     
   return (
     <SafeAreaView style={{flex: 1}}> 
-        <ChatHeader navigation={navigation} title={chatUser["name"]} />
+
+        <ChatScreenNavBar userName={chatUser.name}/>
+
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
