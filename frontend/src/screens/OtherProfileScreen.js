@@ -22,6 +22,8 @@ import {
   query,
 } from "firebase/firestore";
 import useAuth from "../hooks/useAuth";
+import { updateDoc, addDoc, collection, onSnapshot, orderBy, query, arrayUnion, doc } from 'firebase/firestore'
+import { db } from '../hooks/firebase'
 import { SearchBar } from 'react-native-elements';
 import Icon from "react-native-vector-icons/AntDesign";
 
@@ -45,18 +47,33 @@ const OtherProfileScreen = ({ navigation }) => {
 
   // this info comes from firbase, placeholders for the moment
   const [online, setOnline] = useState(1); // flag for indicator
-
+  const [otherUserInfo, setOtherUserInfo] = useState(1); // 
   // state for liked / my trips toggle
   const [displayTrips, setdisplayTrips] = useState('My Trips');
   const [displayIndex, setDisplayIndex] = useState(0);
 
-  const addFriend = "   Add Friend";
+  const [addFriendText, setAddFriendText] = useState("   Add Friend");
 
   // search bar (for trips)
   const [searchTrips, setSearchTrips] = useState();
 
   const [search, setSearch] = useState('');
 
+
+  
+
+  const addFriend = () => {
+        
+    updateDoc(doc(db , 'Users', user.id), {
+      outgoingFriendRequests: arrayUnion(otherUserInfo.id)
+    });
+
+    updateDoc(doc(db , 'Users', otherUserInfo.id), {
+      incomingFriendRequests: arrayUnion(userInfo.id)
+    });
+
+    setAddFriendText("Requested");
+  };
 
 
   return (
@@ -97,11 +114,12 @@ const OtherProfileScreen = ({ navigation }) => {
         {myprofile === 1 ? (
           <>
             <View style={profileStyles.horizButtons}>
-              <TouchableOpacity style={profileStyles.addFriendButton}>
+              <TouchableOpacity style={profileStyles.addFriendButton}
+                onPress={addFriend}>
                 <Text style={profileStyles.addFriendText}>
                   <Icon name="adduser" size={20} />
 
-                  {addFriend}
+                  {addFriendText}
                 </Text>
               </TouchableOpacity>
 
