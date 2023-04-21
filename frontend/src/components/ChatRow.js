@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
   },
   messagePad: {
     paddingTop: 5,
+    paddingLeft: 5,
     color: '#9e9e9e'
   },
   profPic: {

@@ -48,8 +48,8 @@ const screenOptionStyle = {
     //cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
     //cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
 
-    animation: "slide_from_right",
-    //animation: "slide_from_bottom"
+    //animation: "slide_from_right",
+    animation: "slide_from_bottom"
 };
 
 
