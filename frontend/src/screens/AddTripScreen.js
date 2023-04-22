@@ -46,7 +46,7 @@ const AddTripScreen = ({ navigation }) => {
     } catch (error) {
       console.error("Unable to post", error);
     }
-    navigation.goBack()
+   navigation.goBack()
   }
 
   const addToTrips = async (userid, tripid) => {
