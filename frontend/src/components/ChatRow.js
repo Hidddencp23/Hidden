@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
   },
   messagePad: {
     paddingTop: 5,
-    color: '#9e9e9e'
+    color: '#9e9e9e',
+    paddingLeft: 5
   },
   profPic: {
     width: 45,
@@ -127,10 +128,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   horizontal: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flex: 1, 
+    justifyContent: 'space-between',
+  
   },
   vertical: {
     flexDirection: 'column'
