@@ -16,6 +16,7 @@ const TopNavBar = ({ navigation }) => {
             <View style={circleStyles.androidCircle}/> 
             }
         */}
+
             <View style={styles.header}>
                     <Image style={styles.headerImage} source={require('../../Images/hidden_logo.png')} />
                     <TouchableOpacity style={styles.addButton}>

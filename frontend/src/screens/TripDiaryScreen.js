@@ -64,11 +64,11 @@ const TripDiaryScreen = ({ route, navigation}) => {
 
     
 
-    {Platform.OS === 'ios' ?
+    {/*Platform.OS === 'ios' ?
             <View style={circleStyles.iosCircle}/> 
             :
             <View style={circleStyles.androidCircle}/> 
-            }
+    */}
 
     <SearchBar
       lightTheme

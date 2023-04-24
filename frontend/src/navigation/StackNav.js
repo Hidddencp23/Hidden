@@ -18,6 +18,7 @@ import TripDiaryScreen from '../screens/TripDiaryScreen';
 import AddTripScreen from '../screens/AddTripScreen';
 import GroupTextingScreen from '../screens/GroupTextingScreen';
 import LocationScreen from '../screens/LocationScreen';
+import AddChatScreen from '../screens/AddChatScreen';
 import ProfileScreenNavBar from '../components/NavBars/ProfileScreenNavBar';
 import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
 //import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
@@ -85,7 +86,7 @@ const ChatStackNavigator = () => {
                 <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
                 <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ headerShown: false }}  />
                 <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ headerShown: false }} />
-
+                <Stack.Screen name="AddChatScreen" component={AddChatScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
             </Stack.Navigator>
 
     );

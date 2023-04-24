@@ -17,7 +17,6 @@ const MessagingScreenNavBar = ({ navigation }) => {
             <View style={circleStyles.androidCircle}/> 
             } 
             */}
-        
 
             <View style={styles.header}>
                 <Text style={styles.baseText}>Messages</Text>

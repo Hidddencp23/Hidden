@@ -128,10 +128,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   horizontal: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flex: 1, 
+    justifyContent: 'space-between',
+  
   },
   vertical: {
     flexDirection: 'column'
