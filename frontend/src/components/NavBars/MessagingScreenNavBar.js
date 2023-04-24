@@ -10,12 +10,13 @@ const MessagingScreenNavBar = ({ navigation }) => {
     return (
         <>
         
-             {/*Platform.OS === 'ios' ?
+            {/*
+             {Platform.OS === 'ios' ?
             <View style={circleStyles.iosCircle}/> 
             :
             <View style={circleStyles.androidCircle}/> 
-            */} 
-        
+            } 
+            */}
 
             <View style={styles.header}>
                 <Text style={styles.baseText}>Messages</Text>
