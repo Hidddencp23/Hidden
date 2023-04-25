@@ -35,7 +35,6 @@ const AddExperienceScreen = ({ navigation }) => {
   const handleDescriptionChange = (text) => {
     setDescription(text);
   };
-  //const [image, setImage] = useState(null);
 
   
   const addImage = async () => {
