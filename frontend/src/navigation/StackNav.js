@@ -86,7 +86,7 @@ const ChatStackNavigator = () => {
                 <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
                 <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ headerShown: false }}  />
                 <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="AddChatScreen" component={AddChatScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
+                <Stack.Screen name="AddChatScreen" component={AddChatScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
 
     );
@@ -102,6 +102,7 @@ const ProfileStackNavigator = () => {
             <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
         </Stack.Navigator>
     );
 }

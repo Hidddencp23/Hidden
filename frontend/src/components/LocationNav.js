@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 const LocationNav = ({ navigation }) => {
     return (
         <View style={styles.header}>
-                <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("HomeScreen")}>
+                <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
                     <Icon name="left" size={20} />
                 </TouchableOpacity>
         </View>
