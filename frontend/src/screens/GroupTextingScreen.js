@@ -76,7 +76,7 @@ const GroupTextingScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{flex: 1}}>
 
-        <ChatScreenNavBar title={chatInfo.name}/>
+        <ChatScreenNavBar userName={chatInfo.name}/>
         {/*<ChatHeader navigation={navigation} title={chatInfo.name} />*/}
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
