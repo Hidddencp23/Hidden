@@ -105,6 +105,7 @@ const ProfileStackNavigator = () => {
             <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ animation: "slide_from_right", headerShown: false }} />
             <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ animation: "slide_from_right", headerShown: false }} />
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
         </Stack.Navigator>
     );
 }
