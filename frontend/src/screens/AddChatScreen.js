@@ -14,12 +14,25 @@ import useAuth from '../hooks/useAuth';
 import FriendList from '../components/FriendList';
 //import ChatList from '../components/ChatList';
 
+import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+
 
 const AddChatScreen = ({ navigation }) => {
 
+    useEffect(() => {
+        navigation.getParent()?.setOptions({
+          tabBarStyle: {
+            display: "none"
+          }
+        });
+        return () => navigation.getParent()?.setOptions({
+          tabBarStyle: undefined
+        });
+      }, [navigation]);
 
     return (
         <View>
+            <ChatScreenNavBar title={'Search Friends'}/>
 
             <FriendList/>
         </View>

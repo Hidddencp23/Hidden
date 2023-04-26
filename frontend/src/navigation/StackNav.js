@@ -21,7 +21,7 @@ import LocationScreen from '../screens/LocationScreen';
 import AddChatScreen from '../screens/AddChatScreen';
 import ProfileScreenNavBar from '../components/NavBars/ProfileScreenNavBar';
 import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
-//import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
 import EditProfileNavBar from '../components/NavBars/EditProfileNavBar';
 
 // temp
@@ -51,6 +51,25 @@ const screenOptionStyle = {
 
     //animation: "slide_from_right",
     animation: "slide_from_bottom"
+};
+
+// home screen plus
+// profile to 
+const screenOptionStyleRight = {
+
+    headerStyle: {
+        backgroundColor: "#9AC4F8",
+        position: 'sticky'
+    },
+    headerTintColor: "white",
+    headerBackTitle: "Back",
+
+    // used for newer versions of react-navigation/stack
+    //cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+    //cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+
+    animation: "slide_from_right",
+    //animation: "slide_from_bottom"
 };
 
 
@@ -86,7 +105,7 @@ const ChatStackNavigator = () => {
                 <Stack.Screen name="MessagingScreen" component={MessagingScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
                 <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ headerShown: false }}  />
                 <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="AddChatScreen" component={AddChatScreen} options={{ header: ({ navigation }) => <MessagingScreenNavBar navigation={navigation} /> }} />
+                <Stack.Screen name="AddChatScreen" component={AddChatScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
 
     );
