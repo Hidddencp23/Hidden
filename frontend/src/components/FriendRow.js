@@ -12,9 +12,9 @@ import {
 import Icon from "react-native-vector-icons/AntDesign";
 
 
-const FriendRow = ({ message, friendInfo, navigation }) => {
+const FriendRow = ({ friendInfo, navigation }) => {
 
-    //console.log(message)
+    //console.log(friendInfo)
 
     return (
         <TouchableOpacity
@@ -33,7 +33,7 @@ const FriendRow = ({ message, friendInfo, navigation }) => {
                         { friendInfo.name }
                     </Text>
                     <Text style={styles.messagePad}>     
-                        <Text>{message}</Text>   
+                        <Text>Add Chat</Text>   
                         
                     </Text>
                 </View>
