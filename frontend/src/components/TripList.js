@@ -12,11 +12,16 @@ const TripList = ({ navigation, displayTrips }) => {
     //console.log('trips:')
     //console.log(trips[0]['experiences'])
 
-    useEffect(() => {
+    //displayTrips = 'likedTrips'
 
+    //console.log(displayTrips)
+    useEffect(() => {
+        //console.log(userInfo) 
+
+        //if (userInfo[displayTrips].empty == false){
         if (userInfo[displayTrips].length > 0){
             onSnapshot(
-                query(
+                query(  
                     collection(db, 'Trips'), 
                     orderBy("__name__"),
                     where("__name__", "in", userInfo[displayTrips]),
