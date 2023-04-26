@@ -35,23 +35,24 @@ const TripDiaryScreen = ({ route, navigation}) => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-
-  if (tripInfo['locations'].length > 0){
-    onSnapshot(
-        query(
-            collection(db, 'HiddenLocations'), 
-            orderBy("__name__"),
-            where("__name__", "in", tripInfo['locations']),
-        ),
-        (snapshot) => {
-            setLocations(
-                snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }))
-            )
-        }
-    )}},
+  
+    if (tripInfo['locations'] != null){
+      if (tripInfo['locations'].length > 0){
+        onSnapshot(
+            query(
+                collection(db, 'HiddenLocations'), 
+                orderBy("__name__"),
+                where("__name__", "in", tripInfo['locations']),
+            ),
+            (snapshot) => {
+                setLocations(
+                    snapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }))
+                )
+            }
+      )}}},
   [])
 
 
@@ -87,6 +88,7 @@ const TripDiaryScreen = ({ route, navigation}) => {
               .map((item) => <LocationView location={item} key={myKey++} navigation={navigation} />)
           }
       </>
+
       ) : null}
     </ScrollView>
 
