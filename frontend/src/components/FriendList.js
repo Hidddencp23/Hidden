@@ -62,7 +62,6 @@ export const FriendList = ({ navigation }) => {
                 )
             }
         );
-        //console.log(user) 
 
         onSnapshot(
             query(

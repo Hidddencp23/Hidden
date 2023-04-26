@@ -53,32 +53,16 @@ const screenOptionStyle = {
     animation: "slide_from_bottom"
 };
 
-// home screen plus
-// profile to 
-const screenOptionStyleRight = {
-
-    headerStyle: {
-        backgroundColor: "#9AC4F8",
-        position: 'sticky'
-    },
-    headerTintColor: "white",
-    headerBackTitle: "Back",
-
-    // used for newer versions of react-navigation/stack
-    //cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
-    //cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-
-    animation: "slide_from_right",
-    //animation: "slide_from_bottom"
-};
 
 
 
+// location - right
+// trip
 const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <SearchNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
+            <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ animation: "slide_from_right", header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddLocationScreen" component={AddLocationScreen} options={{ headerShown: false }} />
 
@@ -118,9 +102,9 @@ const ProfileStackNavigator = () => {
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header: ({ navigation }) => <ProfileScreenNavBar navigation={navigation} /> }} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <EditProfileNavBar navigation={navigation} /> }}/>
             <Stack.Screen name="TripScreen" component={TripScreen} options={{ header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ animation: "slide_from_right", headerShown: false }} />
         </Stack.Navigator>
     );
 }

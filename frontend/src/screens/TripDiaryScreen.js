@@ -34,22 +34,24 @@ const TripDiaryScreen = ({ route, navigation}) => {
   // search bar (for trips)
   const [search, setSearch] = useState('');
 
-  useEffect(() =>
-  onSnapshot(
-      query(
-          collection(db, 'HiddenLocations'), 
-          orderBy("__name__"),
-          where("__name__", "in", tripInfo['locations']),
-      ),
-      (snapshot) => {
-          setLocations(
-              snapshot.docs.map(doc => ({
-                  id: doc.id,
-                  ...doc.data()
-              }))
-          )
-      }
-  ),
+  useEffect(() => {
+
+  if (tripInfo['locations'].length > 0){
+    onSnapshot(
+        query(
+            collection(db, 'HiddenLocations'), 
+            orderBy("__name__"),
+            where("__name__", "in", tripInfo['locations']),
+        ),
+        (snapshot) => {
+            setLocations(
+                snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
+            )
+        }
+    )}},
   [])
 
 
