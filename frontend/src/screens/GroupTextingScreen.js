@@ -78,7 +78,7 @@ const GroupTextingScreen = ({ navigation }) => {
 
         <ChatScreenNavBar navigation={navigation} title={chatInfo.name}/>
         {/*<ChatHeader navigation={navigation} title={chatInfo.name} />*/}
-        <View
+        <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
             keyboardVerticalOffset={100}>
@@ -153,7 +153,7 @@ const GroupTextingScreen = ({ navigation }) => {
                 
                 </View>
 
-        </View>
+        </KeyboardAvoidingView>
     </View>
   )
 }
