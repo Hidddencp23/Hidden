@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import {
@@ -24,7 +24,6 @@ import {
 import useAuth from "../hooks/useAuth";
 import { SearchBar } from 'react-native-elements';
 import Icon from "react-native-vector-icons/AntDesign";
-import { db } from '../hooks/firebase';
 
 // placeholder image for now
 import TripList from '../components/TripList';
@@ -32,14 +31,13 @@ import TripList from '../components/TripList';
 import profileStyles from '../styles/profiles.js' ;
 //import styles from '../styles/profiles.js';
 import circleStyles from '../styles/circle.js';
-import { useRoute } from '@react-navigation/native'
-import TripRow from "../components/TripRow";
 
 // need to connect db
 //import { db } from '../hooks/firebase';
 
-const ProfileScreen = ({ navigation}) => {
+const ProfileScreen = ({ navigation }) => {
 
+  //const { myprofile } = route.params;
   const myprofile = 0; // need to connect to db
 
   const { user, userInfo, logout } = useAuth();
@@ -51,33 +49,13 @@ const ProfileScreen = ({ navigation}) => {
   // state for liked / my trips toggle
   const [displayTrips, setdisplayTrips] = useState('My Trips');
   const [displayIndex, setDisplayIndex] = useState(0);
-  const [trips, setTrips] = useState([])
+
   const addFriend = "   Add Friend";
 
   // search bar (for trips)
   const [searchTrips, setSearchTrips] = useState();
 
   const [search, setSearch] = useState('');
-  useEffect(() => {
-    console.log("here")
-    if (userInfo["myTrips"].length > 0){
-        onSnapshot(
-            query(
-                collection(db, 'Trips'), 
-                where("user", "==", user.uid),
-            ),
-            (snapshot) => {
-                setTrips(
-                    snapshot.docs.map(doc => ({
-                        id: doc.id,
-                        ...doc.data()
-                    }))
-                )
-            }
-        )}},
-    [])
-
-
 
 
 
@@ -209,14 +187,18 @@ const ProfileScreen = ({ navigation}) => {
       </View>
 
       <ScrollView>
-            {trips !== null ?
-            <>
-                {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
-            </> 
-            : 
-            null
-            }
-        </ScrollView>
+        {displayTrips === "My Trips" ? (
+          <>
+            <TripList navigation={navigation} displayTrips={"myTrips"} />
+          </>
+        ) : null}
+
+        {displayTrips === "Liked Trips" ? (
+          <>
+            <TripList navigation={navigation} displayTrips={"likedTrips"} />
+          </>
+        ) : null}
+      </ScrollView>
     </SafeAreaView>
   );
 };
