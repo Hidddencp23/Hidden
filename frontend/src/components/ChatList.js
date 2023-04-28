@@ -58,7 +58,7 @@ const ChatList = ({ navigation }) => {
                         ...doc.data()
                     }))
                 )
-                console.log(chats)
+                //console.log(chats)
             }
         );
         
