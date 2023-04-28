@@ -17,7 +17,7 @@ const EditProfileNavBar = ({ navigation }) => {
 
             <View style={styles.header}>
                 <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
-                    <Icon name="left" size={20} />
+                    <Icon name="close" size={20} />
                 </TouchableOpacity>                
                 <Text style={styles.baseText}>Settings</Text>
             </View>

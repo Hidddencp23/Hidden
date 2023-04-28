@@ -69,7 +69,7 @@ const GroupTextingScreen = ({ navigation }) => {
           }
         });
         return () => navigation.getParent()?.setOptions({
-          tabBarStyle: undefined
+          tabBarStyle: undefined,
         });
       }, [navigation]);
 
