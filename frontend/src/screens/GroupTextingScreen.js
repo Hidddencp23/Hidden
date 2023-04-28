@@ -74,7 +74,7 @@ const GroupTextingScreen = ({ navigation }) => {
       }, [navigation]);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
 
         <ChatScreenNavBar navigation={navigation} title={chatInfo.name}/>
         {/*<ChatHeader navigation={navigation} title={chatInfo.name} />*/}
@@ -154,7 +154,7 @@ const GroupTextingScreen = ({ navigation }) => {
                 </View>
 
         </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   )
 }
 

@@ -98,7 +98,7 @@ const TextingScreen = ({ navigation }) => {
     useEffect(() => {
         navigation.getParent()?.setOptions({
           tabBarStyle: {
-            display: "none"
+            display: "none",
           }
         });
         return () => navigation.getParent()?.setOptions({
@@ -158,7 +158,8 @@ const TextingScreen = ({ navigation }) => {
 
     
   return (
-    <SafeAreaView style={{flex: 1}}> 
+
+    <View style={{flex: 1}}> 
 
         <ChatScreenNavBar navigation={navigation} title={chatUser.name}/>
 
@@ -234,7 +235,8 @@ const TextingScreen = ({ navigation }) => {
 
 
         </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
+
   )
   
 }
