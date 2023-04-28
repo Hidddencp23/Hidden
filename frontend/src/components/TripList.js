@@ -19,7 +19,7 @@ const TripList = ({ navigation, displayTrips }) => {
                 query(
                     collection(db, 'Trips'), 
                     orderBy("__name__"),
-                    where("__name__", "in", userInfo[displayTrips]),
+                    where("user", "==", user.uid),
                 ),
                 (snapshot) => {
                     setTrips(
