@@ -65,7 +65,7 @@ const GroupTextingScreen = ({ navigation }) => {
     useEffect(() => {
         navigation.getParent()?.setOptions({
           tabBarStyle: {
-            display: "none"
+            display: "none",
           }
         });
         return () => navigation.getParent()?.setOptions({
@@ -78,7 +78,7 @@ const GroupTextingScreen = ({ navigation }) => {
 
         <ChatScreenNavBar navigation={navigation} title={chatInfo.name}/>
         {/*<ChatHeader navigation={navigation} title={chatInfo.name} />*/}
-        <KeyboardAvoidingView
+        <View
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
             keyboardVerticalOffset={100}>
@@ -153,7 +153,7 @@ const GroupTextingScreen = ({ navigation }) => {
                 
                 </View>
 
-        </KeyboardAvoidingView>
+        </View>
     </View>
   )
 }
