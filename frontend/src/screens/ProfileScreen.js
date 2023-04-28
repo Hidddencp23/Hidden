@@ -31,6 +31,7 @@ import TripList from '../components/TripList';
 import profileStyles from '../styles/profiles.js' ;
 //import styles from '../styles/profiles.js';
 import circleStyles from '../styles/circle.js';
+import { useWindowDimensions } from 'react-native';
 
 // need to connect db
 //import { db } from '../hooks/firebase';
@@ -58,12 +59,11 @@ const ProfileScreen = ({ navigation }) => {
   const [search, setSearch] = useState('');
 
 
-
   return (
     <SafeAreaView
       style={{
         height: Dimensions.get("window").height,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
       }}
     >
 
@@ -186,7 +186,7 @@ const ProfileScreen = ({ navigation }) => {
         ) : null}
       </View>
 
-      <ScrollView>
+      <View style={{flex: 1, paddingBottom: "45%"}}>
         {displayTrips === "My Trips" ? (
           <>
             <TripList navigation={navigation} displayTrips={"myTrips"} />
@@ -198,7 +198,7 @@ const ProfileScreen = ({ navigation }) => {
             <TripList navigation={navigation} displayTrips={"likedTrips"} />
           </>
         ) : null}
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
