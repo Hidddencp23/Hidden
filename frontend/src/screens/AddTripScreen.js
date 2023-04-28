@@ -22,6 +22,7 @@ const AddTripScreen = ({ navigation }) => {
   const { user, userInfo } = useAuth();
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
+  const [trip, setTrip] = useState({})
   const handleTitleChange = (text) => {
     setTitle(text);
   };
@@ -46,7 +47,7 @@ const AddTripScreen = ({ navigation }) => {
     } catch (error) {
       console.error("Unable to post", error);
     }
-    navigation.goBack()
+    navigation.replace("ProfileScreen")
   }
 
   const addToTrips = async (userid, tripid) => {
