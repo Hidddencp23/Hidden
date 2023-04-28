@@ -160,7 +160,7 @@ const TextingScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{flex: 1}}> 
 
-        <ChatScreenNavBar userName={chatUser.name}/>
+        <ChatScreenNavBar title={chatUser.name}/>
 
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
