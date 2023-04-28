@@ -12,6 +12,7 @@ import { db } from "../../hooks/firebase";
 const ChatScreenNavBar = ({ navigation, title }) => {
 
 
+    // navigation.goBack()
     return (
         <>
             {/*
@@ -22,8 +23,9 @@ const ChatScreenNavBar = ({ navigation, title }) => {
             }      
             */}
         
+            
             <View style={styles.header}>
-                    <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
+                    <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("MessagingScreen")}>
                         <Icon name="left" size={20} />
                     </TouchableOpacity>
                     <Text style={styles.baseText}>{title}</Text>
