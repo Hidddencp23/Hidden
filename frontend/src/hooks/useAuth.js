@@ -49,7 +49,8 @@ export const handleSignup = async (username, name, email, password, setLoading) 
           myTrips: [],
           profilePic: defaultProfilePic,
           chats: [],
-          proximityChats: []
+          proximityChats: [],
+          LikedLocations: []
         });
         console.log("User added: ", auth.currentUser.uid);
       } catch (e) {
