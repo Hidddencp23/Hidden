@@ -5,7 +5,7 @@ import { db } from "../hooks/firebase";
 import Icon from "react-native-vector-icons/AntDesign";
 import { MaterialIcons } from '@expo/vector-icons';
 
-const Experience = ({ experience }) => {
+const Experience = ({ navigation, experience }) => {
     const [poster, setPoster] = useState("");
     const [likeLocation, setLikeLocation] = useState(false);
     const handleLike = async () => {
@@ -37,7 +37,15 @@ const Experience = ({ experience }) => {
     }, [])
         return (
         <View>
-            <TouchableOpacity style={styles.horizView}>
+            <TouchableOpacity style={styles.horizView} 
+                 onPress={() => 
+                    
+          {          
+            navigation.navigate("OtherProfileScreen", {
+                    otherUserInfo: poster ,
+                    otherUserId: experience.userId
+                  })}
+                  }>
                 <Image source={{ uri: poster["profilePic"] }} style={styles.profImg}/>
                 <Text style={styles.profName}> {poster["name"]}</Text>
             </TouchableOpacity>
