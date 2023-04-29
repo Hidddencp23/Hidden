@@ -57,9 +57,6 @@ const OtherProfileScreen = ({ navigation }) => {
   const [search, setSearch] = useState('');
 
   const addFriend = () => {
-    console.log(user)
-    console.log(otherUserInfo)
-
     updateDoc(doc(db , 'Users', user.uid), {
       outgoingFriendRequests: arrayUnion(otherUserId)
     });
@@ -70,6 +67,20 @@ const OtherProfileScreen = ({ navigation }) => {
 
     setAddFriendText("Requested");
   };
+
+  const acceptFriendRequest = () => {
+    updateDoc(doc(db , 'Users', user.uid), {
+      outgoingFriendRequests: arrayUnion(otherUserId)
+    });
+    console.log(otherUserInfo)
+    updateDoc(doc(db , 'Users', otherUserId), {
+      incomingFriendRequests: arrayUnion(user.uid)
+    });
+
+    setAddFriendText("Requested");
+  };
+
+  
 
 
   return (
@@ -203,13 +214,13 @@ const OtherProfileScreen = ({ navigation }) => {
       <ScrollView>
         {displayTrips === "My Trips" ? (
           <>
-            <TripList navigation={navigation} displayTrips={"myTrips"} />
+            <TripList navigation={navigation} displayTrips={"myTrips"} otherUserInfo={otherUserInfo}/>
           </>
         ) : null}
 
         {displayTrips === "Liked Trips" ? (
           <>
-            <TripList navigation={navigation} displayTrips={"likedTrips"} />
+            <TripList navigation={navigation} displayTrips={"likedTrips"}  otherUserInfo={otherUserInfo} />
           </>
         ) : null}
       </ScrollView>
