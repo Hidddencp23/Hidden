@@ -40,6 +40,7 @@ const EditProfileScreen = ({ navigation }) => {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    navigation.goBack();
   }
 
   const addImage = async () => {

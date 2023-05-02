@@ -35,7 +35,15 @@ const LocationScreen = ({ navigation }) => {
             });
             setLikeLocation(false)
         }
-      }
+    }
+
+    const checklike = () => {
+        if (userInfo['LikedLocations'].includes(location.id)){
+            console.log('here')
+            setLikeLocation(true)
+        };
+    }
+
     useEffect(() => {
         // retrieves experiences that belong to this location
         onSnapshot(
@@ -52,11 +60,9 @@ const LocationScreen = ({ navigation }) => {
                     }))
                 )
         )
-        if (userInfo['LikedLocations'].includes(location.id)){
-            setLikeLocation(true)
-        };
+        checklike();
     },
-        [])
+        [likeLocation])
 
     return (
         <SafeAreaView style={styles.container}>

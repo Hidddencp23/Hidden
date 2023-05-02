@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import {
@@ -20,8 +20,10 @@ import {
   onSnapshot,
   orderBy,
   query,
+  getDoc
 } from "firebase/firestore";
 import useAuth from "../hooks/useAuth";
+import { db } from '../hooks/firebase';
 import { SearchBar } from 'react-native-elements';
 import Icon from "react-native-vector-icons/AntDesign";
 
@@ -55,8 +57,22 @@ const ProfileScreen = ({ navigation }) => {
 
   // search bar (for trips)
   const [searchTrips, setSearchTrips] = useState();
+  const [profilePicture, setProfilePicture] = useState(userInfo.profilePic);
+  const [nameUpdate, setNameUpdate] = useState(userInfo.name);
 
   const [search, setSearch] = useState('');
+
+  const getUpdatedInfo = async () => {
+    //await getDoc(db, 'Users')
+  };
+
+  useEffect(() => {
+    // retrieves experiences that belong to this location
+    //getUpdatedInfo();
+    setProfilePicture(userInfo.profilePic)
+    setNameUpdate(userInfo.name)
+},
+    [userInfo])
 
 
   return (
@@ -70,12 +86,12 @@ const ProfileScreen = ({ navigation }) => {
       <View style={profileStyles.profTop}>
         <View style={profileStyles.circle} />
         <Image
-          source={{ uri: userInfo.profilePic }}
+          source={{ uri: profilePicture }}
           alt="Avatar"
           style={profileStyles.photoURL}
         />
         <Text style={profileStyles.profileTitle}>
-          {userInfo.name}{" "}
+          {nameUpdate}{" "}
           {online ? (
             <Icon name="checkcircle" size={17} color="#77C3EC" />
           ) : (
