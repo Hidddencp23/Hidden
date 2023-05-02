@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import {
   Text,
@@ -68,20 +68,11 @@ const OtherProfileScreen = ({ navigation }) => {
     setAddFriendText("Requested");
   };
 
-  const acceptFriendRequest = () => {
-    updateDoc(doc(db , 'Users', user.uid), {
-      outgoingFriendRequests: arrayUnion(otherUserId)
-    });
-    console.log(otherUserInfo)
-    updateDoc(doc(db , 'Users', otherUserId), {
-      incomingFriendRequests: arrayUnion(user.uid)
-    });
-
-    setAddFriendText("Requested");
-  };
-
-  
-
+  useEffect(() => {
+    if (userInfo.friendList.includes(otherUserId)){
+      setAddFriendText("Friends")
+    }
+  }, []);
 
   return (
     <SafeAreaView
@@ -122,7 +113,11 @@ const OtherProfileScreen = ({ navigation }) => {
           <>
             <View style={profileStyles.horizButtons}>
               <TouchableOpacity style={profileStyles.addFriendButton}
-                onPress={addFriend}>
+                onPress={() => {
+                  if (addFriendText === "   Add Friend"){
+                    addFriend()
+                  }
+                  }}>
                 <Text style={profileStyles.addFriendText}>
                   <Icon name="adduser" size={20} />
 
