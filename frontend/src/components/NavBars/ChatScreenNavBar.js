@@ -9,9 +9,10 @@ import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
 import { db } from "../../hooks/firebase";
 
 
-const ChatScreenNavBar = ({ navigation, userName }) => {
+const ChatScreenNavBar = ({ navigation, title }) => {
 
 
+    // navigation.goBack()
     return (
         <>
             {/*
@@ -22,11 +23,12 @@ const ChatScreenNavBar = ({ navigation, userName }) => {
             }      
             */}
         
+            
             <View style={styles.header}>
-                    <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
+                    <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("MessagingScreen")}>
                         <Icon name="left" size={20} />
                     </TouchableOpacity>
-                    <Text style={styles.baseText}>{userName}</Text>
+                    <Text style={styles.baseText}>{title}</Text>
                     <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("")}>
                         <Icon name="info" size={20} />
                     </TouchableOpacity>

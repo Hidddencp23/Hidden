@@ -20,6 +20,9 @@ const MessagingScreenNavBar = ({ navigation }) => {
 
             <View style={styles.header}>
                 <Text style={styles.baseText}>Messages</Text>
+                <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("AddChatScreen")}>
+                    <Icon name="form" size={20} />
+                </TouchableOpacity>
             </View>
         </>
     )
@@ -36,9 +39,12 @@ const styles = StyleSheet.create({
         paddingRight: "10%",
         paddingBottom: "3%",
         paddingTop: "13%",
-        alignItems: 'center',
         backgroundColor: '#83C3FF',
         overflow: 'hidden',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingLeft: "32%"
     },
     headerImage: {
         height: 100,
@@ -65,7 +71,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 90,
     },
-    
+    Button: {
+        backgroundColor: "white",
+        height: "100%",
+        width: "200%",
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: "center"
+      },
 
 });
 

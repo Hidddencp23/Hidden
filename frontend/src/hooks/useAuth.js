@@ -51,7 +51,8 @@ export const handleSignup = async (username, name, email, password, setLoading) 
           chats: [],
           proximityChats: [],
           incomingFriendRequests: [],
-          outgoingFriendRequests: []
+          outgoingFriendRequests: [],
+          LikedLocations: []
         });
         console.log("User added: ", auth.currentUser.uid);
       } catch (e) {

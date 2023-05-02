@@ -11,12 +11,10 @@ import {
   Dimensions,
   Platform
 } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
 
 import { SearchBar } from 'react-native-elements';
 import LocationView from '../components/LocationView';
-import Icon from "react-native-vector-icons/Entypo";
-// placeholder image for now
-import deleteme from "../../assets/deleteme.png";
 import { useRoute } from '@react-navigation/native'
 import { collection, onSnapshot, orderBy, query, limit, where } from 'firebase/firestore';
 import { db } from '../hooks/firebase';
@@ -69,6 +67,14 @@ const TripDiaryScreen = ({ route, navigation}) => {
             :
             <View style={circleStyles.androidCircle}/> 
     */}
+    <View style={styles.header}>
+      <TouchableOpacity style={styles.Button} onPress={() =>
+        navigation.navigate("ProfileScreen")
+      }>
+        <Icon name="left" size={20} />
+      </TouchableOpacity>
+      <Text style={styles.text}>List</Text>
+    </View>
 
     <SearchBar
       lightTheme
@@ -106,5 +112,34 @@ const TripDiaryScreen = ({ route, navigation}) => {
   )
 };
 
+const styles = StyleSheet.create({
+  header: {
+    zIndex: 1,
+    position: 'absolute',
+    height: 100,
+    width: "100%",
+    paddingBottom: "3%",
+    paddingTop: "13%",
+    paddingHorizontal: "5%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#83C3FF',
+    overflow: 'hidden',
+  },
+  Button: {
+    backgroundColor: "white",
+    height: "100%",
+    width: "10%",
+    borderRadius: 7,
+    justifyContent: 'center',
+    alignItems: "center"
+  },
+  text: {
+    fontSize: 30,
+    weight: 'bold',
+    width: '80%',
+    textAlign: 'center'
+  },
+});
 
 export default TripDiaryScreen;

@@ -139,7 +139,7 @@ const AddExperienceScreen = ({ navigation }) => {
                     location
                 })
             }>
-                <Icon name="left" size={20}/>
+                <Icon name="close" size={20}/>
             </TouchableOpacity>
             <Text style={styles.text}>Add Experience</Text>
           </View>

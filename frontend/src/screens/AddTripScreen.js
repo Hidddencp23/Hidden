@@ -82,7 +82,7 @@ const AddTripScreen = ({ navigation }) => {
             <TouchableOpacity style={styles.Button} onPress={() =>
               navigation.navigate("ProfileScreen")
             }>
-              <Icon name="left" size={20} />
+              <Icon name="close" size={20} />
             </TouchableOpacity>
             <Text style={styles.text}>Add Trip</Text>
           </View>
@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
     width: '80%',
     textAlign: 'center'
   },
-
   textInput: {
     paddingHorizontal: "2.5%",
     height: "100%",
