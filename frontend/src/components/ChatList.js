@@ -40,11 +40,6 @@ const ChatList = ({ navigation }) => {
         }
     }
 
-
-
-  
-
-
     useEffect(() =>
         {onSnapshot(
             query(

@@ -8,18 +8,41 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
-
+import {
+  collection,
+  onSnapshot,
+  updateDoc,
+  getDoc,
+  doc,
+  arrayRemove,
+  arrayUnion,
+  increment,
+} from "firebase/firestore";
 import Icon from "react-native-vector-icons/AntDesign";
 
 
 const FriendRow = ({ message, friendInfo, navigation }) => {
+    const { user, userInfo } = useAuth();
 
     //console.log(message)
+
+    const startNewChat = () => {
+      addDoc(doc(db, "Chats"), {
+        latestMessage: "",
+        latestTimestamp: null,
+        users: [user.uid, ]
+      });
+      updateDoc(doc(db, "Users", requestUserId), {
+        outgoingFriendRequests: arrayRemove(user.uid),
+        friendList: arrayUnion(user.uid),
+        friendCount: increment(1),
+      });
+    };
 
     return (
         <TouchableOpacity
             style={styles.messagecard}
-            // onPress here
+            onPress={startNewChat}
         >
             <Image
                 style={styles.profPic}
