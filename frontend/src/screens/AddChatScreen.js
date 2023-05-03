@@ -45,7 +45,7 @@ const AddChatScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.padDown}></View>
-            <FriendList/>
+            <FriendList navigation={navigation}/>
         </View>
     )
 }

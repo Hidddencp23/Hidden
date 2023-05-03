@@ -44,7 +44,6 @@ const TextingScreen = ({ navigation }) => {
   const [input, setInput] = useState("");
   const [chatInfo, setChatInfo] = useState(null);
   const { chatId, chatUser } = params;
-
   /*
     const formatMessages = (messages) => {
 
@@ -79,11 +78,6 @@ const TextingScreen = ({ navigation }) => {
     */
 
   const sendMessage = () => {
-    // addDoc(collection(db, "Chats", chatId, "Messages"), {
-    //   timestamp: serverTimestamp(),
-    //   sender: user.uid,
-    //   message: input,
-    // });
     let currentTimestamp = Timestamp.now();
     updateDoc(doc(db, "Chats", chatId), {
       latestTimestamp: currentTimestamp,
