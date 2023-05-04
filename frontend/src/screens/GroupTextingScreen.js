@@ -30,7 +30,6 @@ const GroupTextingScreen = ({ navigation }) => {
     const [input, setInput] =  useState("");
     const [messages, setMessages] = useState([]);
     const { chatId, chatInfo } = params;
-    console.log("TextchatID: ");
 
     useEffect(() => 
         onSnapshot(

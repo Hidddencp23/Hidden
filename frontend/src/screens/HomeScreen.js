@@ -32,8 +32,8 @@ const HomeScreen = ({ navigation }) => {
     const swipeUpDownRef = useRef();
     // swipeUpDownRef.current.showFull();
 
-    console.log(user.uid)
-    console.log(userInfo["email"])
+    //console.log(user.uid)
+    //console.log(userInfo["email"])
 
 
     const openPanel = () => {
