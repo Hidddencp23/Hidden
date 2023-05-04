@@ -16,17 +16,20 @@ import {
 } from "react-native";
 import { setDoc, doc, updateDoc } from "firebase/firestore";
 import Icon from "react-native-vector-icons/AntDesign";
+import { ref, getStorage} from 'firebase/storage';
 
 import * as ImagePicker from 'expo-image-picker';
 
 import * as FileSystem from 'expo-file-system';
 
-
+const storage = getStorage();
 
 const EditProfileScreen = ({ navigation }) => {
   const [changeName, setChangeName] = useState("");
-  const { user, userInfo, logout } = useAuth();
+  const { user, userInfo, logout, upload } = useAuth();
   const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
   const handleChangeName = (text) => {
     setChangeName(text);
   };
@@ -35,7 +38,7 @@ const EditProfileScreen = ({ navigation }) => {
     try {
       updateDoc(doc(db, "Users", user.uid), {
         name: changeName,
-        profilePic: image,
+        profilePic: storage.ref(user.uid + ".png"),
       });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -51,8 +54,9 @@ const EditProfileScreen = ({ navigation }) => {
     });
     if (!_image.canceled) {
       setImage(_image.assets[0]['uri']);
+      upload(image, user, setUploading);
 
-      const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
+      //const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
       
       // this is the base64 string of the uploaded image
       // could pass in a setter to get this value to the form

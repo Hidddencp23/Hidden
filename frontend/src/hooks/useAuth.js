@@ -18,7 +18,6 @@ import { uploadBytes, ref, getDownloadURL} from 'firebase/storage';
 
 const AuthContext = createContext({});
 
-
 const config = {
   androidClientId: '1091224521228-k4c92o3ctrfjqt2hrciqt7cftv2ft0vt.apps.googleusercontent.com',
   iosClientId: '1091224521228-ea9lg9j78pfmop8cn5t4muct74i767ue.apps.googleusercontent.com',
@@ -140,6 +139,7 @@ export const AuthProvider = ({ children }) => {
     userInfo,
     loading,
     error,
+    upload,
     logout
   }), [user, userInfo, loading, error])
 
