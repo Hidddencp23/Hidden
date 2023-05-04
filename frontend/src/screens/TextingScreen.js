@@ -166,7 +166,11 @@ const TextingScreen = ({ navigation }) => {
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
-            keyboardVerticalOffset={100}>
+
+            // check if this change works on iOS
+            // worst case: the offset is negative (pushes down)
+            // keyboardVerticalOffset={100}
+            >
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList 
