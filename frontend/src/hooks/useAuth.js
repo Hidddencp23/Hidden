@@ -52,7 +52,7 @@ export const handleSignup = async (username, name, email, password, setLoading) 
           proximityChats: [],
           LikedLocations: []
         });
-        console.log("User added: ", auth.currentUser.uid);
+        //console.log("User added: ", auth.currentUser.uid);
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
       const docSnap = await getDoc(doc(db, "Users", user.uid));
       if (docSnap.exists()) {
         setUserInfo(docSnap.data())
-        console.log("Document data:", docSnap.data()["name"]);
+       // console.log("Document data:", docSnap.data()["name"]);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
