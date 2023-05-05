@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
+import NotificationScreen from '../../screens/NotificationScreen';
 
 import circleStyles  from '../../styles/circle';
 
@@ -16,7 +17,8 @@ const ProfileScreenNavBar = ({ navigation }) => {
             }
         */}         
             <View style={styles.header}>
-                    <TouchableOpacity style={styles.Button}>
+                    <TouchableOpacity style={styles.Button}
+                    onPress={() => {navigation.navigate("NotificationScreen")}}>
                         <Icon name="notification" size={20} />
                     </TouchableOpacity>
                     <Text style={styles.baseText}>Profile</Text>

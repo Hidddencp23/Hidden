@@ -5,7 +5,7 @@ import { db } from "../hooks/firebase";
 import useAuth from '../hooks/useAuth';
 import TripRow from './TripRow';
 
-const TripList = ({ navigation, displayTrips }) => {
+const TripList = ({ navigation, displayTrips, otherUserInfo=null }) => {
     const [trips, setTrips] = useState([]);
     const { user, userInfo } = useAuth();
 
@@ -13,13 +13,16 @@ const TripList = ({ navigation, displayTrips }) => {
     //console.log(trips[0]['experiences'])
 
     useEffect(() => {
-
-        if (userInfo[displayTrips].length > 0){
+        let displayUser = userInfo;
+        if (otherUserInfo != null){
+            displayUser = otherUserInfo;
+        }
+        if (displayUser[displayTrips].length > 0){
             onSnapshot(
                 query(
                     collection(db, 'Trips'), 
                     orderBy("__name__"),
-                    where("user", "==", user.uid),
+                    where("__name__", "in", displayUser[displayTrips]),
                 ),
                 (snapshot) => {
                     setTrips(

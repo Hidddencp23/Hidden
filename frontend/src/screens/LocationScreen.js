@@ -80,7 +80,7 @@ const LocationScreen = ({ navigation }) => {
                     <Icon name="plus" size={20} />
                 </TouchableOpacity>
             </View>
-            {experiences.map((experience, index) => <Experience experience={experience} key={index} />)}
+            {experiences.map((experience, index) => <Experience navigation={navigation} experience={experience} key={index} />)}
            
             </ScrollView>
           </SafeAreaView>
