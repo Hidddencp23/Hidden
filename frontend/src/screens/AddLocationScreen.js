@@ -49,7 +49,6 @@ const AddLocationScreen = ({ navigation }) => {
                     <Image source={{ uri: location.image }} style={styles.locImg} />
                     <View style={styles.vertView}>
                         <Text style={styles.locName}>{location.name}</Text>
-                        <Text style={styles.locType}>{location.category}</Text>
                         <Text style={styles.locType}>{location.address}</Text>
                     </View>
                     <View style={styles.favLocation}>
@@ -80,7 +79,6 @@ const AddLocationScreen = ({ navigation }) => {
                     value={search}></SearchBar>
             </View>   
                 <Text style={styles.searchtitle} >Search Results</Text>
-                <View>
                     <ScrollView style={{ height: '100%' }}>
                         {(search != null && locations.length > 0) ? (
                             <>
@@ -92,7 +90,6 @@ const AddLocationScreen = ({ navigation }) => {
                         ) : null}
 
                     </ScrollView>
-                </View>
             </SafeAreaView>
             </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -100,9 +97,10 @@ const AddLocationScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+   
     homeScreen: {
         backgroundColor: 'transparent',
-        height: '90%',
+        height: '100%',
     },
     map: {
         position: 'absolute',
@@ -282,7 +280,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "left",
         fontSize: 16,
-        marginTop: "3%",
+        marginTop: "1%",
         marginLeft: "5%",
       },
     
@@ -291,6 +289,7 @@ const styles = StyleSheet.create({
         color: "#BEBEBE",
         textAlign: "left",
         fontSize: 14,
+        marginTop: "2.5%",
         marginBottom: "2.5%",
       },
      
