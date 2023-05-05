@@ -76,7 +76,6 @@ const HomeScreen = ({ navigation }) => {
                     <Image source={{ uri: location.image }} style={styles.locImg} />
                     <View style={styles.vertView}>
                         <Text style={styles.locName}>{location.name}</Text>
-                        <Text style={styles.locType}>{location.category}</Text>
                         <Text style={styles.locType}>{location.address}</Text>
                     </View>
                     <TouchableOpacity style={styles.favLocation}>
@@ -291,6 +290,7 @@ const styles = StyleSheet.create({
         color: "#BEBEBE",
         textAlign: "left",
         fontSize: 14,
+        marginTop: "2.5%",
         marginBottom: "2.5%",
       },
      
