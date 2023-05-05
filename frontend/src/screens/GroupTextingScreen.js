@@ -80,7 +80,8 @@ const GroupTextingScreen = ({ navigation }) => {
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
-            keyboardVerticalOffset={100}>
+            //keyboardVerticalOffset={100}
+            >
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList 
