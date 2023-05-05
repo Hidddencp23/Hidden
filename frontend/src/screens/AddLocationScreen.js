@@ -80,7 +80,6 @@ const AddLocationScreen = ({ navigation }) => {
                     value={search}></SearchBar>
             </View>   
                 <Text style={styles.searchtitle} >Search Results</Text>
-                <View>
                     <ScrollView style={{ height: '100%' }}>
                         {(search != null && locations.length > 0) ? (
                             <>
@@ -92,7 +91,6 @@ const AddLocationScreen = ({ navigation }) => {
                         ) : null}
 
                     </ScrollView>
-                </View>
             </SafeAreaView>
             </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -100,9 +98,10 @@ const AddLocationScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+   
     homeScreen: {
         backgroundColor: 'transparent',
-        height: '90%',
+        height: '100%',
     },
     map: {
         position: 'absolute',
@@ -282,7 +281,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "left",
         fontSize: 16,
-        marginTop: "3%",
+        marginTop: "1%",
         marginLeft: "5%",
       },
     

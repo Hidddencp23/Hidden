@@ -61,8 +61,6 @@ const HomeStackNavigator = () => {
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ header: ({ navigation }) => <SearchNavBar navigation={navigation} /> }} />
             <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ animation: "slide_from_right", header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="AddLocationScreen" component={AddLocationScreen} options={{ headerShown: false }} />
-
         </Stack.Navigator>
     );
 }
@@ -103,6 +101,7 @@ const ProfileStackNavigator = () => {
             <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
             <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ animation: "slide_from_right", header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
+            <Stack.Screen name="AddLocationScreen" component={AddLocationScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }
