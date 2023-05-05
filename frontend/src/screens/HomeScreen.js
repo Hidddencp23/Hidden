@@ -24,17 +24,8 @@ const HomeScreen = ({ navigation }) => {
         onClose: () => closePanel(),
         allowTouchOutside:true,
         smallPanelHeight: 700
-        // onPressCloseButton: () => closePanel(),
-        // closeOnTouchOutside: true
-        // ...or any prop you want
     });
     const [isPanelActive, setIsPanelActive] = useState(false);
-    const swipeUpDownRef = useRef();
-    // swipeUpDownRef.current.showFull();
-
-    //console.log(user.uid)
-    //console.log(userInfo["email"])
-
 
     const openPanel = () => {
         setIsPanelActive(true);
@@ -113,17 +104,12 @@ const HomeScreen = ({ navigation }) => {
             
                     <Text style={styles.searchtitle} >Search Results</Text>
                     <SearchFilters></SearchFilters>
-                    <View>
-                    <ScrollView style={{ height: '100%' }}>
-
                         {locations.map((location, index) => (
                             <LocationView
                                 location={location}
                                 key={index}
                             />
                         ))}
-                    </ScrollView>
-                    </View>
                 </SwipeablePanel>
                 <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
                     <Icon name="minus" color={"#BFBFBF"}  size={50} style={{justifyContent:"center"}}> </Icon>
@@ -193,6 +179,7 @@ const styles = StyleSheet.create({
     },
     swipePanel: {
        paddingTop: "2%",
+       paddingBottom: "37%"
     },
     sortBy: {
         flexDirection: 'row',
@@ -295,7 +282,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "left",
         fontSize: 16,
-        marginTop: "3%",
+        marginTop: "1%",
         marginLeft: "5%",
       },
     
