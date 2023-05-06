@@ -131,8 +131,11 @@ const TextingScreen = ({ navigation }) => {
 
   useEffect(
     () =>
-      onSnapshot(doc(db, "Chats", chatId), (doc) =>
-        setChatInfo(doc.data())
+      onSnapshot(doc(db, "Chats", chatId), (doc) =>{
+        let docData = doc.data()
+        docData.messages = docData.messages.reverse()
+        setChatInfo(docData)
+      }
       ),
     []
   );
@@ -148,7 +151,7 @@ const TextingScreen = ({ navigation }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <FlatList
-            data={(chatInfo != null) ? chatInfo.messages.reverse() : null}
+            data={ chatInfo != null ? chatInfo.messages : null}
             inverted={-1}
             style={{ paddingLeft: 4 }}
             keyExtractor={(item) => item.id}
