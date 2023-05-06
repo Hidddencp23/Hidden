@@ -22,7 +22,7 @@ const TripList = ({ navigation, displayTrips, otherUserInfo=null }) => {
                 query(
                     collection(db, 'Trips'), 
                     orderBy("__name__"),
-                    //where("__name__", "in", displayUser[displayTrips]),
+                    where("__name__", "in", displayUser[displayTrips]),
                 ),
                 (snapshot) => {
                     setTrips(
@@ -33,7 +33,7 @@ const TripList = ({ navigation, displayTrips, otherUserInfo=null }) => {
                     )
                 }
             )}},
-        [])
+        [userInfo])
 
 
 

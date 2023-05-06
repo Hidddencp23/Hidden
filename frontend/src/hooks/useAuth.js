@@ -41,6 +41,7 @@ export const handleSignup = async (username, name, email, password, setLoading) 
       try {
         setDoc(doc(db, "Users", auth.currentUser.uid), {
           username: username,
+          uid:  auth.currentUser.uid,
           name: name,
           email: email,
           friendCount: 0,
