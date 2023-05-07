@@ -38,10 +38,14 @@ const UploadImageAndroid = () => {
       quality: 1,
     });
     if (!_image.canceled) {
-      setImage(_image.assets[0]['uri']);
+      //setImage(_image.assets[0]['uri']);
 
-      const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
+      //const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
       
+      const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
+      const formatted64 = "data:image/jpeg;base64," + base64;
+      setImage(formatted64);
+
       // this is the base64 string of the uploaded image
       // could pass in a setter to get this value to the form
       // (or just pull out the function to the AddExperienceScreen)

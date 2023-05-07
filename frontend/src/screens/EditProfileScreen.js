@@ -50,10 +50,15 @@ const EditProfileScreen = ({ navigation }) => {
       quality: 1,
     });
     if (!_image.canceled) {
-      setImage(_image.assets[0]['uri']);
+      //setImage(_image.assets[0]['uri']);
 
       const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
-      
+      const formatted64 = "data:image/jpeg;base64," + base64;
+      setImage(formatted64);
+
+      //console.log();
+      //console.log(formatted64)
+      //console.log(base64)
       // this is the base64 string of the uploaded image
       // could pass in a setter to get this value to the form
       // (or just pull out the function to the AddExperienceScreen)
@@ -104,7 +109,8 @@ const styles = StyleSheet.create({
     marginBottom: "10%" ,
     width: "20%",
     height: "10%",
-    borderRadius: "50%",
+    //borderRadius: "50%",
+    borderRadius: 50, // look at this
     borderWidth: 2,
     borderColor: "#83C3FF",
     alignItems: 'center',
@@ -115,7 +121,8 @@ const styles = StyleSheet.create({
     marginTop: "10%",
     width: "90%",
     height: "6%",
-    borderRadius: "15%",
+    //borderRadius: "15%",
+    borderRadius: 15, // look at this
     borderWidth: 2,
     borderColor: "#83C3FF",
     alignItems: 'center',
