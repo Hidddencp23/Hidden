@@ -17,8 +17,21 @@ import FriendList from '../components/FriendList';
 //import ChatList from '../components/ChatList';
 
 
+import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
+
+
 const AddChatScreen = ({ navigation }) => {
 
+    useEffect(() => {
+        navigation.getParent()?.setOptions({
+          tabBarStyle: {
+            display: "none"
+          }
+        });
+        return () => navigation.getParent()?.setOptions({
+          tabBarStyle: undefined
+        });
+      }, [navigation]);
 
     return (
         <View>
@@ -30,6 +43,8 @@ const AddChatScreen = ({ navigation }) => {
             </TouchableOpacity>
             <Text style={styles.text}>New Message</Text>
           </View>
+
+          <View style={styles.padDown}></View>
             <FriendList/>
         </View>
     )
@@ -51,7 +66,8 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         width: '80%',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
     Button: {
         backgroundColor: "white",
@@ -61,5 +77,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: "center"
       },
+    padDown: {
+        marginBottom: 100
+    }
 });
 export default AddChatScreen

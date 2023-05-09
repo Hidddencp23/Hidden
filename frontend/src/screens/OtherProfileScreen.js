@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import {
   Text,
@@ -14,14 +14,11 @@ import {
   KeyboardAvoidingView,
   Platform
 } from "react-native";
-import {
-  collection,
-  where,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
 import useAuth from "../hooks/useAuth";
+import { useRoute } from '@react-navigation/native'
+
+import { updateDoc, addDoc, collection, onSnapshot, orderBy, query, arrayUnion, doc } from 'firebase/firestore'
+import { db } from '../hooks/firebase'
 import { SearchBar } from 'react-native-elements';
 import Icon from "react-native-vector-icons/AntDesign";
 
@@ -39,25 +36,43 @@ const OtherProfileScreen = ({ navigation }) => {
 
   //const { myprofile } = route.params;
   const myprofile = 1; // need to connect to db
+  const {params} = useRoute();
+  const { otherUserInfo, otherUserId } = params;
+
 
   const { user, userInfo, logout } = useAuth();
   const [data, setData] = React.useState([]);
 
   // this info comes from firbase, placeholders for the moment
   const [online, setOnline] = useState(1); // flag for indicator
-
   // state for liked / my trips toggle
   const [displayTrips, setdisplayTrips] = useState('My Trips');
   const [displayIndex, setDisplayIndex] = useState(0);
 
-  const addFriend = "   Add Friend";
+  const [addFriendText, setAddFriendText] = useState("   Add Friend");
 
   // search bar (for trips)
   const [searchTrips, setSearchTrips] = useState();
 
   const [search, setSearch] = useState('');
 
+  const addFriend = () => {
+    updateDoc(doc(db , 'Users', user.uid), {
+      outgoingFriendRequests: arrayUnion(otherUserId)
+    });
+    console.log(otherUserInfo)
+    updateDoc(doc(db , 'Users', otherUserId), {
+      incomingFriendRequests: arrayUnion(user.uid)
+    });
 
+    setAddFriendText("Requested");
+  };
+
+  useEffect(() => {
+    if (userInfo.friendList.includes(otherUserId)){
+      setAddFriendText("Friends")
+    }
+  }, []);
 
   return (
     <SafeAreaView
@@ -70,12 +85,12 @@ const OtherProfileScreen = ({ navigation }) => {
       <View style={profileStyles.profTop}>
         <View style={profileStyles.circle} />
         <Image
-          source={{ uri: userInfo.profilePic }}
+          source={{ uri: otherUserInfo.profilePic }}
           alt="Avatar"
           style={profileStyles.photoURL}
         />
         <Text style={profileStyles.profileTitle}>
-          {userInfo.name}{" "}
+          {otherUserInfo.name}{" "}
           {online ? (
             <Icon name="checkcircle" size={17} color="#77C3EC" />
           ) : (
@@ -85,7 +100,7 @@ const OtherProfileScreen = ({ navigation }) => {
 
         <Text style={profileStyles.profileSubTitle}>
           Total Friends:
-          <Text style={profileStyles.friendsSubTitle}> {userInfo.friendCount}</Text>
+          <Text style={profileStyles.friendsSubTitle}> {otherUserInfo.friendCount}</Text>
         </Text>
       </View>
 
@@ -97,11 +112,16 @@ const OtherProfileScreen = ({ navigation }) => {
         {myprofile === 1 ? (
           <>
             <View style={profileStyles.horizButtons}>
-              <TouchableOpacity style={profileStyles.addFriendButton}>
+              <TouchableOpacity style={profileStyles.addFriendButton}
+                onPress={() => {
+                  if (addFriendText === "   Add Friend"){
+                    addFriend()
+                  }
+                  }}>
                 <Text style={profileStyles.addFriendText}>
                   <Icon name="adduser" size={20} />
 
-                  {addFriend}
+                  {addFriendText}
                 </Text>
               </TouchableOpacity>
 
@@ -189,13 +209,13 @@ const OtherProfileScreen = ({ navigation }) => {
       <ScrollView>
         {displayTrips === "My Trips" ? (
           <>
-            <TripList navigation={navigation} displayTrips={"myTrips"} />
+            <TripList navigation={navigation} displayTrips={"myTrips"} otherUserInfo={otherUserInfo}/>
           </>
         ) : null}
 
         {displayTrips === "Liked Trips" ? (
           <>
-            <TripList navigation={navigation} displayTrips={"likedTrips"} />
+            <TripList navigation={navigation} displayTrips={"likedTrips"}  otherUserInfo={otherUserInfo} />
           </>
         ) : null}
       </ScrollView>

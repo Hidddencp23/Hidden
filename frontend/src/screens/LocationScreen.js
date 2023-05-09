@@ -3,8 +3,9 @@ import { Dimensions, SafeAreaView, Image, View, Text, StyleSheet, FlatList, Touc
 import { db } from '../hooks/firebase';
 import { useRoute } from '@react-navigation/native'
 import Experience from '../components/Experience';
-import { where, addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc } from 'firebase/firestore'
+import { where, addDoc, collection, onSnapshot, orderBy, query, doc, arrayUnion, arrayRemove, updateDoc} from 'firebase/firestore'
 import Icon from "react-native-vector-icons/AntDesign";
+import useAuth from '../hooks/useAuth'
 
 
 const LocationScreen = ({ navigation }) => {
@@ -12,12 +13,26 @@ const LocationScreen = ({ navigation }) => {
     const { location } = params;
     const [experiences, setExperiences] = useState([]);
     const [likeLocation, setLikeLocation] = useState(false);
+    const { user, userInfo } = useAuth();
+
     const handleLike = async () => {
         if(likeLocation == false)
         {
+            updateDoc(doc(db, "HiddenLocations", location.id), {
+                Liked: arrayUnion(user.uid)
+            });
+            updateDoc(doc(db, "Users", user.uid), {
+                LikedLocations: arrayUnion(location.id)
+            });
             setLikeLocation(true)
         }
         else {
+            updateDoc(doc(db, "HiddenLocations", location.id), {
+                Liked: arrayRemove(user.uid)
+            });
+            updateDoc(doc(db, "Users", user.uid), {
+                LikedLocations: arrayRemove(location.id)
+            });
             setLikeLocation(false)
         }
       }
@@ -36,7 +51,10 @@ const LocationScreen = ({ navigation }) => {
                         ...doc.data()
                     }))
                 )
-        );
+        )
+        if (userInfo['LikedLocations'].includes(location.id)){
+            setLikeLocation(true)
+        };
     },
         [])
 
@@ -62,7 +80,7 @@ const LocationScreen = ({ navigation }) => {
                     <Icon name="plus" size={20} />
                 </TouchableOpacity>
             </View>
-            {experiences.map((experience, index) => <Experience experience={experience} key={index} />)}
+            {experiences.map((experience, index) => <Experience navigation={navigation} experience={experience} key={index} />)}
            
             </ScrollView>
           </SafeAreaView>

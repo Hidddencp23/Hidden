@@ -30,7 +30,6 @@ const GroupTextingScreen = ({ navigation }) => {
     const [input, setInput] =  useState("");
     const [messages, setMessages] = useState([]);
     const { chatId, chatInfo } = params;
-    console.log("TextchatID: ");
 
     useEffect(() => 
         onSnapshot(
@@ -65,23 +64,24 @@ const GroupTextingScreen = ({ navigation }) => {
     useEffect(() => {
         navigation.getParent()?.setOptions({
           tabBarStyle: {
-            display: "none"
+            display: "none",
           }
         });
         return () => navigation.getParent()?.setOptions({
-          tabBarStyle: undefined
+          tabBarStyle: undefined,
         });
       }, [navigation]);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
 
-        <ChatScreenNavBar userName={chatInfo.name}/>
+        <ChatScreenNavBar navigation={navigation} title={chatInfo.name}/>
         {/*<ChatHeader navigation={navigation} title={chatInfo.name} />*/}
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
-            keyboardVerticalOffset={100}>
+            //keyboardVerticalOffset={100}
+            >
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList 
@@ -154,7 +154,7 @@ const GroupTextingScreen = ({ navigation }) => {
                 </View>
 
         </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   )
 }
 

@@ -98,7 +98,7 @@ const TextingScreen = ({ navigation }) => {
     useEffect(() => {
         navigation.getParent()?.setOptions({
           tabBarStyle: {
-            display: "none"
+            display: "none",
           }
         });
         return () => navigation.getParent()?.setOptions({
@@ -158,14 +158,16 @@ const TextingScreen = ({ navigation }) => {
 
     
   return (
-    <SafeAreaView style={{flex: 1}}> 
 
-        <ChatScreenNavBar userName={chatUser.name}/>
+    <View style={{flex: 1}}> 
+
+        <ChatScreenNavBar navigation={navigation} title={chatUser.name}/>
 
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
-            keyboardVerticalOffset={100}>
+            //keyboardVerticalOffset={100}
+            >
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList 
@@ -234,7 +236,8 @@ const TextingScreen = ({ navigation }) => {
 
 
         </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
+
   )
   
 }
