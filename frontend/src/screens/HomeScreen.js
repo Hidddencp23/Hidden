@@ -24,17 +24,8 @@ const HomeScreen = ({ navigation }) => {
         onClose: () => closePanel(),
         allowTouchOutside:true,
         smallPanelHeight: 700
-        // onPressCloseButton: () => closePanel(),
-        // closeOnTouchOutside: true
-        // ...or any prop you want
     });
     const [isPanelActive, setIsPanelActive] = useState(false);
-    const swipeUpDownRef = useRef();
-    // swipeUpDownRef.current.showFull();
-
-    console.log(user.uid)
-    console.log(userInfo["email"])
-
 
     const openPanel = () => {
         setIsPanelActive(true);
@@ -85,7 +76,6 @@ const HomeScreen = ({ navigation }) => {
                     <Image source={{ uri: location.image }} style={styles.locImg} />
                     <View style={styles.vertView}>
                         <Text style={styles.locName}>{location.name}</Text>
-                        <Text style={styles.locType}>{location.category}</Text>
                         <Text style={styles.locType}>{location.address}</Text>
                     </View>
                     <TouchableOpacity style={styles.favLocation}>
@@ -103,8 +93,6 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
-
-
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={styles.homeScreen} >
                 <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
@@ -113,25 +101,18 @@ const HomeScreen = ({ navigation }) => {
             
                     <Text style={styles.searchtitle} >Search Results</Text>
                     <SearchFilters></SearchFilters>
-                    <View>
-                    <ScrollView style={{ height: '100%' }}>
-
                         {locations.map((location, index) => (
                             <LocationView
                                 location={location}
                                 key={index}
                             />
                         ))}
-                    </ScrollView>
-                    </View>
                 </SwipeablePanel>
                 <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
                     <Icon name="minus" color={"#BFBFBF"}  size={50} style={{justifyContent:"center"}}> </Icon>
                 </TouchableOpacity>
             </SafeAreaView>
             </TouchableWithoutFeedback>
-        
-
     </KeyboardAvoidingView>
     )
 }
@@ -193,6 +174,7 @@ const styles = StyleSheet.create({
     },
     swipePanel: {
        paddingTop: "2%",
+       paddingBottom: "37%"
     },
     sortBy: {
         flexDirection: 'row',
@@ -295,7 +277,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "left",
         fontSize: 16,
-        marginTop: "3%",
+        marginTop: "1%",
         marginLeft: "5%",
       },
     
@@ -304,6 +286,7 @@ const styles = StyleSheet.create({
         color: "#BEBEBE",
         textAlign: "left",
         fontSize: 14,
+        marginTop: "2.5%",
         marginBottom: "2.5%",
       },
      

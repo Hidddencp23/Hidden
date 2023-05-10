@@ -40,7 +40,7 @@ const HomeMap = ({ hiddenLocations }) => {
           latitudeDelta: 0.0421,
           longitudeDelta: 0.0421,
         });
-        console.log(location);
+        //console.log(location);
       })();
   }, []);
 

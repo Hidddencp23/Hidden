@@ -6,6 +6,8 @@ import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
 import { db } from "../hooks/firebase";
 import GroupTextingScreen from '../screens/GroupTextingScreen';
 
+import Icon from "react-native-vector-icons/AntDesign";
+
 const ProxChatRow = ({ chatId, navigation }) => {
   const { user } = useAuth();
   const [ chatInfo, setChatInfo ] = useState(null);
@@ -35,13 +37,17 @@ const ProxChatRow = ({ chatId, navigation }) => {
         source={{ uri: chatInfo.chatPic }}
       />
 
-      <View>
+      <View style={styles.horizontal}>
         <Text style={styles.text}>
           {chatInfo.name}
         </Text>
         {/* <Text>{chatInfo.latestMessage}</Text>
         <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toDateString(): ""}</Text>
         <Text>{chatInfo.latestTimestamp != null ? chatInfo.latestTimestamp.toDate().toLocaleTimeString(): ""}</Text> */}
+
+        <View style={styles.arrowPad}>
+            <Icon name="right" size={20} style={styles.arrow} />
+        </View>
 
       </View>
     </TouchableOpacity>) : null}
@@ -70,6 +76,38 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     fontSize: 16
+  },
+
+  arrowPad: {
+    paddingTop: 0
+  },
+  arrow: {
+    color: '#9e9e9e'
+  },
+  alignDate: {
+    marginLeft: '50%', 
+    fontWeight: "bold",
+    color: '#9e9e9e'
+  },
+  alignRight: {
+    alignItems: 'flex-end'
+  },
+  messagePad: {
+    paddingTop: 5,
+    paddingLeft: 5,
+    color: '#9e9e9e'
+  },
+  horizontal: {
+    flexDirection: 'row',
+    flex: 1, 
+    justifyContent: 'space-between',
+
+  },
+  vertical: {
+    flexDirection: 'column'
+  },
+  time: {
+    textAlign: "right"
   }
 });
 

@@ -30,7 +30,6 @@ const GroupTextingScreen = ({ navigation }) => {
     const [input, setInput] =  useState("");
     const [messages, setMessages] = useState([]);
     const { chatId, chatInfo } = params;
-    console.log("TextchatID: ");
 
     useEffect(() => 
         onSnapshot(
@@ -81,7 +80,8 @@ const GroupTextingScreen = ({ navigation }) => {
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
-            keyboardVerticalOffset={100}>
+            //keyboardVerticalOffset={100}
+            >
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList 
