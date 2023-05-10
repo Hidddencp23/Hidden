@@ -12,7 +12,7 @@ import {
 } from '@firebase/auth';
 
 import { auth, db, storage } from './firebase';
-import { doc, setDoc, getDoc} from "firebase/firestore";
+import { doc, setDoc, getDoc, onSnapshot} from "firebase/firestore";
 import { defaultProfilePic } from '../constants/profileConstants';
 import { uploadBytes, ref, getDownloadURL} from 'firebase/storage';
 
@@ -41,6 +41,7 @@ export const handleSignup = async (username, name, email, password, setLoading) 
       try {
         setDoc(doc(db, "Users", auth.currentUser.uid), {
           username: username,
+          uid:  auth.currentUser.uid,
           name: name,
           email: email,
           friendCount: 0,
@@ -93,14 +94,18 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => onAuthStateChanged(auth, (user) => {
     const getDocSnap = async () => {
-      const docSnap = await getDoc(doc(db, "Users", user.uid));
-      if (docSnap.exists()) {
-        setUserInfo(docSnap.data())
-       // console.log("Document data:", docSnap.data()["name"]);
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
+      onSnapshot(doc(db, "Users", user.uid), (doc) => {
+        console.log("USER INFO CHANGED")
+        setUserInfo(doc.data())
+      })
+      // const docSnap = await getDoc(doc(db, "Users", user.uid));
+      // if (docSnap.exists()) {
+      //   setUserInfo(docSnap.data())
+      //   console.log("Document data:", docSnap.data()["name"]);
+      // } else {
+      //   // doc.data() will be undefined in this case
+      //   console.log("No such document!");
+      // }
     }
 
     if (user) {

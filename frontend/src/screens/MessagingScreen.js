@@ -13,7 +13,7 @@ const MessagingScreen = ({ navigation }) => {
         <ChatList navigation={navigation}/>
 
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
             onPress={() => navigation.navigate("AddChatScreen")}
             style={styles.circularButton}>
             
@@ -21,7 +21,7 @@ const MessagingScreen = ({ navigation }) => {
                 marginLeft: '0%'
             }}/>
       
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
     </SafeAreaView>
   )

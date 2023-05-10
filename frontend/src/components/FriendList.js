@@ -39,9 +39,9 @@ export const FriendList = ({ navigation }) => {
 
     const checkIfExistingChat = (item, friendId) => {
         if (chatFriends.includes(friendId)){
-            return <FriendRow friendInfo={item} key={item.id} navigation={navigation} message={'Go To Chat'}/>
+            return <FriendRow friendId={friendId} friendInfo={item} key={item.id} navigation={navigation} message={'Go To Chat'}/>
         }
-        return <FriendRow friendInfo={item} key={item.id} navigation={navigation} message={'Add Chat'}/>
+        return <FriendRow friendId={friendId} friendInfo={item} key={item.id} navigation={navigation} message={'Add Chat'}/>
     }
 
     // get friends list
