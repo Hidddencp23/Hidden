@@ -12,17 +12,6 @@ const MessagingScreen = ({ navigation }) => {
     <SafeAreaView style={styles.padDown}>
         <ChatList navigation={navigation}/>
 
-
-        <TouchableOpacity
-            onPress={() => navigation.navigate("AddChatScreen")}
-            style={styles.circularButton}>
-            
-            <Icon name="plus" size={30} style={{
-                marginLeft: '0%'
-            }}/>
-      
-        </TouchableOpacity>
-
     </SafeAreaView>
   )
 };
