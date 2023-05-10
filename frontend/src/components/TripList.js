@@ -33,7 +33,7 @@ const TripList = ({ navigation, displayTrips, otherUserInfo=null }) => {
                     )
                 }
             )}},
-        [])
+        [userInfo])
 
 
 
