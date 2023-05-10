@@ -23,6 +23,21 @@ import * as FileSystem from 'expo-file-system';
 
 
 
+import ImageResizer from "react-native-image-resizer";
+
+
+/*
+import { Buffer } from "buffer";
+
+
+
+import Resizer from 'react-native-image-resizer';
+import { Platform } from 'react-native';
+
+*/
+
+
+
 const EditProfileScreen = ({ navigation }) => {
   const [changeName, setChangeName] = useState("");
   const { user, userInfo, logout } = useAuth();
@@ -42,27 +57,69 @@ const EditProfileScreen = ({ navigation }) => {
     }
   }
 
+
+  
+
+
+
+  async function get64String(uri) {
+
+    // stuff after header
+    var fileContent = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' })
+    
+    const fileSizeInBytes = await FileSystem.getInfoAsync(uri);
+
+    // sizes greater than 1 MB get rejected by firebase
+    if (fileSizeInBytes.size > 1000000) {
+      console.log('image is too big: needs resizing')
+
+      console.log('size: ' + fileSizeInBytes.size)
+      
+      /*
+      let result = await ImageResizer.createResizedImage(
+        uri,
+        1000,
+        1000,
+        'JPEG',
+        1,
+        null
+
+      );
+      */
+
+      console.log('done resizing')
+
+      
+      
+
+    }
+
+    return "data:image/jpeg;base64," + fileContent;
+
+
+
+
+
+
+  }
+
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4,3],
-      quality: 1,
+      quality: 0.5, // take a look at this
+      
     });
     if (!_image.canceled) {
-      //setImage(_image.assets[0]['uri']);
 
-      const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
-      const formatted64 = "data:image/jpeg;base64," + base64;
+      const formatted64 = await get64String(_image.assets[0]['uri']);
+      //const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
+      //const formatted64 = "data:image/png;base64," + base64;
       setImage(formatted64);
 
-      //console.log();
       //console.log(formatted64)
-      //console.log(base64)
-      // this is the base64 string of the uploaded image
-      // could pass in a setter to get this value to the form
-      // (or just pull out the function to the AddExperienceScreen)
-      //setImageString(base64);
+
     }
   };
 

@@ -171,7 +171,8 @@ const ProfileScreen = ({ navigation }) => {
 
               <TouchableOpacity
                 style={profileStyles.addTripButton}
-                onPress={() => navigation.navigate("AddTripScreen")}
+                //onPress={() => navigation.navigate("AddTripScreen")}
+                onPress={() => navigation.navigate("EditProfileScreen")}
               >
                 <Icon
                   name="plus"
