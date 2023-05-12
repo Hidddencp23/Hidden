@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import circleStyles  from '../../styles/circle';
 
 
-const EditProfileNavBar = ({ navigation }) => {
+const GeneralNavBar = ({ navigation, title }) => {
     return (
         <>
             {/* {Platform.OS === 'ios' ?
@@ -19,7 +19,7 @@ const EditProfileNavBar = ({ navigation }) => {
                 <TouchableOpacity style={styles.Button} onPress={() => navigation.goBack()}>
                     <Icon name="close" size={20} />
                 </TouchableOpacity>                
-                <Text style={styles.baseText}>Settings</Text>
+                <Text style={styles.baseText}>{title}</Text>
             </View>
         </>
     )
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default  EditProfileNavBar;
+export default  GeneralNavBar;
