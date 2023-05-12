@@ -23,19 +23,7 @@ import * as FileSystem from 'expo-file-system';
 
 
 
-import ImageResizer from "react-native-image-resizer";
-
-
-/*
-import { Buffer } from "buffer";
-
-
-
-import Resizer from 'react-native-image-resizer';
-import { Platform } from 'react-native';
-
-*/
-
+//import ImageResizer from "react-native-image-resizer";
 
 
 const EditProfileScreen = ({ navigation }) => {
@@ -60,20 +48,36 @@ const EditProfileScreen = ({ navigation }) => {
 
   
 
+  // check start of file content to see if png or jpeg 
+  // return base 64 header string (or error if not found)
+  const getBase64Header = (fileContent) => {
+    const isPNG = fileContent.slice(0, 8) === "iVBORw0K"; // PNG header
+    const isJPEG = fileContent.slice(0, 4) === "/9j/"; // JPEG header
+  
+    if (isPNG) {
+      return "data:image/png;base64,";
+    } else if (isJPEG) {
+      return "data:image/jpeg;base64,";
+    } else {
+      throw new Error("Invalid image format");
+    }
+  }
 
 
-  async function get64String(uri) {
+  const get64String = async(uri) => {
 
     // stuff after header
     var fileContent = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' })
     
     const fileSizeInBytes = await FileSystem.getInfoAsync(uri);
 
-    // sizes greater than 1 MB get rejected by firebase
+    // update sizes greater than 1 MB get rejected by firebase
+    console.log('size: ' + fileSizeInBytes.size)
+      
     if (fileSizeInBytes.size > 1000000) {
       console.log('image is too big: needs resizing')
 
-      console.log('size: ' + fileSizeInBytes.size)
+      //console.log('size: ' + fileSizeInBytes.size)
       
       /*
       let result = await ImageResizer.createResizedImage(
@@ -87,19 +91,19 @@ const EditProfileScreen = ({ navigation }) => {
       );
       */
 
-      console.log('done resizing')
+      //console.log('done resizing')
 
       
-      
+      return '';
 
     }
 
-    return "data:image/jpeg;base64," + fileContent;
+    const header = getBase64Header(fileContent);
+    const full64String = header + fileContent;
 
+    setImage(full64String);
 
-
-
-
+    return full64String;
 
   }
 
@@ -108,17 +112,20 @@ const EditProfileScreen = ({ navigation }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4,3],
-      quality: 0.5, // take a look at this
+      quality: 0.1, // take a look at this
+
       
     });
     if (!_image.canceled) {
 
       const formatted64 = await get64String(_image.assets[0]['uri']);
+
+      // old code here
       //const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
       //const formatted64 = "data:image/png;base64," + base64;
-      setImage(formatted64);
 
-      //console.log(formatted64)
+      // setting inside function now
+      //setImage(formatted64);
 
     }
   };

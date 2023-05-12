@@ -93,7 +93,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
-{/*
+
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={styles.homeScreen} >
                 <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
@@ -114,7 +114,7 @@ const HomeScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </SafeAreaView>
             </TouchableWithoutFeedback>
-*/}
+
     </KeyboardAvoidingView>
     )
 }
