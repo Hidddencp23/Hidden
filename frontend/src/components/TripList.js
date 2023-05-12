@@ -22,15 +22,17 @@ const TripList = ({ navigation, displayTrips, otherUserInfo=null }) => {
                 query(
                     collection(db, 'Trips'), 
                     orderBy("__name__"),
-                   // where("__name__", "in", displayUser[displayTrips]),
                 ),
                 (snapshot) => {
-                    setTrips(
-                        snapshot.docs.map(doc => ({
-                            id: doc.id,
-                            ...doc.data()
-                        }))
+                    let locs = []
+                    console.log("loc", locs)
+                    snapshot.docs.forEach(doc => {
+                        if(displayUser[displayTrips].includes(doc.id)){
+                            locs.push({id: doc.id, ...doc.data()})
+                        }        
+                    }             
                     )
+                    setTrips(locs)
                 }
             )}},
         [userInfo])
