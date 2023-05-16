@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Platform } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Image, Dimensions, Platform, TouchableOpacity } from 'react-native';
+//import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 
 import circleStyles  from '../../styles/circle';
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     addButton: {
         backgroundColor: "white",
         height: "100%",
-        width: "200%",
+        width: 40,
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: "center"

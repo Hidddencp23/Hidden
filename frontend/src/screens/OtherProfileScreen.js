@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
+  //SafeAreaView,
   ScrollView,
   Dimensions,
   KeyboardAvoidingView,
@@ -16,11 +16,13 @@ import {
 } from "react-native";
 import useAuth from "../hooks/useAuth";
 import { useRoute } from '@react-navigation/native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { updateDoc, addDoc, collection, onSnapshot, orderBy, query, arrayUnion, doc } from 'firebase/firestore'
 import { db } from '../hooks/firebase'
 import { SearchBar } from 'react-native-elements';
 import Icon from "react-native-vector-icons/AntDesign";
+import NewSafeAreaView from '../components/NewSafeAreaView';
 
 // placeholder image for now
 import TripList from '../components/TripList';

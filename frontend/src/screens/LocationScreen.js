@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Dimensions, SafeAreaView, Image, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
+import { Dimensions, Image, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
 import { db } from '../hooks/firebase';
 import { useRoute } from '@react-navigation/native'
 import Experience from '../components/Experience';
 import { where, addDoc, collection, onSnapshot, orderBy, query, doc, arrayUnion, arrayRemove, updateDoc} from 'firebase/firestore'
 import Icon from "react-native-vector-icons/AntDesign";
 import useAuth from '../hooks/useAuth'
+import NewSafeAreaView from '../components/NewSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const LocationScreen = ({ navigation }) => {
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
     },
     addIcon: {
         backgroundColor:"#83C3FF",
-        borderRadius: "100%",
+        borderRadius: 100,//"100%",
         padding: "1.5%"
        
     }

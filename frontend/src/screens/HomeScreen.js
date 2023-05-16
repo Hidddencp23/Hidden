@@ -5,12 +5,14 @@ import Icon from "react-native-vector-icons/AntDesign";
 //import { Icon } from 'react-native-vector-icons';
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
-import { Image, SafeAreaView, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Image, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { db } from '../hooks/firebase';
 import distance from '../hooks/distance';
 import HomeMap from '../components/HomeMap';
 import LocationItem from '../components/LocationItem';
 import { SwipeablePanel } from 'rn-swipeable-panel';
+//import NewSafeAreaView from '../components/NewSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const HomeScreen = ({ navigation }) => {

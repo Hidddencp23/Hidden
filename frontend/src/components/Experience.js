@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         // height: "20%",
         marginHorizontal: "5%",
         marginVertical: "2.5%",
-        borderRadius: "15%"
+        borderRadius: 30//"15%"
     },
     profName: {
         color: "black",
