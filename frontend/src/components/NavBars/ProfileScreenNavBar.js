@@ -4,8 +4,6 @@ import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'rea
 import Icon from "react-native-vector-icons/AntDesign";
 import NotificationScreen from '../../screens/NotificationScreen';
 
-import circleStyles  from '../../styles/circle';
-
 const ProfileScreenNavBar = ({ navigation }) => {
     return (
         <>
