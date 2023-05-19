@@ -124,11 +124,11 @@ const ProfileScreen = ({ navigation }) => {
         {myprofile === 0 ? 
             <SegmentedControl
               style={profileStyles.toggleButton}
-              values={["My Trips", "Liked Trips"]}
+              values={["My Trips", "Liked Locations"]}
               selectedIndex={displayIndex}
               onChange={(event) => {
                 if (displayTrips == "My Trips") {
-                  setdisplayTrips("Liked Trips");
+                  setdisplayTrips("Liked Locations");
                   setDisplayIndex(1);
                   //setSearchTrips(exLikedTrips);
                 } else {
@@ -143,11 +143,11 @@ const ProfileScreen = ({ navigation }) => {
         
           <SegmentedControl
             style={profileStyles.toggleButton}
-            values={["Their Trips", "Liked Trips"]}
+            values={["Their Trips", "Liked Locations"]}
             selectedIndex={displayIndex}
             onChange={(event) => {
               if (displayTrips == "My Trips") {
-                setdisplayTrips("Liked Trips");
+                setdisplayTrips("Liked Locations");
                 setDisplayIndex(1);
                 //setSearchTrips(exLikedTrips);
               } else {
@@ -195,9 +195,9 @@ const ProfileScreen = ({ navigation }) => {
           </>
         ) : null}
 
-        {displayTrips === "Liked Trips" ? (
+        {displayTrips === "Liked Locations" ? (
           <>
-            <TripList navigation={navigation} displayTrips={"likedTrips"} />
+            <TripList navigation={navigation} displayTrips={"LikedLocations"} />
           </>
         ) : null}
       </View>

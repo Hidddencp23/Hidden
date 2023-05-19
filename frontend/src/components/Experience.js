@@ -1,74 +1,102 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, Image, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
-import { where, getDoc, addDoc, onSnapshot, orderBy, query, serverTimestamp, doc } from 'firebase/firestore'
+import React, { useEffect, useState, useRef } from "react";
+import {
+  SafeAreaView,
+  Image,
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import {
+  where,
+  getDoc,
+  addDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  doc,
+} from "firebase/firestore";
 import { db } from "../hooks/firebase";
 import Icon from "react-native-vector-icons/AntDesign";
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Experience = ({ navigation, experience }) => {
-    const [poster, setPoster] = useState("");
-    const [likeLocation, setLikeLocation] = useState(false);
-    const handleLike = async () => {
-        if(likeLocation == false)
-        {
-            setLikeLocation(true)
-        }
-        else {
-            setLikeLocation(false)
-        }
+  const [poster, setPoster] = useState("");
+  const [likeLocation, setLikeLocation] = useState(false);
+  const handleLike = async () => {
+    if (likeLocation == false) {
+      setLikeLocation(true);
+    } else {
+      setLikeLocation(false);
     }
-    const getUserNameFromUid = async (uid) => {
-        const docRef = doc(db, "Users", uid);
-        try {
-            const docSnap = await getDoc(docRef);
-            if(docSnap.exists()) {
-                setPoster(docSnap.data());
-            } else {
-                console.log("Document does not exist")
-            }
-        
-        } catch(error) {
-            console.log(error)
-        }
+  };
+  const getUserNameFromUid = async (uid) => {
+    const docRef = doc(db, "Users", uid);
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setPoster(docSnap.data());
+      } else {
+        console.log("Document does not exist");
+      }
+    } catch (error) {
+      console.log(error);
     }
-    useEffect(() => {
-        getUserNameFromUid(experience.userId).then(() => {
-        }).catch(console.error);
-    }, [])
-        return (
-        <View>
-            <TouchableOpacity style={styles.horizView} 
-                 onPress={() => 
-                    
-          {          
-            navigation.navigate("OtherProfileScreen", {
-                    otherUserInfo: poster ,
-                    otherUserId: experience.userId
-                  })}
-                  }>
-                <Image source={{ uri: poster["profilePic"] }} style={styles.profImg}/>
-                <Text style={styles.profName}> {poster["name"]}</Text>
-            </TouchableOpacity>
-                       
-            <View>
-                {experience.image ? (<Image source={{ uri: experience.image }} style={styles.locImg} /> ) : null}
-            </View>
-            <View style={styles.buttons}>
-                <View style={styles.activity}>
-                    <TouchableOpacity onPress={handleLike}>
-                        {likeLocation ? (<Icon name="heart" size={20} style={styles.isliked} />) : (<Icon name="heart" size={20} style={styles.notliked} />)}
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.activity}>
-                    <MaterialIcons name='star' size={20} color={"#ffb300"}></MaterialIcons>
-                    <Text> {experience.rating}</Text>
-                </View>
-            </View>
-            <Text style={styles.desc}>{experience.description}</Text>
+  };
 
+  useEffect(() => {
+    getUserNameFromUid(experience.userId)
+      .then(() => {})
+      .catch(console.error);
+  }, []);
+
+  return (
+    <View>
+      <TouchableOpacity
+        style={styles.horizView}
+        onPress={() => {
+          navigation.navigate("OtherProfileScreen", {
+            passedUserInfo: poster,
+            otherUserId: experience.userId,
+          });
+        }}
+      >
+        <Image source={{ uri: poster["profilePic"] }} style={styles.profImg} />
+        <Text style={styles.profName}> {poster["name"]}</Text>
+      </TouchableOpacity>
+
+      <View>
+        {experience.image ? (
+          <Image source={{ uri: experience.image }} style={styles.locImg} />
+        ) : null}
+      </View>
+      <View style={styles.buttons}>
+        <View style={styles.activity}>
+          <TouchableOpacity onPress={handleLike}>
+            {likeLocation ? (
+              <Icon name="heart" size={20} style={styles.isliked} />
+            ) : (
+              <Icon name="heart" size={20} style={styles.notliked} />
+            )}
+          </TouchableOpacity>
         </View>
-    )
-}
+        <View style={styles.activity}>
+          <MaterialIcons
+            name="star"
+            size={20}
+            color={"#ffb300"}
+          ></MaterialIcons>
+          <Text> {experience.rating}</Text>
+        </View>
+      </View>
+      <Text style={styles.desc}>{experience.description}</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
     container: {

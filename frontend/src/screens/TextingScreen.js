@@ -142,7 +142,7 @@ const TextingScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ChatScreenNavBar navigation={navigation} title={chatUser.name} />
+      <ChatScreenNavBar navigation={navigation} chatUser={chatUser} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}

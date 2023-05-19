@@ -1,6 +1,5 @@
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import useAuth from "../hooks/useAuth";
-import LocationList from "../components/LocationList";
 import Icon from "react-native-vector-icons/AntDesign";
 //import { Icon } from 'react-native-vector-icons';
 import { collection, getDocs } from 'firebase/firestore';
@@ -9,7 +8,7 @@ import { Image, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeed
 import { db } from '../hooks/firebase';
 import distance from '../hooks/distance';
 import HomeMap from '../components/HomeMap';
-import LocationItem from '../components/LocationItem';
+import LocationView from '../components/LocationView';
 import { SwipeablePanel } from 'rn-swipeable-panel';
 //import NewSafeAreaView from '../components/NewSafeAreaView';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -67,27 +66,6 @@ const HomeScreen = ({ navigation }) => {
             </View>
         )
     }
-    const LocationView = ({ location }) => {
-        return (
-            <TouchableOpacity style={styles.locCard} onPress={() =>
-                navigation.navigate("LocationScreen", {
-                    location
-                })
-            }>
-                <View style={styles.horizView}>
-                    <Image source={{ uri: location.image }} style={styles.locImg} />
-                    <View style={styles.vertView}>
-                        <Text style={styles.locName}>{location.name}</Text>
-                        <Text style={styles.locType}>{location.address}</Text>
-                    </View>
-                    <TouchableOpacity style={styles.favLocation}>
-                     <Icon name="heart" size={20} style={styles.heartIcon} />
-                    </TouchableOpacity>
-                </View>
-            </TouchableOpacity>
-        )
-    }
-
     useEffect(() => {
         getAllLocations().then(() => {
         }).catch(console.error);
@@ -194,35 +172,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         height: 25
     },
-    locImg: {
-        marginLeft: '3%',
-        width: 50,
-        height: 50,
-        borderRadius: 40
-      },
-    locCard: {
-        backgroundColor: "#FFFFFF",
-        borderColor: "#FFFFFF",
-        marginTop: "5%",
-        marginLeft: "2.5%",
-        marginRight: "2.5%",
-        height: 90,
-        borderRadius: 15,
-        shadowColor: 'black',
-        shadowOpacity: 0.2,
-        shadowRadius: 6,
-        shadowOffset : { width: 1, height: 5},
-      },
-    favLocation: {
-        alignItems: 'center',
-        paddingTop: "1%",
-        width: "10%",
-        height: "40%",
-        borderRadius: 5,
-    },
-    heartIcon: {
-        color: "#BFBFBF",
-    },
+
     rowTextStyle: {
         fontSize: 18
     },
@@ -263,36 +213,10 @@ const styles = StyleSheet.create({
         color: 'black',
         textAlign: 'center'
     },
-
-    horizView: {
-        backgroundColor: "lightGrey",
-        flexDirection: "row",
-        marginTop: '3%'
-    },
     vertView: {
         flex: 1,
         flexDirection: "column",
-    },
-    
-    locName: {
-        marginLeft: "5%",
-        color: "black",
-        fontWeight: "bold",
-        textAlign: "left",
-        fontSize: 16,
-        marginTop: "1%",
-        marginLeft: "5%",
-      },
-    
-      locType: {
-        marginLeft: "5%",
-        color: "#BEBEBE",
-        textAlign: "left",
-        fontSize: 14,
-        marginTop: "2.5%",
-        marginBottom: "2.5%",
-      },
-     
+    },     
 });
 
 export default HomeScreen;
