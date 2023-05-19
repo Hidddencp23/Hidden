@@ -83,6 +83,7 @@ const HomeScreen = ({ navigation }) => {
                     <SearchFilters></SearchFilters>
                         {locations.map((location, index) => (
                             <LocationView
+                                navigation={navigation}
                                 location={location}
                                 key={index}
                             />
