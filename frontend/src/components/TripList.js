@@ -4,7 +4,7 @@ import { collection, onSnapshot, orderBy, query, limit, where } from 'firebase/f
 import { db } from "../hooks/firebase";
 import useAuth from '../hooks/useAuth';
 import TripRow from './TripRow';
-
+import LocationView from './LocationView';
 const TripList = ({ navigation, displayTrips, otherUserInfo=null }) => {
     const [trips, setTrips] = useState([]);
     const { user, userInfo } = useAuth();
@@ -18,34 +18,61 @@ const TripList = ({ navigation, displayTrips, otherUserInfo=null }) => {
             displayUser = otherUserInfo;
         }
         if (displayUser[displayTrips].length > 0){
-            onSnapshot(
-                query(
-                    collection(db, 'Trips'), 
-                    orderBy("__name__"),
-                    where("__name__", "in", displayUser[displayTrips]),
-                ),
-                (snapshot) => {
-                    setTrips(
-                        snapshot.docs.map(doc => ({
-                            id: doc.id,
-                            ...doc.data()
-                        }))
-                    )
-                }
-            )}},
+            if(displayTrips == "myTrips"){
+                onSnapshot(
+                    query(
+                        collection(db, 'Trips'), 
+                        orderBy("__name__"),
+                    ),
+                    (snapshot) => {
+                        let locs = []
+                        snapshot.docs.forEach(doc => {
+                            if(displayUser[displayTrips].includes(doc.id)){
+                                locs.push({id: doc.id, ...doc.data()})
+                            }        
+                        }             
+                        )
+                        setTrips(locs)
+                    }
+                )
+            }
+            else if(displayTrips == "LikedLocations"){
+                onSnapshot(
+                    query(
+                        collection(db, 'HiddenLocations'), 
+                        orderBy("__name__"),
+                    ),
+                    (snapshot) => {
+                        let locs = []
+                        snapshot.docs.forEach(doc => {
+                            if(displayUser[displayTrips].includes(doc.id)){
+                                locs.push({id: doc.id, ...doc.data()})
+                            }        
+                        }             
+                        )
+                        setTrips(locs)
+                    }
+                )
+            }
+            
+           }},
         [userInfo])
 
 
 
     return (
         <ScrollView>
-            {trips !== null ?
+           {displayTrips === "myTrips" ? (
             <>
                 {trips.map((item) => <TripRow tripInfo={item} key={item.id} navigation={navigation} />)}
             </> 
-            : 
-            null
-            }
+           ) : null}
+           {displayTrips === "LikedLocations" ? (
+            <>
+               {trips.map((item) => <LocationView location={item} key={item.id} navigation={navigation} />)}
+            </>
+          ) : null}
+
         </ScrollView>
     )
 }
