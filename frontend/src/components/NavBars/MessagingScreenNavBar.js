@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
     baseText: {
         fontWeight:'bold',
         fontSize: 20,
-        paddingLeft: "5%",
+        paddingLeft: "10%",
         
     },
     header: {
         height: 100,
-        paddingRight: "10%",
+        paddingRight: "5%",
         paddingBottom: "3%",
         paddingTop: "13%",
         backgroundColor: '#83C3FF',

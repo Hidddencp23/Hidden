@@ -34,12 +34,11 @@ const styles = StyleSheet.create({
     baseText: {
         fontWeight:'bold',
         fontSize: 20,
-        paddingLeft: "5%",
     },
     header: {
         height: 100,
         width: '100%' ,
-        paddingRight: "10%",
+        paddingRight: "5%",
         paddingLeft: "5%",
         paddingBottom: "3%",
         paddingTop: "13%",

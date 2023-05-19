@@ -1,9 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Platform, TouchableOpacity } from 'react-native';
-//import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/AntDesign";
-
-import circleStyles  from '../../styles/circle';
 
 
 const TopNavBar = ({ navigation }) => {
@@ -30,7 +27,7 @@ const TopNavBar = ({ navigation }) => {
 const styles = StyleSheet.create({
     header: {
         height: 100,
-        paddingRight: "10%",
+        paddingRight: "5%",
         paddingBottom: "3%",
         paddingTop: "13%",
         flexDirection: 'row',
