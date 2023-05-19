@@ -8,15 +8,15 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
+  //SafeAreaView,
   ScrollView,
   Dimensions,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
 import useAuth from "../hooks/useAuth";
-import { useRoute } from "@react-navigation/native";
-
+import { useRoute } from '@react-navigation/native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   updateDoc,
   addDoc,
@@ -30,16 +30,11 @@ import {
 import { db } from "../hooks/firebase";
 import { SearchBar } from "react-native-elements";
 import Icon from "react-native-vector-icons/AntDesign";
+import NewSafeAreaView from '../components/NewSafeAreaView';
 
-// placeholder image for now
 import TripList from "../components/TripList";
-
 import profileStyles from "../styles/profiles.js";
-//import styles from '../styles/profiles.js';
 import circleStyles from "../styles/circle.js";
-
-// need to connect db
-//import { db } from '../hooks/firebase';
 
 const OtherProfileScreen = ({ navigation }) => {
   //const { myprofile } = route.params;

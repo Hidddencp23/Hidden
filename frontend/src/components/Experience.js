@@ -99,62 +99,63 @@ const Experience = ({ navigation, experience }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-  horizView: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: "3%",
-    width: "100%",
-  },
-  buttons: {
-    flexDirection: "row",
-    display: "flex",
-    paddingHorizontal: "5%",
-    paddingVertical: "2.5%",
-    justifyContent: "space-between",
-  },
-  activity: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  notliked: {
-    color: "#BFBFBF",
-  },
-  isliked: {
-    color: "#D42638",
-  },
-  locImg: {
-    width: "90%",
-    height: 200,
-    // width: "90%",
-    // height: "20%",
-    marginHorizontal: "5%",
-    marginVertical: "2.5%",
-    borderRadius: "15%",
-  },
-  profName: {
-    color: "black",
-    fontWeight: "bold",
-    textAlign: "left",
-    fontSize: 15,
-    paddingVertical: "2.5%",
-  },
-  profImg: {
-    width: 40,
-    height: 40,
-    borderRadius: 100,
-    marginRight: 15,
-    marginLeft: "5%",
-  },
-  desc: {
-    marginHorizontal: "5%",
-    color: "#6E6E6E",
-  },
-});
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: 'white',
+      },
+      horizView: {
+        flexDirection: "row",
+        alignItems:"center",
+        marginTop: '3%',
+        width: "100%"
+      },
+      buttons: {
+        flexDirection: 'row',
+        display: 'flex',
+        paddingHorizontal: "5%",
+        paddingVertical: "2.5%",
+        justifyContent: 'space-between'
+      },
+      activity: {
+        flexDirection: "row",
+        alignItems:"center",
+      },
+      notliked: {
+        color: "#BFBFBF",
+    },
+    isliked: {
+        color: "#D42638",
+    },
+      locImg: {
+        width: "90%",
+        height: 200,
+        // width: "90%",
+        // height: "20%",
+        marginHorizontal: "5%",
+        marginVertical: "2.5%",
+        borderRadius: 30//"15%"
+    },
+    profName: {
+        color: "black",
+        fontWeight: "bold",
+        textAlign: "left",
+        fontSize: 15,
+        paddingVertical: "2.5%"
+    },
+    profImg: {
+        width: 40,
+        height: 40,
+        borderRadius: 100,
+        marginRight: 15,
+        marginLeft: "5%",
+
+    },
+    desc: {
+        marginHorizontal: "5%",
+        color: "#6E6E6E",
+     },
+    });
 export default Experience;

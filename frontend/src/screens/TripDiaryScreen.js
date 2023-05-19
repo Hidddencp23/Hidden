@@ -6,7 +6,6 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
   ScrollView,
   Dimensions,
   Platform
@@ -18,9 +17,11 @@ import LocationView from '../components/LocationView';
 import { useRoute } from '@react-navigation/native'
 import { collection, onSnapshot, orderBy, query, limit, where } from 'firebase/firestore';
 import { db } from '../hooks/firebase';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import profileStyles from '../styles/profiles.js';
 import circleStyles from '../styles/circle';
+//import NewSafeAreaView from '../components/NewSafeAreaView';
 
 const TripDiaryScreen = ({ route, navigation}) => {
 

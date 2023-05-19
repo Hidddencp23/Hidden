@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import useAuth from '../hooks/useAuth';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { handleSignup } from '../hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
+//import NewSafeAreaView from '../components/NewSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUpScreen = ({ navigation }) => {
     const { signInWithGoogle } = useAuth();

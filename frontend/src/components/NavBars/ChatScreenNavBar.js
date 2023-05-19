@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/AntDesign";
-
 import circleStyles from "../../styles/circle";
-
 import { collection, onSnapshot, where, getDoc, doc } from "firebase/firestore";
 import { db } from "../../hooks/firebase";
 
@@ -12,14 +9,6 @@ const ChatScreenNavBar = ({ navigation, chatUser }) => {
   // navigation.goBack()
   return (
     <>
-      {/*
-             {Platform.OS === 'ios' ?
-                    <View style={circleStyles.iosCircle}/> 
-                    :
-                    <View style={circleStyles.androidCircle}/> 
-            }      
-            */}
-
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.Button}
