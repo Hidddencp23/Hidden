@@ -5,7 +5,10 @@ import circleStyles from "../../styles/circle";
 import { collection, onSnapshot, where, getDoc, doc } from "firebase/firestore";
 import { db } from "../../hooks/firebase";
 
-const ChatScreenNavBar = ({ navigation, chatUser }) => {
+const ChatScreenNavBar = ({ navigation, title, chatUser }) => {
+
+
+
   // navigation.goBack()
   return (
     <>
@@ -16,17 +19,23 @@ const ChatScreenNavBar = ({ navigation, chatUser }) => {
         >
           <Icon name="left" size={20} />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("OtherProfileScreenChat", {
-              passedUserInfo: chatUser,
-              otherUserId: chatUser.uid,
-            });
-          }}
-        >
-          <Text style={styles.baseText}>{chatUser.name}</Text>
-        </TouchableOpacity>
 
+
+        {chatUser ?
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("OtherProfileScreenChat", {
+                passedUserInfo: chatUser,
+                otherUserId: chatUser.uid,
+              });
+            }}
+          >
+            <Text style={styles.baseText}>{chatUser.name}</Text>
+          </TouchableOpacity>
+          :
+          <Text style={styles.baseText}>{title}</Text>
+        }
+        
         <TouchableOpacity
           style={styles.Button}
           onPress={() => navigation.navigate("")}

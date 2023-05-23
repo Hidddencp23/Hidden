@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         width: "100%",
         bottom: "-3%",
-        alignItems: "center"
+        alignItems: "center",
       },
     icons: {
         paddingLeft: "10%",

@@ -24,12 +24,15 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 
 import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
 
-const GroupTextingScreen = ({ navigation }) => {
+const GroupTextingScreen = ({ navigation, }) => {
     const { user } = useAuth();
     const {params} = useRoute();
     const [input, setInput] =  useState("");
     const [messages, setMessages] = useState([]);
     const { chatId, chatInfo } = params;
+
+    const chatUser = null;
+    //console.log(chatInfo.name)
 
     useEffect(() => 
         onSnapshot(
@@ -75,12 +78,14 @@ const GroupTextingScreen = ({ navigation }) => {
   return (
     <View style={{flex: 1}}>
 
-        <ChatScreenNavBar navigation={navigation} title={chatInfo.name}/>
+        <ChatScreenNavBar navigation={navigation} title={chatInfo.name} chatUser={chatUser}/>
         {/*<ChatHeader navigation={navigation} title={chatInfo.name} />*/}
+        
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
-            //keyboardVerticalOffset={5}
+            // check if behavior is same on iOS
+            keyboardVerticalOffset={-50}
             >
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
