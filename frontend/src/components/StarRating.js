@@ -7,7 +7,7 @@ const StarRating = () => {
   const [starRating, setStarRating] = useState(null);
 
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.container}>
         <View style={styles.stars}>
           <TouchableOpacity onPress={() => setStarRating(1)}>
@@ -47,7 +47,7 @@ const StarRating = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -74,7 +74,7 @@ const HomeScreen = ({ navigation }) => {
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <SafeAreaView style={styles.homeScreen} >
+            <View style={styles.homeScreen} >
                 <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
                 
                 <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
@@ -92,7 +92,7 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
                     <Icon name="minus" color={"#BFBFBF"}  size={50} style={{justifyContent:"center"}}> </Icon>
                 </TouchableOpacity>
-            </SafeAreaView>
+            </View>
             </TouchableWithoutFeedback>
 
     </KeyboardAvoidingView>
@@ -100,6 +100,7 @@ const HomeScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+
     homeScreen: {
         backgroundColor: 'transparent',
         paddingTop: 0,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     },
     map: {
         position: 'absolute',
-        top: '0%',
+        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         width: "100%",
         bottom: "-3%",
-        alignItems: "center"
+        alignItems: "center",
       },
     icons: {
         paddingLeft: "10%",
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     },
     swipePanel: {
        paddingTop: "2%",
-       paddingBottom: "37%"
+       paddingBottom: "37%",
     },
     sortBy: {
         flexDirection: 'row',

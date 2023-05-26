@@ -77,15 +77,40 @@ const TripDiaryScreen = ({ route, navigation}) => {
       <Text style={styles.text}>List</Text>
     </View>
 
-    <SearchBar
-      lightTheme
-      round
-      containerStyle={profileStyles.searchContainerExperiences}
-      inputContainerStyle={profileStyles.searchInput}
-      placeholder="Search"
-      onChangeText={setSearch}
-      value={search}   
-    />
+
+    <View style={{flexDirection: 'row', marginTop: 100}}>
+
+      <SearchBar
+        lightTheme
+        round
+        containerStyle={profileStyles.searchContainerExperiences}
+        inputContainerStyle={profileStyles.searchInput}
+        placeholder="Search"
+        onChangeText={setSearch}
+        value={search}  
+        
+      />
+
+      
+      <TouchableOpacity
+          style={profileStyles.addTripButton}
+          //onPress={() => navigation.navigate("AddTripScreen")}
+          onPress={() => navigation.navigate("AddLocationScreen", {tripInfo})}
+      >
+      <Icon
+        name="plus"
+        size={20}
+        style={{
+        marginLeft: "35%",
+      }}
+      />
+      </TouchableOpacity>
+    
+
+    </View>
+    
+
+
 
     <ScrollView>
     { (search != null && locations.length > 0)  ? (
@@ -99,6 +124,7 @@ const TripDiaryScreen = ({ route, navigation}) => {
       ) : null}
     </ScrollView>
 
+{/*
     <TouchableOpacity
         onPress={() => navigation.navigate("AddLocationScreen", {tripInfo})}
         style={profileStyles.circularButton}>
@@ -108,12 +134,16 @@ const TripDiaryScreen = ({ route, navigation}) => {
       }}/>
       
     </TouchableOpacity>
+*/}
 
     </SafeAreaView>
   )
 };
 
 const styles = StyleSheet.create({
+  search: {
+    width: 40
+  },
   header: {
     zIndex: 1,
     position: 'absolute',

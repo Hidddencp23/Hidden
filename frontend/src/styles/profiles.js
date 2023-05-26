@@ -341,8 +341,8 @@ const profileStyles = StyleSheet.create({
     searchContainerExperiences: {
         height: 45,
         marginLeft: '7%',
-        marginTop: '25%',
-        width: '84%',
+        //marginTop: '25%',
+        width: '62.5%',
         backgroundColor: 'white',
         borderColor: 'white',
         borderRadius: 10,

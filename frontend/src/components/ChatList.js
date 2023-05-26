@@ -73,7 +73,7 @@ const ChatList = ({ navigation }) => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView >
 
        
             <>

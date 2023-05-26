@@ -31,7 +31,7 @@ const SignUpScreen = ({ navigation }) => {
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <SafeAreaView>
+                <View>
                     <Text style={styles.loginTitle}>Create Account</Text>
                     <Text style={styles.loginSmallerTitle}>Create using your email and password</Text>
                     <Text style={styles.loginSmallerTitle}>or login through socials</Text>
@@ -55,7 +55,7 @@ const SignUpScreen = ({ navigation }) => {
                     <TouchableOpacity style={styles.loginButton} disabled={loading} onPress={handleRegister}>
                         <Text style={styles.loginButtonText}>Sign Up</Text>
                     </TouchableOpacity>
-                </SafeAreaView>
+                </View>
              </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
 
