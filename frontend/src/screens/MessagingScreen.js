@@ -12,11 +12,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const MessagingScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.padDown}>
+    <View style={styles.padDown}>
 
         <ChatList navigation={navigation}/>
 
-    </SafeAreaView>
+    </View>
   )
 };
 

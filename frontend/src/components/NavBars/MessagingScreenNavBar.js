@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingLeft: "32%"
+        paddingLeft: "32%",
     },
     headerImage: {
         height: 100,

@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
         marginTop: 90,
     },
     searchPosition:{
-        paddingTop: '25%',
-        paddingLeft: '8%',
-        paddingRight:'8%',
+        paddingTop: '26%',
+        paddingLeft: '4%',
+        paddingRight:'15%',
         flex: 1,    
         position: "absolute",
         width: "100%",

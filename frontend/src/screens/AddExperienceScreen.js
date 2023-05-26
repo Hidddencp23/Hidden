@@ -148,7 +148,7 @@ const AddExperienceScreen = ({ navigation }) => {
   /*arguments to pass:
     rating, image, hiddenLocation, datePosted, userId, description*/
   const StarRating = () => (
-    <SafeAreaView>
+    <View>
       <View style={styles.container}>
         <View style={styles.stars}>
           <TouchableOpacity onPress={() => setStarRating(1)}>
@@ -188,7 +188,7 @@ const AddExperienceScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
   return (
     <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-170}>

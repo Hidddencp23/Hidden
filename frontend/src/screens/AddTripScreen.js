@@ -196,7 +196,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: "2.5%",
     height: "100%",
     width: "100%",
-    fontSize: 20
+    fontSize: 20,
+    textAlign: 'center'
   },
   postText: {
     fontSize: 20,

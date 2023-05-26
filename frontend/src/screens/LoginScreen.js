@@ -57,7 +57,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView>
+        <View>
           <Text style={styles.loginTitle}>Sign In</Text>
           <Text style={styles.loginSecondaryTitle}>Welcome</Text>
           <Text style={styles.loginSecondaryTitle}>Back!</Text>
@@ -90,7 +90,7 @@ const LoginScreen = ({ navigation }) => {
             <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.formSubText}>Sign Up</Text>
             <Text onPress={() => navigation.navigate("ForgotPasswordScreen")} style={styles.forgotPwText}>Forgot Password</Text>
           </View>
-        </SafeAreaView>
+        </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
 

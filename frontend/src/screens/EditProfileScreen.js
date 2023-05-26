@@ -160,7 +160,8 @@ const styles = StyleSheet.create({
   textInput: {
     paddingHorizontal: "2.5%",
     height: "100%",
-    width: "100%"
+    width: "100%",
+    marginBottom: 10
   },
   circle: {
     marginTop: "10%",
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
     paddingTop: "3%",
     marginTop: "10%",
     width: "90%",
-    height: "6%",
+    height: 50,//"6%",
     borderRadius: 30,//"15%",
     borderWidth: 2,
     borderColor: "#83C3FF",
