@@ -74,7 +74,7 @@ const GroupTextingScreen = ({ navigation, }) => {
           tabBarStyle: undefined,
         });
       }, [navigation]);
-
+ 
   return (
     <View style={{flex: 1}}>
 
@@ -82,10 +82,11 @@ const GroupTextingScreen = ({ navigation, }) => {
         {/*<ChatHeader navigation={navigation} title={chatInfo.name} />*/}
         
         <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            //behavior={Platform.OS === "ios" ? "padding" : "height"}
+            behavior={Platform.OS === "ios" ? "padding" : null}
             style={{ flex: 1 }}
             // check if behavior is same on iOS
-            keyboardVerticalOffset={-50}
+            //keyboardVerticalOffset={0}
             >
 
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
