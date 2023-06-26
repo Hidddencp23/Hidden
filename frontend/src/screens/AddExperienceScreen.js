@@ -139,6 +139,7 @@ const AddExperienceScreen = ({ navigation }) => {
             image: image,
             description: description,
             datePosted: serverTimestamp(),
+            likes: 0
           });
           console.log("Experience added");
         } catch (e) {
