@@ -16,9 +16,9 @@ const TopNavBar = ({ navigation }) => {
 
             <View style={styles.header}>
                     <Image style={styles.headerImage} source={require('../../Images/hidden_logo.png')} />
-                    <TouchableOpacity style={styles.addButton}>
+                    {/* <TouchableOpacity style={styles.addButton}>
                         <Icon name="plus" size={20} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
             </View>
         </>
     )
