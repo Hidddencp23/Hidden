@@ -53,7 +53,6 @@ const LocationView = ({ location, navigation }) => {
                     <Text style={styles.locType}>{location.address}</Text>
                 </View>
                 <TouchableOpacity style={styles.favLocation}>
-                    {/* <Icon name="heart" size={20} style={styles.heartIcon} /> */}
                     <TouchableOpacity style={styles.heartBox} onPress={handleLike}>
                         {likeLocation ? (<Icon name="heart" size={20} style={styles.isliked} />) : (<Icon name="heart" size={20} style={styles.notliked} />)}
                     </TouchableOpacity>

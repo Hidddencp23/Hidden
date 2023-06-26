@@ -9,7 +9,7 @@ const Navigator = () => {
 
     return (
         <>
-            {userInfo ?
+            {(user && userInfo) ?
                 (<BottomTabNav />) :
                 <AuthStackNavigator />}
         </>
