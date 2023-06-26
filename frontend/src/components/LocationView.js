@@ -2,15 +2,47 @@ import { Text, StyleSheet, TouchableOpacity, Image, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import getMatchedUserInfo from './getMatchedUserInfo'
-import { collection, onSnapshot, where, getDoc, doc } from 'firebase/firestore';
+import { collection, arrayRemove, arrayUnion, updateDoc, doc } from 'firebase/firestore';
 import { db } from "../hooks/firebase";
 import Icon from "react-native-vector-icons/AntDesign";
 
 const LocationView = ({ location, navigation }) => {
+    const { user, userInfo } = useAuth();
+    const [likeLocation, setLikeLocation] = useState(false);
+
+
+    const handleLike = async () => {
+        if (likeLocation == false) {
+            updateDoc(doc(db, "HiddenLocations", location.id), {
+                Liked: arrayUnion(user.uid)
+            });
+            updateDoc(doc(db, "Users", user.uid), {
+                LikedLocations: arrayUnion(location.id)
+            });
+            setLikeLocation(true)
+        }
+        else {
+            updateDoc(doc(db, "HiddenLocations", location.id), {
+                Liked: arrayRemove(user.uid)
+            });
+            updateDoc(doc(db, "Users", user.uid), {
+                LikedLocations: arrayRemove(location.id)
+            });
+            setLikeLocation(false)
+        }
+    }
+    useEffect(() => {
+        if (userInfo['LikedLocations'].includes(location.id)) {
+            setLikeLocation(true)
+        };
+    },
+        [])
+
     return (
         <TouchableOpacity style={styles.locCard} onPress={() =>
             navigation.navigate("LocationScreen", {
-                location
+                location: location,
+                setHomeLikedLocation: setLikeLocation
             })
         }>
             <View style={styles.horizView}>
@@ -21,7 +53,10 @@ const LocationView = ({ location, navigation }) => {
                     <Text style={styles.locType}>{location.address}</Text>
                 </View>
                 <TouchableOpacity style={styles.favLocation}>
-                 <Icon name="heart" size={20} style={styles.heartIcon} />
+                    {/* <Icon name="heart" size={20} style={styles.heartIcon} /> */}
+                    <TouchableOpacity style={styles.heartBox} onPress={handleLike}>
+                        {likeLocation ? (<Icon name="heart" size={20} style={styles.isliked} />) : (<Icon name="heart" size={20} style={styles.notliked} />)}
+                    </TouchableOpacity>
                 </TouchableOpacity>
             </View>
         </TouchableOpacity>
@@ -68,12 +103,18 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: "5%",
         right: "5%",
-      },
+    },
     icons: {
         paddingLeft: "10%",
         paddingRight: "15%",
         paddingTop: "1%",
         position: "absolute",
+    },
+    notliked: {
+        color: "#BFBFBF",
+    },
+    isliked: {
+        color: "#D42638",
     },
     searchtitle: {
         marginLeft: "5%",
@@ -83,7 +124,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     swipePanel: {
-       paddingTop: "2%",
+        paddingTop: "2%",
     },
     sortBy: {
         flexDirection: 'row',
@@ -105,7 +146,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 40
-      },
+    },
     locCard: {
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
@@ -117,8 +158,8 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOpacity: 0.2,
         shadowRadius: 6,
-        shadowOffset : { width: 1, height: 5},
-      },
+        shadowOffset: { width: 1, height: 5 },
+    },
     favLocation: {
         alignItems: 'center',
         paddingTop: "1%",
@@ -179,7 +220,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
     },
-    
+
     locName: {
         marginLeft: "5%",
         color: "black",
@@ -188,16 +229,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: "1%",
         marginLeft: "5%",
-      },
-    
-      locType: {
+    },
+
+    locType: {
         marginLeft: "5%",
         color: "#BEBEBE",
         textAlign: "left",
         fontSize: 14,
         marginBottom: "2.5%",
-      },
-     
+    },
+
 });
 
 

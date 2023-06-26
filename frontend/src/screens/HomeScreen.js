@@ -79,7 +79,7 @@ const HomeScreen = ({ navigation }) => {
                 
                 <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
             
-                    <Text style={styles.searchtitle} >Search Results</Text>
+                    {/* <Text style={styles.searchtitle} >Search Results</Text> */}
                     <SearchFilters></SearchFilters>
                         {locations.map((location, index) => (
                             <LocationView
