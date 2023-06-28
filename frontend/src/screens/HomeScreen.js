@@ -1,7 +1,8 @@
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import useAuth from "../hooks/useAuth";
-import Icon from "react-native-vector-icons/AntDesign";
-//import { Icon } from 'react-native-vector-icons';
+import AntIcon from "react-native-vector-icons/AntDesign";
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
 import { Image, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
@@ -23,7 +24,7 @@ const HomeScreen = ({ navigation }) => {
         onlySmall: true,
         showCloseButton: false,
         onClose: () => closePanel(),
-        allowTouchOutside:true,
+        allowTouchOutside: true,
         smallPanelHeight: 700
     });
     const [isPanelActive, setIsPanelActive] = useState(false);
@@ -48,7 +49,7 @@ const HomeScreen = ({ navigation }) => {
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            locs.push({id: doc.id, ...doc.data()})
+            locs.push({ id: doc.id, ...doc.data() })
             // setLocations([...locations, doc.data()])
         });
         setLocations(locs)
@@ -57,15 +58,33 @@ const HomeScreen = ({ navigation }) => {
         return (
             <View style={styles.filterRow}>
                 <TouchableOpacity style={styles.filterTouch}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Icon name="heart" size={15} style={[styles.icons, {color: 'red'}]} />
+                    <View style={{ flexDirection: 'row' }}>
+                        <AntIcon name="heart" size={15} style={[styles.icons, { color: 'red' }]} />
                         <Text style={styles.filterText}> Favorites</Text>
                     </View>
                 </TouchableOpacity>
-                
+                <TouchableOpacity style={styles.filterTouch}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <FeatherIcon name="coffee" size={15} style={[styles.icons, { color: 'red' }]} />
+                        <Text style={styles.filterText}> Coffee</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.filterTouch}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <MaterialIcon name="restaurant" size={15} style={[styles.icons, { color: 'red' }]} />
+                        <Text style={styles.filterText}> Restaurants</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.filterTouch}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <MaterialIcon name="restaurant" size={15} style={[styles.icons, { color: 'red' }]} />
+                        <Text style={styles.filterText}> Restaurants</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }
+
     useEffect(() => {
         getAllLocations().then(() => {
         }).catch(console.error);
@@ -73,14 +92,14 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.homeScreen} >
-                <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
-                
-                <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
-            
-                    {/* <Text style={styles.searchtitle} >Search Results</Text> */}
-                    <SearchFilters></SearchFilters>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.homeScreen} >
+                    <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
+
+                    <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
+
+                        {/* <Text style={styles.searchtitle} >Search Results</Text> */}
+                        <SearchFilters></SearchFilters>
                         {locations.map((location, index) => (
                             <LocationView
                                 navigation={navigation}
@@ -88,14 +107,14 @@ const HomeScreen = ({ navigation }) => {
                                 key={index}
                             />
                         ))}
-                </SwipeablePanel>
-                <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
-                    <Icon name="minus" color={"#BFBFBF"}  size={50} style={{justifyContent:"center"}}> </Icon>
-                </TouchableOpacity>
-            </View>
+                    </SwipeablePanel>
+                    <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
+                        <AntIcon name="minus" color={"#BFBFBF"} size={50} style={{ justifyContent: "center" }}> </AntIcon>
+                    </TouchableOpacity>
+                </View>
             </TouchableWithoutFeedback>
 
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -141,7 +160,7 @@ const styles = StyleSheet.create({
         width: "100%",
         bottom: "-3%",
         alignItems: "center",
-      },
+    },
     icons: {
         paddingLeft: "10%",
         paddingRight: "15%",
@@ -156,8 +175,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     swipePanel: {
-       paddingTop: "2%",
-       paddingBottom: "37%",
+        paddingTop: "2%",
+        paddingBottom: "37%",
     },
     sortBy: {
         flexDirection: 'row',
@@ -218,7 +237,7 @@ const styles = StyleSheet.create({
     vertView: {
         flex: 1,
         flexDirection: "column",
-    },     
+    },
 });
 
 export default HomeScreen;
