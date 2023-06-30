@@ -28,6 +28,7 @@ const HomeScreen = ({ navigation }) => {
         smallPanelHeight: 700
     });
     const [isPanelActive, setIsPanelActive] = useState(false);
+    const [filter, setFilter] = useState(null);
 
     const openPanel = () => {
         setIsPanelActive(true);
@@ -54,19 +55,37 @@ const HomeScreen = ({ navigation }) => {
         });
         setLocations(locs)
     }
+
+    const filterLocations = (location) => {
+        if (filter == null) { return true }
+        else if (filter == "favorites") { return false }
+        else if (location.category == filter) { return true }
+    }
+
+    const onFilterChanged = (filterCategory) => {
+        if (filterCategory == filter) { setFilter(null) }
+        else { setFilter(filterCategory) }
+    }
+
     const SearchFilters = () => {
         return (
-            <View style={styles.filterRow}>
-                <TouchableOpacity style={styles.filterTouch}>
-                    <View style={{ flexDirection: 'row' }}>
+            <ScrollView horizontal={true} style={styles.filterRow}>
+                <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("")}>
+                    <View style={{ flexDirection: 'row', gap: "5%" }}>
                         <AntIcon name="heart" size={15} style={[styles.icons, { color: 'red' }]} />
                         <Text style={styles.filterText}> Favorites</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterTouch}>
+                <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("brunchSpots")}>
                     <View style={{ flexDirection: 'row' }}>
                         <FeatherIcon name="coffee" size={15} style={[styles.icons, { color: 'red' }]} />
-                        <Text style={styles.filterText}> Coffee</Text>
+                        <Text style={styles.filterText}> Brunch Spot</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("dateSpot")}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <MaterialIcon name="restaurant" size={15} style={[styles.icons, { color: 'red' }]} />
+                        <Text style={styles.filterText}> Date Spot</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.filterTouch}>
@@ -75,13 +94,7 @@ const HomeScreen = ({ navigation }) => {
                         <Text style={styles.filterText}> Restaurants</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterTouch}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <MaterialIcon name="restaurant" size={15} style={[styles.icons, { color: 'red' }]} />
-                        <Text style={styles.filterText}> Restaurants</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+            </ScrollView>
         )
     }
 
@@ -94,13 +107,13 @@ const HomeScreen = ({ navigation }) => {
         <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.homeScreen} >
-                    <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
+                    <HomeMap style={styles.map} hiddenLocations={locations.filter(filterLocations)} ></HomeMap>
 
                     <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
 
                         {/* <Text style={styles.searchtitle} >Search Results</Text> */}
                         <SearchFilters></SearchFilters>
-                        {locations.map((location, index) => (
+                        {locations.filter(filterLocations).map((location, index) => (
                             <LocationView
                                 navigation={navigation}
                                 location={location}
@@ -139,7 +152,7 @@ const styles = StyleSheet.create({
     },
     filterText: {
         paddingLeft: "5%",
-        marginRight: "2.5%",
+        // marginRight: "2.5%",
         color: "black",
         textAlign: "left",
         fontSize: 14,
