@@ -58,7 +58,9 @@ const HomeScreen = ({ navigation }) => {
 
     const filterLocations = (location) => {
         if (filter == null) { return true }
-        else if (filter == "favorites") { return false }
+        else if (filter == "favorites" && userInfo.LikedLocations.includes(location.id)) {
+            return true
+        }
         else if (location.category == filter) { return true }
     }
 
@@ -70,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
     const SearchFilters = () => {
         return (
             <ScrollView horizontal={true} style={styles.filterRow}>
-                <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("")}>
+                <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("favorites")}>
                     <View style={{ flexDirection: 'row', gap: "5%" }}>
                         <AntIcon name="heart" size={15} style={[styles.icons, { color: 'red' }]} />
                         <Text style={styles.filterText}> Favorites</Text>
@@ -86,12 +88,6 @@ const HomeScreen = ({ navigation }) => {
                     <View style={{ flexDirection: 'row' }}>
                         <MaterialIcon name="restaurant" size={15} style={[styles.icons, { color: 'red' }]} />
                         <Text style={styles.filterText}> Date Spot</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.filterTouch}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <MaterialIcon name="restaurant" size={15} style={[styles.icons, { color: 'red' }]} />
-                        <Text style={styles.filterText}> Restaurants</Text>
                     </View>
                 </TouchableOpacity>
             </ScrollView>
@@ -117,7 +113,7 @@ const HomeScreen = ({ navigation }) => {
                             <LocationView
                                 navigation={navigation}
                                 location={location}
-                                key={index}
+                                key={location.id}
                             />
                         ))}
                     </SwipeablePanel>
