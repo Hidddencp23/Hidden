@@ -72,16 +72,16 @@ const HomeScreen = ({ navigation }) => {
     const SearchFilters = () => {
         return (
             <ScrollView horizontal={true} style={styles.filterRow}>
-                <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("favorites")}>
-                        <AntIcon name="heart" size={15} style={[styles.icons, { color: 'red' }]} />
+                <TouchableOpacity style={[styles.filterTouch, (filter == "favorites") ? {backgroundColor: "#83C3FF"} : {backgroundColor: '#f2f0f0'}]} onPress={() => onFilterChanged("favorites")}>
+                        <AntIcon name="heart" size={15} style={(filter == "favorites") ? {color: "white"} : {color: '#83C3FF'}} />
                         <Text style={styles.filterText}> Favorites</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("brunchSpots")}>
-                        <FeatherIcon name="coffee" size={15} style={[styles.icons, { color: 'red' }]} />
+                <TouchableOpacity style={[styles.filterTouch, (filter == "brunchSpots") ? {backgroundColor: "#83C3FF"} : {backgroundColor: '#f2f0f0'}]} onPress={() => onFilterChanged("brunchSpots")}>
+                        <FeatherIcon name="coffee" size={15} style={(filter == "brunchSpots") ? {color: "white"} : {color: '#83C3FF'}} />
                         <Text style={styles.filterText}> Brunch Spot</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("dateSpot")}>
-                        <MaterialIcon name="restaurant" size={15} style={[styles.icons, { color: 'red' }]} />
+                <TouchableOpacity style={[styles.filterTouch, (filter == "dateSpot") ? {backgroundColor: "#83C3FF"} : {backgroundColor: '#f2f0f0'}]} onPress={() => onFilterChanged("dateSpot")}>
+                        <MaterialIcon name="restaurant" size={15} style={(filter == "dateSpot") ? {color: "white"} : {color: '#83C3FF'}} />
                         <Text style={styles.filterText}> Date Spot</Text>
                 </TouchableOpacity>
             </ScrollView>
@@ -147,7 +147,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     filterTouch: {
-        backgroundColor: "#BFBFBF",
         paddingLeft: "2.5%",
         paddingRight: "2.5%",
         height: 25,
@@ -156,7 +155,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: 10
+        marginRight: 10,
     },
     listButton: {
         backgroundColor: "white",
@@ -165,13 +164,6 @@ const styles = StyleSheet.create({
         width: "100%",
         bottom: "-3%",
         alignItems: "center",
-    },
-    icons: {
-        // paddingLeft: "10%",
-        // paddingRight: "15%",
-        // marginRight: "50%",
-        // paddingTop: "1%",
-        // position: "absolute",
     },
     searchtitle: {
         marginLeft: "5%",
