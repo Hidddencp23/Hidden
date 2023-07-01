@@ -86,11 +86,11 @@ const HomeScreen = ({ navigation }) => {
                     <Text style={styles.filterText}> Favorites</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={filterBackgroundStyle("brunchSpots")} onPress={() => onFilterChanged("brunchSpots")}>
-                    <FeatherIcon name="coffee" size={20} style={filterIconStyle("brunchSpots")} />
+                <MaterialIcon name="brunch-dining" size={25} style={filterIconStyle("brunchSpots")} />
                     <Text style={styles.filterText}> Brunch Spot</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={filterBackgroundStyle("dateSpot")} onPress={() => onFilterChanged("dateSpot")}>
-                    <MaterialIcon name="restaurant" size={20} style={filterIconStyle("dateSpot")} />
+                    <MaterialIcon name="local-restaurant" size={25} style={filterIconStyle("dateSpot")} />
                     <Text style={styles.filterText}> Date Spot</Text>
                 </TouchableOpacity>
             </ScrollView>
