@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 // source: https://www.atomlab.dev/tutorials/react-native-star-rating
 const StarRating = () => {
   const [starRating, setStarRating] = useState(null);
 
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.container}>
         <View style={styles.stars}>
           <TouchableOpacity onPress={() => setStarRating(1)}>
@@ -46,7 +47,7 @@ const StarRating = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

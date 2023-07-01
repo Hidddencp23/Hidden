@@ -1,9 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Platform } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/AntDesign";
-
-import circleStyles  from '../../styles/circle';
 
 
 const TopNavBar = ({ navigation }) => {
@@ -19,9 +16,9 @@ const TopNavBar = ({ navigation }) => {
 
             <View style={styles.header}>
                     <Image style={styles.headerImage} source={require('../../Images/hidden_logo.png')} />
-                    <TouchableOpacity style={styles.addButton}>
+                    {/* <TouchableOpacity style={styles.addButton}>
                         <Icon name="plus" size={20} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
             </View>
         </>
     )
@@ -30,7 +27,7 @@ const TopNavBar = ({ navigation }) => {
 const styles = StyleSheet.create({
     header: {
         height: 100,
-        paddingRight: "10%",
+        paddingRight: "5%",
         paddingBottom: "3%",
         paddingTop: "13%",
         flexDirection: 'row',
@@ -46,7 +43,7 @@ const styles = StyleSheet.create({
     addButton: {
         backgroundColor: "white",
         height: "100%",
-        width: "200%",
+        width: 40,
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: "center"

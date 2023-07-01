@@ -1,10 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
+//import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/AntDesign";
 import NotificationScreen from '../../screens/NotificationScreen';
-
-import circleStyles  from '../../styles/circle';
 
 const ProfileScreenNavBar = ({ navigation }) => {
     return (
@@ -34,12 +32,11 @@ const styles = StyleSheet.create({
     baseText: {
         fontWeight:'bold',
         fontSize: 20,
-        paddingLeft: "5%",
     },
     header: {
         height: 100,
         width: '100%' ,
-        paddingRight: "10%",
+        paddingRight: "5%",
         paddingLeft: "5%",
         paddingBottom: "3%",
         paddingTop: "13%",
@@ -56,7 +53,7 @@ const styles = StyleSheet.create({
     Button: {
         backgroundColor: "white",
         height: "100%",
-        width: "200%",
+        width: 40,
         borderRadius: 7,
         justifyContent: 'center',
         alignItems: "center"

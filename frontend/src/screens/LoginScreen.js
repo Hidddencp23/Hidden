@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import useAuth from '../hooks/useAuth';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { handleSignIn } from '../hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
+import NewSafeAreaView from '../components/NewSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 /*
@@ -55,7 +57,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView>
+        <View>
           <Text style={styles.loginTitle}>Sign In</Text>
           <Text style={styles.loginSecondaryTitle}>Welcome</Text>
           <Text style={styles.loginSecondaryTitle}>Back!</Text>
@@ -88,7 +90,7 @@ const LoginScreen = ({ navigation }) => {
             <Text onPress={() => navigation.navigate("SignUpScreen")} style={styles.formSubText}>Sign Up</Text>
             <Text onPress={() => navigation.navigate("ForgotPasswordScreen")} style={styles.forgotPwText}>Forgot Password</Text>
           </View>
-        </SafeAreaView>
+        </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
 

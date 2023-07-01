@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { handleResetPassword } from '../hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
+import NewSafeAreaView from '../components/NewSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ForgotPasswordScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
@@ -30,7 +32,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView>
+        <View>
             <>
                 <Text style={styles.loginTitle}>Forgot Password?</Text>
                 <Text style={styles.loginSmallerTitle}>You will receive a reset link to</Text>
@@ -49,7 +51,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                     <Text style={styles.loginButtonText}>Send Email</Text>
                 </TouchableOpacity>
             </>
-            </SafeAreaView>
+            </View>
         </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
 

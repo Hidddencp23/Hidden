@@ -36,13 +36,52 @@ const ChatRow = ({ chatInfo, navigation }) => {
     });
   }, []);
 
+
+  // convert ms to 'time ago' string - ex. 14 minutes ago
+  const getTimeAgo = (milliseconds) => {
+    const seconds = Math.floor(milliseconds / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+  
+    if (years > 0) {
+      return years === 1 ? "a year ago" : `${years} years ago`;
+    } else if (months > 0) {
+      return months === 1 ? "a month ago" : `${months} months ago`;
+    } else if (days > 0) {
+      return days === 1 ? "yesterday" : `${days} days ago`;
+    } else if (hours > 3) {
+      return hours === 1 ? "an hour ago" : `${hours} hours ago`;
+    } else {
+      return `${chatInfo.latestTimestamp.toDate().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}`;
+    } 
+  }
+  
+
+
+  const findElapsedTime = (storedDate) => {
+
+    var nowDate = new Date();
+    var elapsedTime = (nowDate.getTime() - storedDate.getTime());
+    var elapsedString = getTimeAgo(elapsedTime)
+    return elapsedString
+  }
+
+  
+  // timestamp on messaging screen
   const timeAgo =
     chatInfo.latestTimestamp != null
-      ? moment
+      ? 
+      /*
+      moment
           .utc(chatInfo.latestTimestamp.toDate().toDateString())
           .local()
           .startOf("seconds")
           .fromNow()
+          */
+         findElapsedTime(chatInfo.latestTimestamp.toDate())
       : "";
 
   return (
@@ -87,7 +126,7 @@ const styles = StyleSheet.create({
     color: "#9e9e9e",
   },
   alignDate: {
-    marginLeft: "50%",
+    marginLeft: "40%",
     fontWeight: "bold",
     color: "#9e9e9e",
   },

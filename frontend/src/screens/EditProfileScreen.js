@@ -4,7 +4,7 @@ import { db } from '../hooks/firebase';
 import useAuth from '../hooks/useAuth'
 import {
   StyleSheet,
-  SafeAreaView,
+  //SafeAreaView,
   Text,
   View,
   TouchableOpacity,
@@ -20,6 +20,8 @@ import Icon from "react-native-vector-icons/AntDesign";
 import * as ImagePicker from 'expo-image-picker';
 
 import * as FileSystem from 'expo-file-system';
+//import NewSafeAreaView from '../components/NewSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -43,22 +45,82 @@ const EditProfileScreen = ({ navigation }) => {
     navigation.navigate('ProfileScreen');
   }
 
+  // check start of file content to see if png or jpeg 
+  // return base 64 header string (or error if not found)
+  const getBase64Header = (fileContent) => {
+    const isPNG = fileContent.slice(0, 8) === "iVBORw0K"; // PNG header
+    const isJPEG = fileContent.slice(0, 4) === "/9j/"; // JPEG header
+  
+    if (isPNG) {
+      return "data:image/png;base64,";
+    } else if (isJPEG) {
+      return "data:image/jpeg;base64,";
+    } else {
+      throw new Error("Invalid image format");
+    }
+  }
+
+
+  const get64String = async(uri) => {
+
+    // stuff after header
+    var fileContent = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' })
+    
+    const fileSizeInBytes = await FileSystem.getInfoAsync(uri);
+
+    // update sizes greater than 1 MB get rejected by firebase
+    console.log('size: ' + fileSizeInBytes.size)
+      
+    if (fileSizeInBytes.size > 1000000) {
+      console.log('image is too big: needs resizing')
+
+      //console.log('size: ' + fileSizeInBytes.size)
+      
+      /*
+      let result = await ImageResizer.createResizedImage(
+        uri,
+        1000,
+        1000,
+        'JPEG',
+        1,
+        null
+
+      );
+      */
+
+      //console.log('done resizing')
+
+      
+      return '';
+
+    }
+
+    const header = getBase64Header(fileContent);
+    const full64String = header + fileContent;
+
+    setImage(full64String);
+
+    return full64String;
+
+  }
+
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4,3],
-      quality: 1,
+      quality: 0.1, // take a look at this
     });
     if (!_image.canceled) {
-      setImage(_image.assets[0]['uri']);
 
-      const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
-      
-      // this is the base64 string of the uploaded image
-      // could pass in a setter to get this value to the form
-      // (or just pull out the function to the AddExperienceScreen)
-      //setImageString(base64);
+      const formatted64 = await get64String(_image.assets[0]['uri']);
+
+      // old code here
+      //const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
+      //const formatted64 = "data:image/png;base64," + base64;
+
+      // setting inside function now
+      //setImage(formatted64);
     }
   };
 
@@ -98,14 +160,15 @@ const styles = StyleSheet.create({
   textInput: {
     paddingHorizontal: "2.5%",
     height: "100%",
-    width: "100%"
+    width: "100%",
+    marginBottom: 10
   },
   circle: {
     marginTop: "10%",
     marginBottom: "10%" ,
     width: "20%",
     height: "10%",
-    borderRadius: "50%",
+    borderRadius: 50,//"50%",
     borderWidth: 2,
     borderColor: "#83C3FF",
     alignItems: 'center',
@@ -115,8 +178,8 @@ const styles = StyleSheet.create({
     paddingTop: "3%",
     marginTop: "10%",
     width: "90%",
-    height: "6%",
-    borderRadius: "15%",
+    height: 50,//"6%",
+    borderRadius: 30,//"15%",
     borderWidth: 2,
     borderColor: "#83C3FF",
     alignItems: 'center',

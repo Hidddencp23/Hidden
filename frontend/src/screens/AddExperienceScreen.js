@@ -3,7 +3,7 @@
 import React, { Fragment, Component, useState } from 'react';
 import {
   StyleSheet,
-  SafeAreaView,
+  //SafeAreaView,
   Text,
   View,
   TouchableOpacity,
@@ -22,6 +22,8 @@ import { useRoute } from '@react-navigation/native'
 import * as ImagePicker from 'expo-image-picker';
 
 import * as FileSystem from 'expo-file-system';
+//import NewSafeAreaView from '../components/NewSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // source: https://www.atomlab.dev/tutorials/react-native-star-rating
 
@@ -37,22 +39,84 @@ const AddExperienceScreen = ({ navigation }) => {
   };
 
   
+  // check start of file content to see if png or jpeg 
+  // return base 64 header string (or error if not found)
+  const getBase64Header = (fileContent) => {
+    const isPNG = fileContent.slice(0, 8) === "iVBORw0K"; // PNG header
+    const isJPEG = fileContent.slice(0, 4) === "/9j/"; // JPEG header
+  
+    if (isPNG) {
+      return "data:image/png;base64,";
+    } else if (isJPEG) {
+      return "data:image/jpeg;base64,";
+    } else {
+      throw new Error("Invalid image format");
+    }
+  }
+
+
+  const get64String = async(uri) => {
+
+    // stuff after header
+    var fileContent = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' })
+    
+    const fileSizeInBytes = await FileSystem.getInfoAsync(uri);
+
+    // update sizes greater than 1 MB get rejected by firebase
+    console.log('size: ' + fileSizeInBytes.size)
+      
+    if (fileSizeInBytes.size > 1000000) {
+      console.log('image is too big: needs resizing')
+
+      //console.log('size: ' + fileSizeInBytes.size)
+      
+      /*
+      let result = await ImageResizer.createResizedImage(
+        uri,
+        1000,
+        1000,
+        'JPEG',
+        1,
+        null
+
+      );
+      */
+
+      //console.log('done resizing')
+
+      
+      return '';
+
+    }
+
+    const header = getBase64Header(fileContent);
+    const full64String = header + fileContent;
+
+    setImage(full64String);
+
+    return full64String;
+
+  }
+
+  
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4,3],
-      quality: 1,
+      quality: 0.1,
     });
     if (!_image.canceled) {
-      setImage(_image.assets[0]['uri']);
-
-      // const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
       
-      // this is the base64 string of the uploaded image
-      // could pass in a setter to get this value to the form
-      // (or just pull out the function to the AddExperienceScreen)
-      //setImageString(base64);
+      const formatted64 = await get64String(_image.assets[0]['uri']);
+
+      // old code here
+      //const base64 = await FileSystem.readAsStringAsync(_image.assets[0]['uri'], { encoding: 'base64' });
+      //const formatted64 = "data:image/png;base64," + base64;
+
+      // setting inside function now
+      //setImage(formatted64);
+
 
     }
   };
@@ -75,6 +139,7 @@ const AddExperienceScreen = ({ navigation }) => {
             image: image,
             description: description,
             datePosted: serverTimestamp(),
+            likes: 0
           });
           console.log("Experience added");
         } catch (e) {
@@ -84,7 +149,7 @@ const AddExperienceScreen = ({ navigation }) => {
   /*arguments to pass:
     rating, image, hiddenLocation, datePosted, userId, description*/
   const StarRating = () => (
-    <SafeAreaView>
+    <View>
       <View style={styles.container}>
         <View style={styles.stars}>
           <TouchableOpacity onPress={() => setStarRating(1)}>
@@ -124,12 +189,12 @@ const AddExperienceScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
   return (
     <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={-170}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView style={{ 
+        <View style={{ 
           height: Dimensions.get('window').height,
           alignItems: 'center'
         }}>
@@ -166,7 +231,7 @@ const AddExperienceScreen = ({ navigation }) => {
               <Text style={styles.postText}>POST</Text>
             </TouchableOpacity>
           </View>
-        </SafeAreaView>
+        </View>
      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   )
@@ -231,7 +296,7 @@ const styles = StyleSheet.create({
   box: {
     width: "90%",
     height: "25%",
-    borderRadius: "15%",
+    borderRadius: 30,//"15%",
     borderWidth: 2,
     borderColor: "#83C3FF",
     alignItems: 'center',

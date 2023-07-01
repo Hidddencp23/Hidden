@@ -1,11 +1,10 @@
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import useAuth from "../hooks/useAuth";
-import LocationList from "../components/LocationList";
 import Icon from "react-native-vector-icons/AntDesign";
 //import { Icon } from 'react-native-vector-icons';
 import { doc, collection, getDocs, updateDoc, arrayUnion} from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
-import { Image, SafeAreaView, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Image, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { db } from '../hooks/firebase';
 import distance from '../hooks/distance';
 import HomeMap from '../components/HomeMap';
@@ -13,6 +12,8 @@ import LocationItem from '../components/LocationItem';
 import { SwipeablePanel } from 'rn-swipeable-panel';
 import { SearchBar } from 'react-native-elements';
 import { useRoute } from '@react-navigation/native'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import NewSafeAreaView from '../components/NewSafeAreaView';
 
 
 const AddLocationScreen = ({ navigation }) => {
@@ -42,7 +43,7 @@ const AddLocationScreen = ({ navigation }) => {
             }
             navigation.navigate("TripDiaryScreen", {tripInfo})
       }
-    const LocationView = ({ location }) => {
+    const LocationAddView = ({ location }) => {
         return (
             <TouchableOpacity style={styles.locCard} onPress={() => handleAdd(location)}>
                 <View style={styles.horizView}>
@@ -84,7 +85,7 @@ const AddLocationScreen = ({ navigation }) => {
                             <>
                                 {locations
                                     .filter(x => String(x.title).includes(search))
-                                    .map((item) => <LocationView location={item} key={myKey++}/>)                                  
+                                    .map((item) => <LocationAddView location={item} key={myKey++}/>)                                  
                                 }
                             </>
                         ) : null}

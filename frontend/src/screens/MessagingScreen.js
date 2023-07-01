@@ -1,18 +1,22 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import ChatHeader from '../components/ChatHeader';
 import ChatList from '../components/ChatList';
 
 import Icon from "react-native-vector-icons/Entypo";
+//import NewSafeAreaView from '../components/NewSafeAreaView';
 
+import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const MessagingScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.padDown}>
+    <View style={styles.padDown}>
+
         <ChatList navigation={navigation}/>
 
-    </SafeAreaView>
+    </View>
   )
 };
 
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
     paddingBottom: 75
   },
   padDown: {
-    paddingTop: 25,
+    paddingTop: 0,
     height: '100%'
   },
   circularButton: {

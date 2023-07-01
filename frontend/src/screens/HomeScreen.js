@@ -1,16 +1,18 @@
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import useAuth from "../hooks/useAuth";
-import LocationList from "../components/LocationList";
-import Icon from "react-native-vector-icons/AntDesign";
-//import { Icon } from 'react-native-vector-icons';
+import AntIcon from "react-native-vector-icons/AntDesign";
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
-import { Image, SafeAreaView, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Image, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { db } from '../hooks/firebase';
 import distance from '../hooks/distance';
 import HomeMap from '../components/HomeMap';
-import LocationItem from '../components/LocationItem';
+import LocationView from '../components/LocationView';
 import { SwipeablePanel } from 'rn-swipeable-panel';
+//import NewSafeAreaView from '../components/NewSafeAreaView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -22,10 +24,11 @@ const HomeScreen = ({ navigation }) => {
         onlySmall: true,
         showCloseButton: false,
         onClose: () => closePanel(),
-        allowTouchOutside:true,
+        allowTouchOutside: true,
         smallPanelHeight: 700
     });
     const [isPanelActive, setIsPanelActive] = useState(false);
+    const [filter, setFilter] = useState(null);
 
     const openPanel = () => {
         setIsPanelActive(true);
@@ -47,42 +50,50 @@ const HomeScreen = ({ navigation }) => {
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            locs.push({id: doc.id, ...doc.data()})
+            locs.push({ id: doc.id, ...doc.data() })
             // setLocations([...locations, doc.data()])
         });
         setLocations(locs)
     }
+
+    const filterLocations = (location) => {
+        if (filter == null) { return true }
+        else if (filter == "favorites" && userInfo.LikedLocations.includes(location.id)) {
+            return true
+        }
+        else if (location.category == filter) { return true }
+    }
+
+    const onFilterChanged = (filterCategory) => {
+        if (filterCategory == filter) { setFilter(null) }
+        else { setFilter(filterCategory) }
+    }
+
+    const filterBackgroundStyle = (filterName) => {
+        return [styles.filterTouch, (filter == filterName) ? { backgroundColor: "#83C3FF" } : { backgroundColor: '#f2f0f0' }]
+    }
+
+    const filterIconStyle = (filterName) => {
+        return (filter == filterName) ? { color: "white" } : { color: '#83C3FF' }
+    }
+
+
     const SearchFilters = () => {
         return (
-            <View style={styles.filterRow}>
-                <TouchableOpacity style={styles.filterTouch}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Icon name="heart" size={15} style={[styles.icons, {color: 'red'}]} />
-                        <Text style={styles.filterText}> Favorites</Text>
-                    </View>
+            <ScrollView horizontal={true} style={styles.filterRow}>
+                <TouchableOpacity style={filterBackgroundStyle("favorites")} onPress={() => onFilterChanged("favorites")}>
+                    <AntIcon name="heart" size={20} style={filterIconStyle("favorites")} />
+                    <Text style={styles.filterText}> Favorites</Text>
                 </TouchableOpacity>
-                
-            </View>
-        )
-    }
-    const LocationView = ({ location }) => {
-        return (
-            <TouchableOpacity style={styles.locCard} onPress={() =>
-                navigation.navigate("LocationScreen", {
-                    location
-                })
-            }>
-                <View style={styles.horizView}>
-                    <Image source={{ uri: location.image }} style={styles.locImg} />
-                    <View style={styles.vertView}>
-                        <Text style={styles.locName}>{location.name}</Text>
-                        <Text style={styles.locType}>{location.address}</Text>
-                    </View>
-                    <TouchableOpacity style={styles.favLocation}>
-                     <Icon name="heart" size={20} style={styles.heartIcon} />
-                    </TouchableOpacity>
-                </View>
-            </TouchableOpacity>
+                <TouchableOpacity style={filterBackgroundStyle("brunchSpots")} onPress={() => onFilterChanged("brunchSpots")}>
+                <MaterialIcon name="brunch-dining" size={25} style={filterIconStyle("brunchSpots")} />
+                    <Text style={styles.filterText}> Brunch Spot</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={filterBackgroundStyle("dateSpot")} onPress={() => onFilterChanged("dateSpot")}>
+                    <MaterialIcon name="local-restaurant" size={25} style={filterIconStyle("dateSpot")} />
+                    <Text style={styles.filterText}> Date Spot</Text>
+                </TouchableOpacity>
+            </ScrollView>
         )
     }
 
@@ -93,32 +104,34 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <SafeAreaView style={styles.homeScreen} >
-                <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
-                
-                <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
-            
-                    <Text style={styles.searchtitle} >Search Results</Text>
-                    <SearchFilters></SearchFilters>
-                        {locations.map((location, index) => (
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.homeScreen} >
+                    <HomeMap style={styles.map} hiddenLocations={locations.filter(filterLocations)} ></HomeMap>
+
+                    <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
+
+                        {/* <Text style={styles.searchtitle} >Search Results</Text> */}
+                        <SearchFilters></SearchFilters>
+                        {locations.filter(filterLocations).map((location, index) => (
                             <LocationView
+                                navigation={navigation}
                                 location={location}
-                                key={index}
+                                key={location.id}
                             />
                         ))}
-                </SwipeablePanel>
-                <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
-                    <Icon name="minus" color={"#BFBFBF"}  size={50} style={{justifyContent:"center"}}> </Icon>
-                </TouchableOpacity>
-            </SafeAreaView>
+                    </SwipeablePanel>
+                    <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
+                        <AntIcon name="minus" color={"#BFBFBF"} size={50} style={{ justifyContent: "center" }}> </AntIcon>
+                    </TouchableOpacity>
+                </View>
             </TouchableWithoutFeedback>
 
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
+
     homeScreen: {
         backgroundColor: 'transparent',
         paddingTop: 0,
@@ -126,31 +139,32 @@ const styles = StyleSheet.create({
     },
     map: {
         position: 'absolute',
-        top: '0%',
+        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
     },
     filterRow: {
-        flexDirection: 'row',
         paddingLeft: "5%",
-        paddingTop: "2.5%"
+        paddingTop: "2.5%",
+        flex: "1",
     },
     filterText: {
         paddingLeft: "5%",
-        marginRight: "2.5%",
         color: "black",
         textAlign: "left",
         fontSize: 14,
     },
     filterTouch: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: "#BFBFBF",
         paddingLeft: "2.5%",
         paddingRight: "2.5%",
-        height: 25,
+        height: 30,
         borderRadius: 20,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 10,
     },
     listButton: {
         backgroundColor: "white",
@@ -158,13 +172,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         width: "100%",
         bottom: "-3%",
-        alignItems: "center"
-      },
-    icons: {
-        paddingLeft: "10%",
-        paddingRight: "15%",
-        paddingTop: "1%",
-        position: "absolute",
+        alignItems: "center",
     },
     searchtitle: {
         marginLeft: "5%",
@@ -174,8 +182,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     swipePanel: {
-       paddingTop: "2%",
-       paddingBottom: "37%"
+        paddingTop: "2%",
+        paddingBottom: "37%",
     },
     sortBy: {
         flexDirection: 'row',
@@ -192,35 +200,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         height: 25
     },
-    locImg: {
-        marginLeft: '3%',
-        width: 50,
-        height: 50,
-        borderRadius: 40
-      },
-    locCard: {
-        backgroundColor: "#FFFFFF",
-        borderColor: "#FFFFFF",
-        marginTop: "5%",
-        marginLeft: "2.5%",
-        marginRight: "2.5%",
-        height: 90,
-        borderRadius: 15,
-        shadowColor: 'black',
-        shadowOpacity: 0.2,
-        shadowRadius: 6,
-        shadowOffset : { width: 1, height: 5},
-      },
-    favLocation: {
-        alignItems: 'center',
-        paddingTop: "1%",
-        width: "10%",
-        height: "40%",
-        borderRadius: 5,
-    },
-    heartIcon: {
-        color: "#BFBFBF",
-    },
+
     rowTextStyle: {
         fontSize: 18
     },
@@ -261,36 +241,10 @@ const styles = StyleSheet.create({
         color: 'black',
         textAlign: 'center'
     },
-
-    horizView: {
-        backgroundColor: "lightGrey",
-        flexDirection: "row",
-        marginTop: '3%'
-    },
     vertView: {
         flex: 1,
         flexDirection: "column",
     },
-    
-    locName: {
-        marginLeft: "5%",
-        color: "black",
-        fontWeight: "bold",
-        textAlign: "left",
-        fontSize: 16,
-        marginTop: "1%",
-        marginLeft: "5%",
-      },
-    
-      locType: {
-        marginLeft: "5%",
-        color: "#BEBEBE",
-        textAlign: "left",
-        fontSize: 14,
-        marginTop: "2.5%",
-        marginBottom: "2.5%",
-      },
-     
 });
 
 export default HomeScreen;
