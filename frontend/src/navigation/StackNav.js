@@ -22,7 +22,7 @@ import AddChatScreen from '../screens/AddChatScreen';
 import ProfileScreenNavBar from '../components/NavBars/ProfileScreenNavBar';
 import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
 //import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
-import GeneralNavBar from '../components/NavBars/EditProfileNavBar';
+import GeneralNavBar from '../components/NavBars/GeneralNavBar';
 import OtherProfileScreen from '../screens/OtherProfileScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import AddLocationScreen from '../screens/AddLocationScreen';
