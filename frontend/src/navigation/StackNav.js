@@ -22,7 +22,7 @@ import AddChatScreen from '../screens/AddChatScreen';
 import ProfileScreenNavBar from '../components/NavBars/ProfileScreenNavBar';
 import MessagingScreenNavBar from '../components/NavBars/MessagingScreenNavBar';
 //import ChatScreenNavBar from '../components/NavBars/ChatScreenNavBar';
-import EditProfileNavBar from '../components/NavBars/EditProfileNavBar';
+import GeneralNavBar from '../components/NavBars/GeneralNavBar';
 import OtherProfileScreen from '../screens/OtherProfileScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import AddLocationScreen from '../screens/AddLocationScreen';
@@ -98,13 +98,13 @@ const ProfileStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ header: ({ navigation }) => <ProfileScreenNavBar navigation={navigation} /> }} />
-            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <EditProfileNavBar navigation={navigation} /> }}/>
+            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ header: ({ navigation }) => <GeneralNavBar navigation={navigation} title = "Settings"/> }}/>
             <Stack.Screen name="TripScreen" component={TripScreen} options={{ animation: "slide_from_right", header: ({ navigation }) => <TopNavBar navigation={navigation} /> }} />
             <Stack.Screen name="TripDiaryScreen" component={TripDiaryScreen} options={{ animation: "slide_from_right", headerShown: false }} />
             <Stack.Screen name="AddTripScreen" component={AddTripScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
             <Stack.Screen name="NotificationScreen" component={NotificationScreen} options={{ headerShown: true }} />
-            <Stack.Screen name="OtherProfileScreen1" component={OtherProfileScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="OtherProfileScreen1" component={OtherProfileScreen} options={{ header: ({ navigation }) => <GeneralNavBar navigation={navigation} title="Profile" /> }} />
 
             <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ animation: "slide_from_right", header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
             <Stack.Screen name="AddLocationScreen" component={AddLocationScreen} options={{ headerShown: false }} />
