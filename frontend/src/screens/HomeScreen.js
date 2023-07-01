@@ -73,22 +73,16 @@ const HomeScreen = ({ navigation }) => {
         return (
             <ScrollView horizontal={true} style={styles.filterRow}>
                 <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("favorites")}>
-                    <View style={{ flexDirection: 'row', gap: "5%" }}>
                         <AntIcon name="heart" size={15} style={[styles.icons, { color: 'red' }]} />
                         <Text style={styles.filterText}> Favorites</Text>
-                    </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("brunchSpots")}>
-                    <View style={{ flexDirection: 'row' }}>
                         <FeatherIcon name="coffee" size={15} style={[styles.icons, { color: 'red' }]} />
                         <Text style={styles.filterText}> Brunch Spot</Text>
-                    </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.filterTouch} onPress={() => onFilterChanged("dateSpot")}>
-                    <View style={{ flexDirection: 'row' }}>
                         <MaterialIcon name="restaurant" size={15} style={[styles.icons, { color: 'red' }]} />
                         <Text style={styles.filterText}> Date Spot</Text>
-                    </View>
                 </TouchableOpacity>
             </ScrollView>
         )
@@ -142,25 +136,27 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     filterRow: {
-        flexDirection: 'row',
         paddingLeft: "5%",
-        paddingTop: "2.5%"
+        paddingTop: "2.5%",
+        flex: "1",
     },
     filterText: {
         paddingLeft: "5%",
-        // marginRight: "2.5%",
         color: "black",
         textAlign: "left",
         fontSize: 14,
     },
     filterTouch: {
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: "#BFBFBF",
         paddingLeft: "2.5%",
         paddingRight: "2.5%",
         height: 25,
         borderRadius: 20,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 10
     },
     listButton: {
         backgroundColor: "white",
@@ -171,10 +167,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     icons: {
-        paddingLeft: "10%",
-        paddingRight: "15%",
-        paddingTop: "1%",
-        position: "absolute",
+        // paddingLeft: "10%",
+        // paddingRight: "15%",
+        // marginRight: "50%",
+        // paddingTop: "1%",
+        // position: "absolute",
     },
     searchtitle: {
         marginLeft: "5%",
