@@ -38,9 +38,8 @@ const ChatScreenNavBar = ({ navigation, title, chatUser }) => {
         
         <TouchableOpacity
           style={styles.Button}
-          onPress={() => navigation.navigate("")}
+          
         >
-          <Icon name="info" size={20} />
         </TouchableOpacity>
       </View>
     </>
@@ -70,7 +69,7 @@ const styles = StyleSheet.create({
     width: 100,
   },
   Button: {
-    backgroundColor: "white",
+    // backgroundColor: "white",
     height: "100%",
     width: 40,
     borderRadius: 7,
