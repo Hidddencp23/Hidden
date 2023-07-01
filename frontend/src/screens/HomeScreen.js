@@ -69,20 +69,29 @@ const HomeScreen = ({ navigation }) => {
         else { setFilter(filterCategory) }
     }
 
+    const filterBackgroundStyle = (filterName) => {
+        return [styles.filterTouch, (filter == filterName) ? { backgroundColor: "#83C3FF" } : { backgroundColor: '#f2f0f0' }]
+    }
+
+    const filterIconStyle = (filterName) => {
+        return (filter == filterName) ? { color: "white" } : { color: '#83C3FF' }
+    }
+
+
     const SearchFilters = () => {
         return (
             <ScrollView horizontal={true} style={styles.filterRow}>
-                <TouchableOpacity style={[styles.filterTouch, (filter == "favorites") ? {backgroundColor: "#83C3FF"} : {backgroundColor: '#f2f0f0'}]} onPress={() => onFilterChanged("favorites")}>
-                        <AntIcon name="heart" size={15} style={(filter == "favorites") ? {color: "white"} : {color: '#83C3FF'}} />
-                        <Text style={styles.filterText}> Favorites</Text>
+                <TouchableOpacity style={filterBackgroundStyle("favorites")} onPress={() => onFilterChanged("favorites")}>
+                    <AntIcon name="heart" size={20} style={filterIconStyle("favorites")} />
+                    <Text style={styles.filterText}> Favorites</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.filterTouch, (filter == "brunchSpots") ? {backgroundColor: "#83C3FF"} : {backgroundColor: '#f2f0f0'}]} onPress={() => onFilterChanged("brunchSpots")}>
-                        <FeatherIcon name="coffee" size={15} style={(filter == "brunchSpots") ? {color: "white"} : {color: '#83C3FF'}} />
-                        <Text style={styles.filterText}> Brunch Spot</Text>
+                <TouchableOpacity style={filterBackgroundStyle("brunchSpots")} onPress={() => onFilterChanged("brunchSpots")}>
+                    <FeatherIcon name="coffee" size={20} style={filterIconStyle("brunchSpots")} />
+                    <Text style={styles.filterText}> Brunch Spot</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.filterTouch, (filter == "dateSpot") ? {backgroundColor: "#83C3FF"} : {backgroundColor: '#f2f0f0'}]} onPress={() => onFilterChanged("dateSpot")}>
-                        <MaterialIcon name="restaurant" size={15} style={(filter == "dateSpot") ? {color: "white"} : {color: '#83C3FF'}} />
-                        <Text style={styles.filterText}> Date Spot</Text>
+                <TouchableOpacity style={filterBackgroundStyle("dateSpot")} onPress={() => onFilterChanged("dateSpot")}>
+                    <MaterialIcon name="restaurant" size={20} style={filterIconStyle("dateSpot")} />
+                    <Text style={styles.filterText}> Date Spot</Text>
                 </TouchableOpacity>
             </ScrollView>
         )
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
     filterTouch: {
         paddingLeft: "2.5%",
         paddingRight: "2.5%",
-        height: 25,
+        height: 30,
         borderRadius: 20,
         display: 'flex',
         flexDirection: 'row',
