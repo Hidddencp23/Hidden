@@ -1,7 +1,8 @@
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import useAuth from "../hooks/useAuth";
-import Icon from "react-native-vector-icons/AntDesign";
-//import { Icon } from 'react-native-vector-icons';
+import AntIcon from "react-native-vector-icons/AntDesign";
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
 import { Image, Keyboard, View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
@@ -23,10 +24,11 @@ const HomeScreen = ({ navigation }) => {
         onlySmall: true,
         showCloseButton: false,
         onClose: () => closePanel(),
-        allowTouchOutside:true,
+        allowTouchOutside: true,
         smallPanelHeight: 700
     });
     const [isPanelActive, setIsPanelActive] = useState(false);
+    const [filter, setFilter] = useState(null);
 
     const openPanel = () => {
         setIsPanelActive(true);
@@ -48,24 +50,53 @@ const HomeScreen = ({ navigation }) => {
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
-            locs.push({id: doc.id, ...doc.data()})
+            locs.push({ id: doc.id, ...doc.data() })
             // setLocations([...locations, doc.data()])
         });
         setLocations(locs)
     }
+
+    const filterLocations = (location) => {
+        if (filter == null) { return true }
+        else if (filter == "favorites" && userInfo.LikedLocations.includes(location.id)) {
+            return true
+        }
+        else if (location.category == filter) { return true }
+    }
+
+    const onFilterChanged = (filterCategory) => {
+        if (filterCategory == filter) { setFilter(null) }
+        else { setFilter(filterCategory) }
+    }
+
+    const filterBackgroundStyle = (filterName) => {
+        return [styles.filterTouch, (filter == filterName) ? { backgroundColor: "#83C3FF" } : { backgroundColor: '#f2f0f0' }]
+    }
+
+    const filterIconStyle = (filterName) => {
+        return (filter == filterName) ? { color: "white" } : { color: '#83C3FF' }
+    }
+
+
     const SearchFilters = () => {
         return (
-            <View style={styles.filterRow}>
-                <TouchableOpacity style={styles.filterTouch}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Icon name="heart" size={15} style={[styles.icons, {color: 'red'}]} />
-                        <Text style={styles.filterText}> Favorites</Text>
-                    </View>
+            <ScrollView horizontal={true} style={styles.filterRow}>
+                <TouchableOpacity style={filterBackgroundStyle("favorites")} onPress={() => onFilterChanged("favorites")}>
+                    <AntIcon name="heart" size={20} style={filterIconStyle("favorites")} />
+                    <Text style={styles.filterText}> Favorites</Text>
                 </TouchableOpacity>
-                
-            </View>
+                <TouchableOpacity style={filterBackgroundStyle("brunchSpots")} onPress={() => onFilterChanged("brunchSpots")}>
+                <MaterialIcon name="brunch-dining" size={25} style={filterIconStyle("brunchSpots")} />
+                    <Text style={styles.filterText}> Brunch Spot</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={filterBackgroundStyle("dateSpot")} onPress={() => onFilterChanged("dateSpot")}>
+                    <MaterialIcon name="local-restaurant" size={25} style={filterIconStyle("dateSpot")} />
+                    <Text style={styles.filterText}> Date Spot</Text>
+                </TouchableOpacity>
+            </ScrollView>
         )
     }
+
     useEffect(() => {
         getAllLocations().then(() => {
         }).catch(console.error);
@@ -73,29 +104,29 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView behavior="position" style={styles.container} keyboardVerticalOffset={-190}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.homeScreen} >
-                <HomeMap style={styles.map} hiddenLocations={locations} ></HomeMap>
-                
-                <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
-            
-                    {/* <Text style={styles.searchtitle} >Search Results</Text> */}
-                    <SearchFilters></SearchFilters>
-                        {locations.map((location, index) => (
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.homeScreen} >
+                    <HomeMap style={styles.map} hiddenLocations={locations.filter(filterLocations)} ></HomeMap>
+
+                    <SwipeablePanel {...panelProps} isActive={isPanelActive} style={styles.swipePanel}>
+
+                        {/* <Text style={styles.searchtitle} >Search Results</Text> */}
+                        <SearchFilters></SearchFilters>
+                        {locations.filter(filterLocations).map((location, index) => (
                             <LocationView
                                 navigation={navigation}
                                 location={location}
-                                key={index}
+                                key={location.id}
                             />
                         ))}
-                </SwipeablePanel>
-                <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
-                    <Icon name="minus" color={"#BFBFBF"}  size={50} style={{justifyContent:"center"}}> </Icon>
-                </TouchableOpacity>
-            </View>
+                    </SwipeablePanel>
+                    <TouchableOpacity style={styles.listButton} onPress={() => openPanel()}>
+                        <AntIcon name="minus" color={"#BFBFBF"} size={50} style={{ justifyContent: "center" }}> </AntIcon>
+                    </TouchableOpacity>
+                </View>
             </TouchableWithoutFeedback>
 
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -114,25 +145,26 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     filterRow: {
-        flexDirection: 'row',
         paddingLeft: "5%",
-        paddingTop: "2.5%"
+        paddingTop: "2.5%",
+        flex: "1",
     },
     filterText: {
         paddingLeft: "5%",
-        marginRight: "2.5%",
         color: "black",
         textAlign: "left",
         fontSize: 14,
     },
     filterTouch: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: "#BFBFBF",
         paddingLeft: "2.5%",
         paddingRight: "2.5%",
-        height: 25,
+        height: 30,
         borderRadius: 20,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 10,
     },
     listButton: {
         backgroundColor: "white",
@@ -141,12 +173,6 @@ const styles = StyleSheet.create({
         width: "100%",
         bottom: "-3%",
         alignItems: "center",
-      },
-    icons: {
-        paddingLeft: "10%",
-        paddingRight: "15%",
-        paddingTop: "1%",
-        position: "absolute",
     },
     searchtitle: {
         marginLeft: "5%",
@@ -156,8 +182,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     swipePanel: {
-       paddingTop: "2%",
-       paddingBottom: "37%",
+        paddingTop: "2%",
+        paddingBottom: "37%",
     },
     sortBy: {
         flexDirection: 'row',
@@ -218,7 +244,7 @@ const styles = StyleSheet.create({
     vertView: {
         flex: 1,
         flexDirection: "column",
-    },     
+    },
 });
 
 export default HomeScreen;
