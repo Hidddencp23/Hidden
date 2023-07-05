@@ -170,15 +170,15 @@ const TextingScreen = ({ navigation }) => {
           />
         </TouchableWithoutFeedback>
 
-        <View style={{ flexDirection: "row" }}>
-          <Icon
+        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+          {/* <Icon
             name="plus"
             size={20}
             style={{
               marginLeft: 15,
               marginTop: 22,
             }}
-          />
+          /> */}
 
           <TextInput
             style={styles.messageinputbar}
@@ -196,6 +196,8 @@ const TextingScreen = ({ navigation }) => {
               size={20}
               style={{
                 marginTop: 22,
+                marginRight: 12,
+                flexGrow: 1
               }}
               color="#83C3FF"
             />
@@ -210,7 +212,9 @@ const styles = StyleSheet.create({
   messageinputbar: {
     height: 40,
     margin: 12,
+    marginBottom: 22,
     borderWidth: 0.5,
+    flexGrow: 1,
     padding: 10,
     borderColor: "transparent",
     width: "75%",

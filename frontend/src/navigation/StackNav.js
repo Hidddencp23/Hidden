@@ -62,7 +62,7 @@ const HomeStackNavigator = () => {
             <Stack.Screen name="LocationScreen" component={LocationScreen} options={{ animation: "slide_from_right", header: ({ navigation }) => <LocationNav navigation={navigation} /> }}/>
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddLocationScreen" component={AddLocationScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="OtherProfileScreen" component={OtherProfileScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="OtherProfileScreen" component={OtherProfileScreen} options={{ header: ({ navigation }) => <GeneralNavBar navigation={navigation} title="Profile" /> }} />
         </Stack.Navigator>
     );
 }
@@ -87,7 +87,7 @@ const ChatStackNavigator = () => {
                 <Stack.Screen name="TextingScreen" component={TextingScreen} options={{ animation: "slide_from_right", headerShown: false }}  />
                 <Stack.Screen name="GroupTextingScreen" component={GroupTextingScreen} options={{ animation: "slide_from_right", headerShown: false }} />
                 <Stack.Screen name="AddChatScreen" component={AddChatScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="OtherProfileScreenChat" component={OtherProfileScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="OtherProfileScreenChat" component={OtherProfileScreen}options={{ header: ({ navigation }) => <GeneralNavBar navigation={navigation} title="Profile" /> }} />
             </Stack.Navigator>
 
     );
