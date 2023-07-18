@@ -71,7 +71,7 @@ const ProfileScreen = ({ navigation }) => {
         />
         <Text style={profileStyles.profileTitle}>
           {userInfo.name}{" "}
-          
+
         </Text>
 
         <Text style={profileStyles.profileSubTitle}>
@@ -85,30 +85,48 @@ const ProfileScreen = ({ navigation }) => {
           marginTop: 30,
         }}
       >
-        <SegmentedControl
-  
-          backgroundColor="#83C3FF"
-          tintColor="#FFFFFF"
-          activeFontStyle={{ color: "#83C3FF" }}
-          fontStyle={{ color: "white" }}
-          style={{height: 45}}
-          marginLeft='7%'
-          width="86%"
-          values={["My Trips", "Liked Locations"]}
-          selectedIndex={displayIndex}
-          onChange={(event) => {
-            if (displayTrips == "My Trips") {
-              setdisplayTrips("Liked Locations");
-              setDisplayIndex(1);
-              //setSearchTrips(exLikedTrips);
-            } else {
-              setdisplayTrips("My Trips");
-              setDisplayIndex(0);
-              //setSearchTrips(exMyTrips);
-            }
-          }}
-        />
-        <>
+        <View 
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}>
+          <SegmentedControl
+
+            backgroundColor="#83C3FF"
+            tintColor="#FFFFFF"
+            activeFontStyle={{ color: "#83C3FF" }}
+            fontStyle={{ color: "white" }}
+            style={{ height: 45 }}
+            marginLeft='4%'
+            width="74%"
+            values={["My Trips", "Liked Locations"]}
+            selectedIndex={displayIndex}
+            onChange={(event) => {
+              if (displayTrips == "My Trips") {
+                setdisplayTrips("Liked Locations");
+                setDisplayIndex(1);
+                //setSearchTrips(exLikedTrips);
+              } else {
+                setdisplayTrips("My Trips");
+                setDisplayIndex(0);
+                //setSearchTrips(exMyTrips);
+              }
+            }}
+          />
+          <TouchableOpacity
+            style={profileStyles.addTripButton}
+            onPress={() => navigation.navigate("AddTripScreen")}
+          >
+            <Icon
+              name="plus"
+              size={20}
+              style={{
+                marginLeft: "30%",
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        {/* <>
           <View style={profileStyles.searchAlign}>
             <SearchBar
               lightTheme
@@ -133,7 +151,7 @@ const ProfileScreen = ({ navigation }) => {
               />
             </TouchableOpacity>
           </View>
-        </>
+        </> */}
 
       </View>
 

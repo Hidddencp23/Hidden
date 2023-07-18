@@ -143,8 +143,8 @@ const profileStyles = StyleSheet.create({
     addTripButton: {
       backgroundColor: "#83C3FF",
       height: 45,
-      width: '16%',
-      marginLeft: "7.5%",
+      width: '12%',
+      marginLeft: "5%",
       borderRadius: 7,
       justifyContent: 'center',
       shadowColor: 'black',
