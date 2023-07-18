@@ -18,12 +18,14 @@ import { useRoute } from '@react-navigation/native'
 import { collection, onSnapshot, orderBy, query, limit, where } from 'firebase/firestore';
 import { db } from '../hooks/firebase';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import useAuth from '../hooks/useAuth'
 
 import profileStyles from '../styles/profiles.js';
 import circleStyles from '../styles/circle';
 //import NewSafeAreaView from '../components/NewSafeAreaView';
 
-const TripDiaryScreen = ({ route, navigation}) => {
+const TripDiaryScreen = ({ route, navigation }) => {
+  const { user } = useAuth();
 
   const { tripInfo } = route.params;
   let myKey = 1;
@@ -34,97 +36,95 @@ const TripDiaryScreen = ({ route, navigation}) => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-  
-    if (tripInfo['locations'] != null){
-      if (tripInfo['locations'].length > 0){
+
+    if (tripInfo['locations'] != null) {
+      if (tripInfo['locations'].length > 0) {
         onSnapshot(
-            query(
-                collection(db, 'HiddenLocations'), 
-                orderBy("__name__"),
-                where("__name__", "in", tripInfo['locations']),
-            ),
-            (snapshot) => {
-                setLocations(
-                    snapshot.docs.map(doc => ({
-                        id: doc.id,
-                        ...doc.data()
-                    }))
-                )
-            }
-      )}}},
-  [])
+          query(
+            collection(db, 'HiddenLocations'),
+            orderBy("__name__"),
+            where("__name__", "in", tripInfo['locations']),
+          ),
+          (snapshot) => {
+            setLocations(
+              snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+              }))
+            )
+          }
+        )
+      }
+    }
+  },
+    [])
 
 
 
   return (
-    <SafeAreaView style={{ 
+    <SafeAreaView style={{
       height: Dimensions.get('window').height
     }}>
 
-    
 
-    {/*Platform.OS === 'ios' ?
+
+      {/*Platform.OS === 'ios' ?
             <View style={circleStyles.iosCircle}/> 
             :
             <View style={circleStyles.androidCircle}/> 
     */}
-    <View style={styles.header}>
-      <TouchableOpacity style={styles.Button} onPress={() =>
-        navigation.navigate("ProfileScreen")
-      }>
-        <Icon name="left" size={20} />
-      </TouchableOpacity>
-      <Text style={styles.text}>List</Text>
-    </View>
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.Button} onPress={() =>
+          navigation.goBack()
+        }>
+          <Icon name="left" size={20} />
+        </TouchableOpacity>
+        <Text style={styles.text}>{tripInfo.tripName}</Text>
+      </View>
 
 
-    <View style={{flexDirection: 'row', marginTop: 100}}>
+      {(user.uid == tripInfo.user) ? (<View style={{ flexDirection: 'row', marginTop: 100 }}>
+        <SearchBar
+          lightTheme
+          round
+          containerStyle={profileStyles.searchContainerExperiences}
+          inputContainerStyle={profileStyles.searchInput}
+          placeholder="Search"
+          onChangeText={setSearch}
+          value={search}
 
-      <SearchBar
-        lightTheme
-        round
-        containerStyle={profileStyles.searchContainerExperiences}
-        inputContainerStyle={profileStyles.searchInput}
-        placeholder="Search"
-        onChangeText={setSearch}
-        value={search}  
-        
-      />
-
-      
-      <TouchableOpacity
+        />
+        <TouchableOpacity
           style={profileStyles.addTripButton}
           //onPress={() => navigation.navigate("AddTripScreen")}
-          onPress={() => navigation.navigate("AddLocationScreen", {tripInfo})}
-      >
-      <Icon
-        name="plus"
-        size={20}
-        style={{
-        marginLeft: "35%",
-      }}
-      />
-      </TouchableOpacity>
-    
-
-    </View>
-    
+          onPress={() => navigation.navigate("AddLocationScreen", { tripInfo })}
+        >
+          <Icon
+            name="plus"
+            size={20}
+            style={{
+              marginLeft: "35%",
+            }}
+          />
+        </TouchableOpacity>
+      </View>) : <View style={{ flexDirection: 'row', marginTop: 50 }}/>}
 
 
 
-    <ScrollView>
-    { (search != null && locations.length > 0)  ? (
-      <>
-          {locations
+
+      <ScrollView>
+        {(search != null && locations.length > 0) ? (
+          <>
+            {locations
               .filter(x => String(x.title).includes(search))
               .map((item) => <LocationView location={item} key={myKey++} navigation={navigation} />)
-          }
-      </>
+            }
+          </>
 
-      ) : null}
-    </ScrollView>
+        ) : null}
+      </ScrollView>
 
-{/*
+      {/*
     <TouchableOpacity
         onPress={() => navigation.navigate("AddLocationScreen", {tripInfo})}
         style={profileStyles.circularButton}>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#83C3FF',
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   Button: {
     backgroundColor: "white",
