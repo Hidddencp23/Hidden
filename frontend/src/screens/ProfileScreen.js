@@ -99,10 +99,9 @@ const ProfileScreen = ({ navigation }) => {
           tintColor="#FFFFFF"
           activeFontStyle={{ color: "#83C3FF" }}
           fontStyle={{ color: "white" }}
-          height="75%"
+          style={{height: 45}}
           marginLeft='7%'
           width="86%"
-          marginBottom="5%"
           values={["My Trips", "Liked Locations"]}
           selectedIndex={displayIndex}
           onChange={(event) => {

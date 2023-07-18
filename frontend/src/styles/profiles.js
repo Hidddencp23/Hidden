@@ -363,7 +363,8 @@ const profileStyles = StyleSheet.create({
       searchAlign: {
         width: "100%",
         flexDirection: "row",
-        marginLeft: '7%'
+        marginLeft: '7%',
+        marginTop: '5%'
       },
       circularButton: {
         position: 'absolute',
