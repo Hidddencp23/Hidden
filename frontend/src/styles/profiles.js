@@ -163,12 +163,13 @@ const profileStyles = StyleSheet.create({
     toggleButton: {
       
       // need to update react native to see
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       //backgroundColor: '#FFFFFF',
       //tintColor: "#83C3FF",
    
-      tintColor: "#FFFFFF",
-      backgroundColor: '#83C3FF',
+      // tintColor: "#FFFFFF",
+      // backgroundColor: '#83C3FF',
+      // appearance: "light",
       height: 45,
       marginLeft: "7%",
       width: "86%",

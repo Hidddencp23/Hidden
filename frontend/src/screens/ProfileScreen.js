@@ -29,7 +29,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 // placeholder image for now
 import TripList from '../components/TripList';
 
-import profileStyles from '../styles/profiles.js' ;
+import profileStyles from '../styles/profiles.js';
 //import styles from '../styles/profiles.js';
 import circleStyles from '../styles/circle.js';
 import { useWindowDimensions } from 'react-native';
@@ -39,9 +39,6 @@ import { useWindowDimensions } from 'react-native';
 //import { db } from '../hooks/firebase';
 
 const ProfileScreen = ({ navigation }) => {
-
-  //const { myprofile } = route.params;
-  const myprofile = 0; // need to connect to db
 
   const { user, userInfo, logout } = useAuth();
   const [data, setData] = React.useState([]);
@@ -96,99 +93,60 @@ const ProfileScreen = ({ navigation }) => {
           marginTop: 30,
         }}
       >
-        {myprofile === 1 ? (
-          <>
-            <View style={profileStyles.horizButtons}>
-              <TouchableOpacity style={profileStyles.addFriendButton}>
-                <Text style={profileStyles.addFriendText}>
-                  <Icon name="adduser" size={20} />
-
-                  {addFriend}
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={profileStyles.messageButton}>
-                <Icon
-                  name="message1"
-                  size={20}
-                  style={{
-                    marginLeft: "32.5%",
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </>
-        ) : null}
-
-
-        {myprofile === 0 ? 
-            <SegmentedControl
-              style={profileStyles.toggleButton}
-              values={["My Trips", "Liked Locations"]}
-              selectedIndex={displayIndex}
-              onChange={(event) => {
-                if (displayTrips == "My Trips") {
-                  setdisplayTrips("Liked Locations");
-                  setDisplayIndex(1);
-                  //setSearchTrips(exLikedTrips);
-                } else {
-                  setdisplayTrips("My Trips");
-                  setDisplayIndex(0);
-                  //setSearchTrips(exMyTrips);
-                }
-              }}
+        <SegmentedControl
+  
+          backgroundColor="#83C3FF"
+          tintColor="#FFFFFF"
+          activeFontStyle={{ color: "#83C3FF" }}
+          fontStyle={{ color: "white" }}
+          height="75%"
+          marginLeft='7%'
+          width="86%"
+          marginBottom="5%"
+          values={["My Trips", "Liked Locations"]}
+          selectedIndex={displayIndex}
+          onChange={(event) => {
+            if (displayTrips == "My Trips") {
+              setdisplayTrips("Liked Locations");
+              setDisplayIndex(1);
+              //setSearchTrips(exLikedTrips);
+            } else {
+              setdisplayTrips("My Trips");
+              setDisplayIndex(0);
+              //setSearchTrips(exMyTrips);
+            }
+          }}
+        />
+        <>
+          <View style={profileStyles.searchAlign}>
+            <SearchBar
+              lightTheme
+              round
+              containerStyle={profileStyles.searchContainerProfile}
+              inputContainerStyle={profileStyles.searchInput}
+              placeholder="Search"
+              onChangeText={setSearch}
+              value={search}
             />
 
-          :
-        
-          <SegmentedControl
-            style={profileStyles.toggleButton}
-            values={["Their Trips", "Liked Locations"]}
-            selectedIndex={displayIndex}
-            onChange={(event) => {
-              if (displayTrips == "My Trips") {
-                setdisplayTrips("Liked Locations");
-                setDisplayIndex(1);
-                //setSearchTrips(exLikedTrips);
-              } else {
-                setdisplayTrips("My Trips");
-                setDisplayIndex(0);
-                //setSearchTrips(exMyTrips);
-              }
-            }}/>
-        }
-
-        {myprofile === 0 ? (
-          <>
-            <View style={profileStyles.searchAlign}>
-              <SearchBar
-                lightTheme
-                round
-                containerStyle={profileStyles.searchContainerProfile}
-                inputContainerStyle={profileStyles.searchInput}
-                placeholder="Search"
-                onChangeText={setSearch}
-                value={search}
+            <TouchableOpacity
+              style={profileStyles.addTripButton}
+              onPress={() => navigation.navigate("AddTripScreen")}
+            >
+              <Icon
+                name="plus"
+                size={20}
+                style={{
+                  marginLeft: "35%",
+                }}
               />
+            </TouchableOpacity>
+          </View>
+        </>
 
-              <TouchableOpacity
-                style={profileStyles.addTripButton}
-                onPress={() => navigation.navigate("AddTripScreen")}
-              >
-                <Icon
-                  name="plus"
-                  size={20}
-                  style={{
-                    marginLeft: "35%",
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </>
-        ) : null}
       </View>
 
-      <View style={{flex: 1, paddingBottom: "45%"}}>
+      <View style={{ flex: 1, paddingBottom: "45%" }}>
         {displayTrips === "My Trips" ? (
           <>
             <TripList navigation={navigation} displayTrips={"myTrips"} />
