@@ -41,10 +41,6 @@ import { useWindowDimensions } from 'react-native';
 const ProfileScreen = ({ navigation }) => {
 
   const { user, userInfo, logout } = useAuth();
-  const [data, setData] = React.useState([]);
-
-  // this info comes from firbase, placeholders for the moment
-  const [online, setOnline] = useState(1); // flag for indicator
 
   // state for liked / my trips toggle
   const [displayTrips, setdisplayTrips] = useState('My Trips');
@@ -75,11 +71,7 @@ const ProfileScreen = ({ navigation }) => {
         />
         <Text style={profileStyles.profileTitle}>
           {userInfo.name}{" "}
-          {online ? (
-            <Icon name="checkcircle" size={17} color="#77C3EC" />
-          ) : (
-            <Icon name="checkcircleo" size={17} />
-          )}
+          
         </Text>
 
         <Text style={profileStyles.profileSubTitle}>
