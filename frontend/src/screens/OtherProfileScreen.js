@@ -37,8 +37,7 @@ import profileStyles from "../styles/profiles.js";
 import circleStyles from "../styles/circle.js";
 
 const OtherProfileScreen = ({ navigation }) => {
-  //const { myprofile } = route.params;
-  const myprofile = 1; // need to connect to db
+
   const { params } = useRoute();
   const { passedUserInfo, otherUserId } = params;
   const [otherUserInfo, setOtherUserInfo] = useState(passedUserInfo);
@@ -119,101 +118,61 @@ const OtherProfileScreen = ({ navigation }) => {
           marginTop: 30,
         }}
       >
-        {myprofile === 1 ? (
-          <>
-            <View style={profileStyles.horizButtons}>
-              <TouchableOpacity
-                style={profileStyles.addFriendButton}
-                onPress={() => {
-                  if (addFriendText === "   Add Friend") {
-                    addFriend();
-                  }
+
+        <>
+          <View style={profileStyles.horizButtons}>
+            <TouchableOpacity
+              style={profileStyles.addFriendButton}
+              onPress={() => {
+                if (addFriendText === "   Add Friend") {
+                  addFriend();
+                }
+              }}
+            >
+              <Text style={profileStyles.addFriendText}>
+                <Icon name="adduser" size={20} />
+
+                {addFriendText}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={profileStyles.messageButton}>
+              <Icon
+                name="message1"
+                size={20}
+                style={{
+                  marginLeft: "32.5%",
                 }}
-              >
-                <Text style={profileStyles.addFriendText}>
-                  <Icon name="adduser" size={20} />
-
-                  {addFriendText}
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={profileStyles.messageButton}>
-                <Icon
-                  name="message1"
-                  size={20}
-                  style={{
-                    marginLeft: "32.5%",
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </>
-        ) : null}
-
-        {myprofile === 0 ? (
-          <SegmentedControl
-            style={profileStyles.toggleButton}
-            values={["My Trips", "Liked Trips"]}
-            selectedIndex={displayIndex}
-            onChange={(event) => {
-              if (displayTrips == "My Trips") {
-                setdisplayTrips("Liked Trips");
-                setDisplayIndex(1);
-                //setSearchTrips(exLikedTrips);
-              } else {
-                setdisplayTrips("My Trips");
-                setDisplayIndex(0);
-                //setSearchTrips(exMyTrips);
-              }
-            }}
-          />
-        ) : (
-          <SegmentedControl
-            style={profileStyles.toggleButton}
-            values={["Their Trips", "Liked Trips"]}
-            selectedIndex={displayIndex}
-            onChange={(event) => {
-              if (displayTrips == "My Trips") {
-                setdisplayTrips("Liked Trips");
-                setDisplayIndex(1);
-                //setSearchTrips(exLikedTrips);
-              } else {
-                setdisplayTrips("My Trips");
-                setDisplayIndex(0);
-                //setSearchTrips(exMyTrips);
-              }
-            }}
-          />
-        )}
-
-        {myprofile === 0 ? (
-          <>
-            <View style={profileStyles.searchAlign}>
-              <SearchBar
-                lightTheme
-                round
-                containerStyle={profileStyles.searchContainerProfile}
-                inputContainerStyle={profileStyles.searchInput}
-                placeholder="Search"
-                onChangeText={setSearch}
-                value={search}
               />
+            </TouchableOpacity>
+          </View>
+        </>
+        
+        <SegmentedControl
+          backgroundColor="#83C3FF"
+          tintColor="#FFFFFF"
+          activeFontStyle={{ color: "#83C3FF" }}
+          fontStyle={{ color: "white" }}
+          style={{ height: 45 }}
+          marginLeft='7%'
+          width="86%"
+          values={["Their Trips", "Liked Trips"]}
+          selectedIndex={displayIndex}
+          onChange={(event) => {
+            if (displayTrips == "My Trips") {
+              setdisplayTrips("Liked Trips");
+              setDisplayIndex(1);
+              //setSearchTrips(exLikedTrips);
+            } else {
+              setdisplayTrips("My Trips");
+              setDisplayIndex(0);
+              //setSearchTrips(exMyTrips);
+            }
+          }}
+        />
 
-              <TouchableOpacity
-                style={profileStyles.addTripButton}
-                onPress={() => navigation.navigate("AddTripScreen")}
-              >
-                <Icon
-                  name="plus"
-                  size={20}
-                  style={{
-                    marginLeft: "35%",
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </>
-        ) : null}
+
+
       </View>
 
       <ScrollView>

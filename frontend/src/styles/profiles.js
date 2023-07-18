@@ -143,8 +143,8 @@ const profileStyles = StyleSheet.create({
     addTripButton: {
       backgroundColor: "#83C3FF",
       height: 45,
-      width: '16%',
-      marginLeft: "7.5%",
+      width: '12%',
+      marginLeft: "5%",
       borderRadius: 7,
       justifyContent: 'center',
       shadowColor: 'black',
@@ -163,12 +163,13 @@ const profileStyles = StyleSheet.create({
     toggleButton: {
       
       // need to update react native to see
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       //backgroundColor: '#FFFFFF',
       //tintColor: "#83C3FF",
    
-      tintColor: "#FFFFFF",
-      backgroundColor: '#83C3FF',
+      // tintColor: "#FFFFFF",
+      // backgroundColor: '#83C3FF',
+      // appearance: "light",
       height: 45,
       marginLeft: "7%",
       width: "86%",
@@ -362,7 +363,8 @@ const profileStyles = StyleSheet.create({
       searchAlign: {
         width: "100%",
         flexDirection: "row",
-        marginLeft: '7%'
+        marginLeft: '7%',
+        marginTop: '5%'
       },
       circularButton: {
         position: 'absolute',
