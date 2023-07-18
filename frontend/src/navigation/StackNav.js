@@ -63,6 +63,8 @@ const HomeStackNavigator = () => {
             <Stack.Screen name="AddExperienceScreen" component={AddExperienceScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddLocationScreen" component={AddLocationScreen} options={{ headerShown: false }} />
             <Stack.Screen name="OtherProfileScreen" component={OtherProfileScreen} options={{ header: ({ navigation }) => <GeneralNavBar navigation={navigation} title="Profile" /> }} />
+            <Stack.Screen name="OtherTripDiaryScreen" component={TripDiaryScreen} options={{ animation: "slide_from_right", headerShown: false }} />
+
         </Stack.Navigator>
     );
 }

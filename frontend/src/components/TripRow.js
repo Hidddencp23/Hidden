@@ -12,6 +12,18 @@ const TripRow = ({ tripInfo, navigation }) => {
   //console.log('ripinfo:');
   //console.log(tripInfo);
 
+  const navigateToTripDiary = () => {
+    if (user.uid == tripInfo.user) {
+      navigation.navigate("TripDiaryScreen", {
+        tripInfo
+      })
+    }
+    else {
+      navigation.navigate("OtherTripDiaryScreen", {
+        tripInfo
+      })
+    }
+  }
 
   return (
     <View
@@ -21,26 +33,23 @@ const TripRow = ({ tripInfo, navigation }) => {
         marginRight: "5%",
       }}
     >
-    <TouchableOpacity
-      style={styles.tripTab}
-      onPress={() => navigation.navigate("TripDiaryScreen", {
-        tripInfo
-      })
-      }
-    >
+      <TouchableOpacity
+        style={styles.tripTab}
+        onPress={navigateToTripDiary}
+      >
         <View style={styles.horizButtons}>
 
-      <Image source={{ uri: tripInfo.image }} style={styles.tripImg} />
-      <View>
-        <Text style={styles.tripsTitle}> {tripInfo.tripName}</Text>
-        <Text style={styles.tripsUser}> {"By: " + tripInfo.author}</Text>
-        <Text style={styles.tripsDate}> {tripInfo.tripPostTime != null ? tripInfo.tripPostTime.toDate().toDateString(): ""}</Text>
-      </View>
-        <Icon name="right" size={20} style={styles.arrow} />
-      </View>
-
-    </TouchableOpacity>
+          <Image source={{ uri: tripInfo.image }} style={styles.tripImg} />
+          <View>
+            <Text style={styles.tripsTitle}> {tripInfo.tripName}</Text>
+            <Text style={styles.tripsUser}> {"By: " + tripInfo.author}</Text>
+            <Text style={styles.tripsDate}> {tripInfo.tripPostTime != null ? tripInfo.tripPostTime.toDate().toDateString() : ""}</Text>
+          </View>
+          <Icon name="right" size={20} style={styles.arrow} />
         </View>
+
+      </TouchableOpacity>
+    </View>
 
   )
 }
