@@ -3,24 +3,12 @@ import { useState } from "react";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import {
   Text,
-  StyleSheet,
   View,
   Image,
   TouchableOpacity,
-  FlatList,
-  //SafeAreaView,
-  ScrollView,
   Dimensions,
-  KeyboardAvoidingView,
-  Platform
 } from "react-native";
-import {
-  collection,
-  where,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useAuth from "../hooks/useAuth";
 import { SearchBar } from 'react-native-elements';
@@ -30,13 +18,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import TripList from '../components/TripList';
 
 import profileStyles from '../styles/profiles.js';
-//import styles from '../styles/profiles.js';
-import circleStyles from '../styles/circle.js';
-import { useWindowDimensions } from 'react-native';
-//import NewSafeAreaView from '../components/NewSafeAreaView';
 
-// need to connect db
-//import { db } from '../hooks/firebase';
 
 const ProfileScreen = ({ navigation }) => {
 
